@@ -25,20 +25,20 @@
       overflow-x: hidden;
     }
 
-    /* ===== BACKGROUND SHAPE ===== */
+    /* ===== AMBIENT BACKGROUND SHAPE ===== */
     .background-shape {
       position: fixed;
-      top: -250px;
+      top: -300px;
       right: -350px;
-      width: 900px;
-      height: 900px;
+      width: 1100px;
+      height: 1100px;
       background: radial-gradient(
         circle at center,
-        rgba(201, 211, 204, 0.35),
-        rgba(201, 211, 204, 0.18),
+        rgba(201, 211, 204, 0.45),
+        rgba(201, 211, 204, 0.22),
         transparent 70%
       );
-      filter: blur(50px);
+      filter: blur(55px);
       z-index: -1;
       pointer-events: none;
     }
@@ -110,7 +110,7 @@
 
     .hero p {
       font-size: 1.2rem;
-      max-width: 640px;
+      max-width: 680px;
       line-height: 1.8;
       color: var(--text-muted);
     }
@@ -130,7 +130,7 @@
       margin-bottom: 22px;
     }
 
-    /* VISUAL (cursor reactive) */
+    /* VISUAL */
     .visual {
       height: 460px;
       border-radius: 28px;
@@ -139,23 +139,44 @@
       will-change: transform;
     }
 
-    /* THINKING */
-    .thinking {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
+    /* ===== HORIZONTAL THINKING SECTION ===== */
+    .thinking-wrapper {
+      margin-top: 40px;
+      overflow-x: auto;
+      padding-bottom: 20px;
+      scroll-snap-type: x mandatory;
+      display: flex;
+      gap: 32px;
+    }
+
+    .thinking-wrapper::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .thinking-wrapper::-webkit-scrollbar-thumb {
+      background: #ddd;
+      border-radius: 10px;
     }
 
     .think-card {
-      padding: 36px;
-      border-radius: 22px;
+      min-width: 320px;
+      padding: 40px;
+      border-radius: 24px;
       border: 1px solid #e6e6e6;
-      background: #fff;
+      background: #ffffff;
+      scroll-snap-align: start;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .think-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
     }
 
     .think-card h3 {
       margin-top: 0;
       font-weight: 500;
+      margin-bottom: 12px;
     }
 
     .think-card p {
@@ -195,7 +216,6 @@
       section { padding: 0 30px; margin: 100px auto; }
       .hero-title { font-size: 3rem; }
       .split { grid-template-columns: 1fr; }
-      .thinking { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -219,9 +239,9 @@
   <section class="hero reveal">
     <h1 class="hero-title"><span>Hi, I’m Akshara.</span></h1>
     <p>
-      I’m a Science & Business student at the University of Waterloo, interested
-      in health systems, thoughtful design, and work that creates tangible,
-      human impact.
+      I love learning — especially when it pushes me to build something new.
+      As a Science & Business student at the University of Waterloo, curiosity
+      drives everything I do, including creating this portfolio from scratch.
     </p>
   </section>
 
@@ -229,18 +249,19 @@
   <section class="split reveal">
     <div class="text">
       <p>
-        I chose Science & Business somewhat indecisively, but it quickly became
-        the best decision I’ve made — giving me fluency in scientific rigor
-        and strategic thinking.
+        I chose Science & Business because I couldn’t imagine limiting myself to
+        just one way of thinking. Science taught me how to ask better questions,
+        while business taught me how decisions scale beyond the classroom.
       </p>
 
       <p>
-        I’m most drawn to work where outcomes matter to people, whether that’s
-        improving everyday systems or contributing to better health experiences.
+        This portfolio is a project of its own — a space to explore ideas,
+        experiment with systems, and learn by doing.
       </p>
 
       <p>
-        I aim to approach my work intentionally and thoughtfully — never rushed.
+        I’m most drawn to work that’s tangible and human, where thoughtful
+        decisions can meaningfully improve everyday experiences.
       </p>
     </div>
 
@@ -249,18 +270,18 @@
 
   <!-- THINKING -->
   <section class="reveal">
-    <div class="thinking">
+    <div class="thinking-wrapper">
       <div class="think-card">
         <h3>Systems</h3>
-        <p>Understanding how decisions scale and affect real people.</p>
+        <p>Understanding how decisions ripple through real people and structures.</p>
       </div>
       <div class="think-card">
         <h3>Design</h3>
-        <p>Making complex ideas clear, calm, and human.</p>
+        <p>Shaping complexity into clarity through intentional choices.</p>
       </div>
       <div class="think-card">
         <h3>Strategy</h3>
-        <p>Evaluating tradeoffs before acting.</p>
+        <p>Exploring tradeoffs and long-term impact before acting.</p>
       </div>
     </div>
   </section>
