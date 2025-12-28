@@ -1,50 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Akshara Suresh</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      background: #f9f9f9;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #fff5f8, #fdeff4);
+      color: #3a2f35;
+      min-height: 100vh;
+      animation: fadeIn 1.2s ease;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     nav {
-      background: white;
-      padding: 20px;
       display: flex;
-      gap: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      justify-content: center;
+      gap: 30px;
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
     }
+
     nav a {
       text-decoration: none;
-      color: #333;
-      font-weight: bold;
+      color: #5c3b45;
+      font-weight: 500;
+      position: relative;
     }
-    nav a:hover {
-      color: #0077ff;
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: -6px;
+      left: 0;
+      background: #e7a6b3;
+      transition: width 0.3s ease;
     }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
     .container {
-      padding: 60px;
+      max-width: 900px;
+      margin: 120px auto;
+      padding: 0 25px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      max-width: 650px;
+      margin: 0 auto 35px;
+    }
+
+    .aura-card {
+      background: rgba(255, 255, 255, 0.65);
+      border-radius: 22px;
+      padding: 50px;
+      box-shadow: 0 20px 60px rgba(231, 166, 179, 0.25);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .aura-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 80px rgba(231, 166, 179, 0.35);
+    }
+
+    .soft-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 14px 32px;
+      border-radius: 40px;
+      background: #e7a6b3;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .soft-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(231, 166, 179, 0.5);
     }
   </style>
 </head>
+
 <body>
 
-<nav>
-  <a href="index.html">About</a>
-  <a href="projects.html">Projects</a>
-  <a href="resume.html">Resume</a>
-  <a href="contact.html">Contact</a>
-</nav>
+  <nav>
+    <a href="index.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="resume.html">Resume</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 
-<div class="container">
-  <h1>Hi, I’m Akshara 👋</h1>
-  <p>
-    I’m a Science & Business student at the University of Waterloo with interests
-    in public health, entrepreneurship, and policy.
-  </p>
-</div>
+  <div class="container">
+    <div class="aura-card">
+      <h1>Hi, I’m Akshara ✨</h1>
+      <p>
+        I’m a Science & Business student at the University of Waterloo with a passion for
+        public health, entrepreneurship, and thoughtful design.
+        I love building meaningful projects that feel both intentional and human.
+      </p>
+
+      <a class="soft-btn" href="projects.html">View My Projects</a>
+    </div>
+  </div>
 
 </body>
 </html>
+
