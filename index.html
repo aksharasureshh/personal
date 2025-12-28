@@ -5,7 +5,7 @@
   <title>Akshara Suresh</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     * { box-sizing: border-box; }
@@ -13,44 +13,45 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #fff5f8, #fdeff4);
-      color: #3a2f35;
-      animation: fadeIn 1.2s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      background: #ffffff;
+      color: #111111;
+      overflow-x: hidden;
     }
 
     /* NAV */
     nav {
       display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding: 25px;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(12px);
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 60px;
       position: sticky;
       top: 0;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
       z-index: 10;
     }
 
+    nav .name {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
     nav a {
+      margin-left: 30px;
       text-decoration: none;
-      color: #5c3b45;
-      font-weight: 500;
+      color: #111;
+      font-weight: 400;
       position: relative;
     }
 
     nav a::after {
       content: '';
       position: absolute;
-      width: 0%;
-      height: 2px;
-      bottom: -6px;
+      bottom: -4px;
       left: 0;
-      background: #e7a6b3;
+      width: 0%;
+      height: 1px;
+      background: #111;
       transition: width 0.3s ease;
     }
 
@@ -59,124 +60,106 @@
     }
 
     /* SECTIONS */
-    .section {
-      max-width: 1100px;
-      margin: 120px auto;
-      padding: 0 25px;
-    }
-
-    .center {
-      text-align: center;
-    }
-
-    h1 {
-      font-family: 'Playfair Script', cursive;
-      font-size: 3.6rem;
-      margin-bottom: 20px;
-    }
-
-    h2 {
-      font-weight: 500;
-      margin-bottom: 20px;
-    }
-
-    p {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      max-width: 650px;
-      color: #5a3e47;
+    section {
+      max-width: 1200px;
+      margin: 140px auto;
+      padding: 0 60px;
     }
 
     /* HERO */
-    .hero p {
-      margin: 0 auto;
+    .hero h1 {
+      font-size: 4.2rem;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      margin-bottom: 30px;
     }
 
-    /* SPLIT SECTION */
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 620px;
+      line-height: 1.8;
+      color: #444;
+    }
+
+    /* SPLIT */
     .split {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 80px;
       align-items: center;
     }
 
-    /* IMAGE CARD */
-    .image-card {
-      width: 100%;
-      max-width: 420px;
-      height: 520px;
-      margin: auto;
-      perspective: 1000px;
+    /* VISUAL BLOCK */
+    .visual {
+      height: 460px;
+      background: linear-gradient(135deg, #f2f2f2, #e6e6e6);
+      border-radius: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s ease;
     }
 
-    .image-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 26px;
-      background-image: url('https://images.unsplash.com/photo-1529333166437-7750a6dd5a70');
-      background-size: cover;
-      background-position: center;
-      box-shadow: 0 30px 80px rgba(231,166,179,0.35);
-      transition: transform 0.6s ease;
+    .visual:hover {
+      transform: translateY(-6px);
     }
 
-    .image-card:hover .image-inner {
-      transform: rotateY(8deg) rotateX(4deg) scale(1.02);
+    /* TEXT BLOCK */
+    .text p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #444;
+      margin-bottom: 22px;
     }
 
-    /* INFO BLOCK */
-    .info p {
-      margin-bottom: 20px;
+    /* THINKING SECTION */
+    .thinking {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
     }
 
-    /* INTERESTS */
-    .interests {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 30px;
+    .think-card {
+      padding: 36px;
+      border-radius: 22px;
+      border: 1px solid #e6e6e6;
+      transition: transform 0.3s ease;
     }
 
-    .interest {
-      padding: 14px 26px;
-      border-radius: 30px;
-      background: rgba(255,255,255,0.7);
-      box-shadow: 0 15px 40px rgba(231,166,179,0.25);
+    .think-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .think-card h3 {
+      margin-top: 0;
       font-weight: 500;
+    }
+
+    .think-card p {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.6;
     }
 
     /* CTA */
     .cta {
-      background: rgba(255,255,255,0.7);
-      padding: 70px 30px;
-      border-radius: 30px;
-      box-shadow: 0 30px 90px rgba(231,166,179,0.35);
       text-align: center;
     }
 
     .cta a {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 16px 44px;
-      border-radius: 40px;
-      background: #e7a6b3;
-      color: white;
       text-decoration: none;
+      color: #111;
       font-weight: 500;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .cta a:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 35px rgba(231,166,179,0.55);
+      border-bottom: 1px solid #111;
+      padding-bottom: 4px;
     }
 
     /* MOBILE */
-    @media (max-width: 768px) {
-      h1 { font-size: 2.6rem; }
+    @media (max-width: 900px) {
+      nav { padding: 22px 30px; }
+      section { padding: 0 30px; margin: 100px auto; }
+      .hero h1 { font-size: 3rem; }
       .split { grid-template-columns: 1fr; }
-      .section { margin: 80px auto; }
-      .image-card { height: 420px; }
+      .thinking { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -184,79 +167,69 @@
 <body>
 
   <nav>
-    <a href="index.html">About</a>
-    <a href="projects.html">Projects</a>
-    <a href="resume.html">Resume</a>
-    <a href="contact.html">Contact</a>
+    <div class="name">Akshara Suresh</div>
+    <div>
+      <a href="index.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </nav>
 
   <!-- HERO -->
-  <section class="section hero center">
-    <h1>Hi, I’m Akshara! ✨</h1>
+  <section class="hero">
+    <h1>Hi, I’m Akshara.</h1>
     <p>
-      I’m a Science & Business student at the University of Waterloo — a path I chose
-      somewhat indecisively, but one that turned out to be the best decision I’ve made so far.
+      I’m a Science & Business student at the University of Waterloo.
+      I work at the intersection of analytical thinking and real-world impact,
+      building things that are intentional, tangible, and human.
     </p>
   </section>
 
-  <!-- STORY + IMAGE -->
-  <section class="section split">
-    <div class="image-card">
-      <div class="image-inner"></div>
-    </div>
-
-    <div class="info">
+  <!-- STORY -->
+  <section class="split">
+    <div class="text">
       <p>
-        Studying both science and business has given me the ability to move between
-        these worlds, and I’ve come to see myself as a translator between them.
+        I chose Science & Business somewhat indecisively, but it quickly became
+        the best decision I’ve made. It gave me fluency in two ways of thinking —
+        scientific rigor and strategic decision-making.
       </p>
 
       <p>
-        I’m most drawn to work that’s tangible and grounded in real life — projects
-        where the outcomes matter to people. Whether it’s making someone’s day a little
-        easier or contributing to work that can save a life, I find meaning in solving
-        problems where the impact is visible and human.
+        I’m most interested in work where outcomes matter to people. Whether it’s
+        improving daily efficiency or contributing to systems that save lives,
+        I’m drawn to problems with visible, human impact.
       </p>
 
       <p>
-        I aim to build things thoughtfully and intentionally — never rushed.
+        I aim to approach my work thoughtfully and intentionally — never rushed.
       </p>
     </div>
+
+    <div class="visual"></div>
   </section>
 
-  <!-- PERSONAL -->
-  <section class="section center">
-    <h2>A little more about me</h2>
-    <p>
-      Outside of academics, I enjoy staying active — you’ll often find me at drop-in
-      volleyball or moving in small ways. I’ve recently gotten into reading, with
-      <em>The Silent Patient</em> being one of my favourites, and I love exploring new
-      food spots with friends.
-    </p>
-
-    <p>
-      More than anything, I value time with my family — whether that’s baking together,
-      going on walks, or simply slowing down. Those moments keep me grounded and remind
-      me why intentional work matters to me.
-    </p>
-  </section>
-
-  <!-- INTERESTS -->
-  <section class="section center">
-    <h2>What I’m into right now</h2>
-    <div class="interests">
-      <div class="interest">Creative branding & design</div>
-      <div class="interest">Health systems</div>
-      <div class="interest">Decision-making & strategy</div>
+  <!-- THINKING -->
+  <section>
+    <div class="thinking">
+      <div class="think-card">
+        <h3>Systems</h3>
+        <p>Understanding how decisions scale and affect people across contexts.</p>
+      </div>
+      <div class="think-card">
+        <h3>Design</h3>
+        <p>Shaping ideas so they’re clear, intentional, and human-centered.</p>
+      </div>
+      <div class="think-card">
+        <h3>Strategy</h3>
+        <p>Approaching problems from multiple angles before acting.</p>
+      </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="section">
-    <div class="cta">
-      <h2>Let’s connect ✨</h2>
-      <a href="contact.html">Get in touch</a>
-    </div>
+  <section class="cta">
+    <a href="contact.html">Let’s connect</a>
   </section>
 
 </body>
