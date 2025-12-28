@@ -13,25 +13,6 @@
       --text-main: #111;
       --text-muted: #555;
       --bg-main: #fafafa;
-      
-      /* AMBIENT BACKGROUND SHAPE */
-.background-shape {
-  position: fixed;
-  top: -200px;
-  right: -300px;
-  width: 900px;
-  height: 900px;
-  background: radial-gradient(
-    circle at center,
-    rgba(201, 211, 204, 0.35),
-    rgba(201, 211, 204, 0.15),
-    transparent 70%
-  );
-  filter: blur(40px);
-  z-index: -1;
-  pointer-events: none;
-}
-
     }
 
     * { box-sizing: border-box; }
@@ -44,7 +25,23 @@
       overflow-x: hidden;
     }
 
-    <div class="background-shape"></div>
+    /* ===== BACKGROUND SHAPE ===== */
+    .background-shape {
+      position: fixed;
+      top: -250px;
+      right: -350px;
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(
+        circle at center,
+        rgba(201, 211, 204, 0.35),
+        rgba(201, 211, 204, 0.18),
+        transparent 70%
+      );
+      filter: blur(50px);
+      z-index: -1;
+      pointer-events: none;
+    }
 
     /* NAV */
     nav {
@@ -133,12 +130,11 @@
       margin-bottom: 22px;
     }
 
-    /* VISUAL (cursor-reactive) */
+    /* VISUAL (cursor reactive) */
     .visual {
       height: 460px;
       border-radius: 28px;
       background: linear-gradient(135deg, var(--accent), #ffffff);
-      position: relative;
       transition: transform 0.15s ease;
       will-change: transform;
     }
@@ -155,7 +151,6 @@
       border-radius: 22px;
       border: 1px solid #e6e6e6;
       background: #fff;
-      transition: transform 0.3s ease;
     }
 
     .think-card h3 {
@@ -194,10 +189,6 @@
       transform: translateY(0);
     }
 
-    .stagger {
-      transition-delay: var(--delay);
-    }
-
     /* MOBILE */
     @media (max-width: 900px) {
       nav { padding: 22px 30px; }
@@ -210,6 +201,9 @@
 </head>
 
 <body>
+
+  <!-- BACKGROUND -->
+  <div class="background-shape"></div>
 
   <nav>
     <div class="name">Akshara Suresh</div>
@@ -225,9 +219,9 @@
   <section class="hero reveal">
     <h1 class="hero-title"><span>Hi, I’m Akshara.</span></h1>
     <p>
-      I’m a Science & Business student at the University of Waterloo.
-      I work at the intersection of analytical thinking and real-world impact,
-      building things that are intentional, tangible, and human.
+      I’m a Science & Business student at the University of Waterloo, interested
+      in health systems, thoughtful design, and work that creates tangible,
+      human impact.
     </p>
   </section>
 
@@ -237,16 +231,16 @@
       <p>
         I chose Science & Business somewhat indecisively, but it quickly became
         the best decision I’ve made — giving me fluency in scientific rigor
-        and strategic decision-making.
+        and strategic thinking.
       </p>
 
       <p>
         I’m most drawn to work where outcomes matter to people, whether that’s
-        improving everyday efficiency or contributing to systems that save lives.
+        improving everyday systems or contributing to better health experiences.
       </p>
 
       <p>
-        I aim to approach my work thoughtfully and intentionally — never rushed.
+        I aim to approach my work intentionally and thoughtfully — never rushed.
       </p>
     </div>
 
@@ -256,17 +250,17 @@
   <!-- THINKING -->
   <section class="reveal">
     <div class="thinking">
-      <div class="think-card stagger" style="--delay: 0ms;">
+      <div class="think-card">
         <h3>Systems</h3>
-        <p>Understanding how decisions scale and affect people.</p>
+        <p>Understanding how decisions scale and affect real people.</p>
       </div>
-      <div class="think-card stagger" style="--delay: 120ms;">
+      <div class="think-card">
         <h3>Design</h3>
-        <p>Shaping ideas so they’re clear, intentional, and human.</p>
+        <p>Making complex ideas clear, calm, and human.</p>
       </div>
-      <div class="think-card stagger" style="--delay: 240ms;">
+      <div class="think-card">
         <h3>Strategy</h3>
-        <p>Approaching problems from multiple angles before acting.</p>
+        <p>Evaluating tradeoffs before acting.</p>
       </div>
     </div>
   </section>
@@ -280,31 +274,26 @@
   <script>
     /* Scroll Reveal */
     const reveals = document.querySelectorAll('.reveal');
-
     const revealOnScroll = () => {
-      const windowHeight = window.innerHeight;
-      reveals.forEach(section => {
-        const top = section.getBoundingClientRect().top;
-        if (top < windowHeight - 120) {
-          section.classList.add('active');
+      const h = window.innerHeight;
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top < h - 120) {
+          el.classList.add('active');
         }
       });
     };
-
     window.addEventListener('scroll', revealOnScroll);
     revealOnScroll();
 
     /* Cursor Reactive Visual */
     const visual = document.getElementById('visual');
-
     window.addEventListener('mousemove', e => {
       if (!visual) return;
-      const rect = visual.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) / 25;
-      const y = (e.clientY - rect.top - rect.height / 2) / 25;
+      const r = visual.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width / 2) / 25;
+      const y = (e.clientY - r.top - r.height / 2) / 25;
       visual.style.transform = `rotateX(${-y}deg) rotateY(${x}deg)`;
     });
-
     window.addEventListener('mouseleave', () => {
       if (visual) visual.style.transform = 'rotateX(0) rotateY(0)';
     });
