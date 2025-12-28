@@ -4,17 +4,27 @@
   <meta charset="UTF-8" />
   <title>Akshara Suresh</title>
 
-  <!-- Fonts -->
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --accent: #c9d3cc;       /* soft sage-grey */
+      --accent-dark: #aeb8b1;
+      --text-main: #111111;
+      --text-muted: #555555;
+      --bg-main: #fafafa;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: #ffffff;
-      color: #111111;
+      background: var(--bg-main);
+      color: var(--text-main);
       overflow-x: hidden;
     }
 
@@ -26,7 +36,7 @@
       padding: 28px 60px;
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,0.85);
+      background: rgba(250,250,250,0.9);
       backdrop-filter: blur(10px);
       z-index: 10;
     }
@@ -39,7 +49,7 @@
     nav a {
       margin-left: 30px;
       text-decoration: none;
-      color: #111;
+      color: var(--text-main);
       font-weight: 400;
       position: relative;
     }
@@ -51,7 +61,7 @@
       left: 0;
       width: 0%;
       height: 1px;
-      background: #111;
+      background: var(--accent-dark);
       transition: width 0.3s ease;
     }
 
@@ -76,9 +86,9 @@
 
     .hero p {
       font-size: 1.2rem;
-      max-width: 620px;
+      max-width: 640px;
       line-height: 1.8;
-      color: #444;
+      color: var(--text-muted);
     }
 
     /* SPLIT */
@@ -89,29 +99,46 @@
       align-items: center;
     }
 
-    /* VISUAL BLOCK */
+    /* TEXT */
+    .text p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+
+    /* VISUAL */
     .visual {
       height: 460px;
-      background: linear-gradient(135deg, #f2f2f2, #e6e6e6);
       border-radius: 28px;
+      background: linear-gradient(
+        135deg,
+        var(--accent),
+        #ffffff
+      );
       position: relative;
       overflow: hidden;
       transition: transform 0.4s ease;
+    }
+
+    .visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.35);
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
 
     .visual:hover {
       transform: translateY(-6px);
     }
 
-    /* TEXT BLOCK */
-    .text p {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: #444;
-      margin-bottom: 22px;
+    .visual:hover::after {
+      opacity: 1;
     }
 
-    /* THINKING SECTION */
+    /* THINKING */
     .thinking {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -122,6 +149,7 @@
       padding: 36px;
       border-radius: 22px;
       border: 1px solid #e6e6e6;
+      background: #ffffff;
       transition: transform 0.3s ease;
     }
 
@@ -136,7 +164,7 @@
 
     .think-card p {
       font-size: 0.95rem;
-      color: #555;
+      color: var(--text-muted);
       line-height: 1.6;
     }
 
@@ -147,19 +175,46 @@
 
     .cta a {
       text-decoration: none;
-      color: #111;
+      color: var(--text-main);
       font-weight: 500;
-      border-bottom: 1px solid #111;
+      border-bottom: 1px solid var(--accent-dark);
       padding-bottom: 4px;
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* MOBILE */
     @media (max-width: 900px) {
-      nav { padding: 22px 30px; }
-      section { padding: 0 30px; margin: 100px auto; }
-      .hero h1 { font-size: 3rem; }
-      .split { grid-template-columns: 1fr; }
-      .thinking { grid-template-columns: 1fr; }
+      nav {
+        padding: 22px 30px;
+      }
+
+      section {
+        padding: 0 30px;
+        margin: 100px auto;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .thinking {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -177,7 +232,7 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero reveal">
     <h1>Hi, I’m Akshara.</h1>
     <p>
       I’m a Science & Business student at the University of Waterloo.
@@ -187,7 +242,7 @@
   </section>
 
   <!-- STORY -->
-  <section class="split">
+  <section class="split reveal">
     <div class="text">
       <p>
         I chose Science & Business somewhat indecisively, but it quickly became
@@ -210,7 +265,7 @@
   </section>
 
   <!-- THINKING -->
-  <section>
+  <section class="reveal">
     <div class="thinking">
       <div class="think-card">
         <h3>Systems</h3>
@@ -228,9 +283,30 @@
   </section>
 
   <!-- CTA -->
-  <section class="cta">
+  <section class="cta reveal">
     <a href="contact.html">Let’s connect</a>
   </section>
+
+  <!-- SCROLL SCRIPT -->
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+
+    const revealOnScroll = () => {
+      const windowHeight = window.innerHeight;
+
+      reveals.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        const revealPoint = 120;
+
+        if (sectionTop < windowHeight - revealPoint) {
+          section.classList.add('active');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+  </script>
 
 </body>
 </html>
