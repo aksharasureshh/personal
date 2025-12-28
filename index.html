@@ -13,6 +13,25 @@
       --text-main: #111;
       --text-muted: #555;
       --bg-main: #fafafa;
+      
+      /* AMBIENT BACKGROUND SHAPE */
+.background-shape {
+  position: fixed;
+  top: -200px;
+  right: -300px;
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(
+    circle at center,
+    rgba(201, 211, 204, 0.35),
+    rgba(201, 211, 204, 0.15),
+    transparent 70%
+  );
+  filter: blur(40px);
+  z-index: -1;
+  pointer-events: none;
+}
+
     }
 
     * { box-sizing: border-box; }
@@ -24,6 +43,8 @@
       color: var(--text-main);
       overflow-x: hidden;
     }
+
+    <div class="background-shape"></div>
 
     /* NAV */
     nav {
