@@ -4,21 +4,17 @@
   <meta charset="UTF-8" />
   <title>Akshara Suresh</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Script&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Script&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #fff5f8, #fdeff4);
       color: #3a2f35;
-      min-height: 100vh;
       animation: fadeIn 1.2s ease;
     }
 
@@ -27,15 +23,17 @@
       to { opacity: 1; }
     }
 
+    /* NAV */
     nav {
       display: flex;
       justify-content: center;
       gap: 30px;
       padding: 25px;
-      background: rgba(255, 255, 255, 0.6);
+      background: rgba(255,255,255,0.6);
       backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
+      z-index: 10;
     }
 
     nav a {
@@ -60,43 +58,106 @@
       width: 100%;
     }
 
-    .container {
-      max-width: 900px;
+    /* SECTIONS */
+    .section {
+      max-width: 1100px;
       margin: 120px auto;
       padding: 0 25px;
+    }
+
+    .center {
       text-align: center;
     }
 
     h1 {
-      font-size: 3rem;
+      font-family: 'Playfair Script', cursive;
+      font-size: 3.6rem;
+      margin-bottom: 20px;
+    }
+
+    h2 {
       font-weight: 500;
       margin-bottom: 20px;
     }
 
     p {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       line-height: 1.8;
       max-width: 650px;
-      margin: 0 auto 35px;
+      color: #5a3e47;
     }
 
-    .aura-card {
-      background: rgba(255, 255, 255, 0.65);
-      border-radius: 22px;
-      padding: 50px;
-      box-shadow: 0 20px 60px rgba(231, 166, 179, 0.25);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    /* HERO */
+    .hero p {
+      margin: 0 auto;
     }
 
-    .aura-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 30px 80px rgba(231, 166, 179, 0.35);
+    /* SPLIT SECTION */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
     }
 
-    .soft-btn {
+    /* IMAGE CARD */
+    .image-card {
+      width: 100%;
+      max-width: 420px;
+      height: 520px;
+      margin: auto;
+      perspective: 1000px;
+    }
+
+    .image-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 26px;
+      background-image: url('https://images.unsplash.com/photo-1529333166437-7750a6dd5a70');
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 30px 80px rgba(231,166,179,0.35);
+      transition: transform 0.6s ease;
+    }
+
+    .image-card:hover .image-inner {
+      transform: rotateY(8deg) rotateX(4deg) scale(1.02);
+    }
+
+    /* INFO BLOCK */
+    .info p {
+      margin-bottom: 20px;
+    }
+
+    /* INTERESTS */
+    .interests {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .interest {
+      padding: 14px 26px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.7);
+      box-shadow: 0 15px 40px rgba(231,166,179,0.25);
+      font-weight: 500;
+    }
+
+    /* CTA */
+    .cta {
+      background: rgba(255,255,255,0.7);
+      padding: 70px 30px;
+      border-radius: 30px;
+      box-shadow: 0 30px 90px rgba(231,166,179,0.35);
+      text-align: center;
+    }
+
+    .cta a {
       display: inline-block;
-      margin-top: 10px;
-      padding: 14px 32px;
+      margin-top: 25px;
+      padding: 16px 44px;
       border-radius: 40px;
       background: #e7a6b3;
       color: white;
@@ -105,54 +166,18 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .soft-btn:hover {
+    .cta a:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(231, 166, 179, 0.5);
+      box-shadow: 0 14px 35px rgba(231,166,179,0.55);
     }
 
-  /*  Mobile Changes */
-@media (max-width: 768px) {
-
-  nav {
-    flex-wrap: wrap;
-    gap: 18px;
-    padding: 18px;
-  }
-
-  h1 {
-    font-size: 2.1rem;
-  }
-
-  .container {
-    margin: 70px auto;
-    padding: 0 18px;
-  }
-
-  p, .subtitle {
-    font-size: 1rem;
-  }
-
-  .aura-card,
-  .project-card,
-  .resume-card,
-  .contact-card {
-    padding: 30px;
-  }
-
-  .soft-btn,
-  .resume-btn,
-  button {
-    width: 100%;
-    text-align: center;
-    padding: 14px;
-  }
-
-  input,
-  textarea {
-    font-size: 1rem;
-  }
-}
-
+    /* MOBILE */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.6rem; }
+      .split { grid-template-columns: 1fr; }
+      .section { margin: 80px auto; }
+      .image-card { height: 420px; }
+    }
   </style>
 </head>
 
@@ -165,19 +190,74 @@
     <a href="contact.html">Contact</a>
   </nav>
 
-  <div class="container">
-    <div class="aura-card">
-      <h1>Hi, I’m Akshara!</h1>
+  <!-- HERO -->
+  <section class="section hero center">
+    <h1>Hi, I’m Akshara! ✨</h1>
+    <p>
+      I’m a Science & Business student at the University of Waterloo — a path I chose
+      somewhat indecisively, but one that turned out to be the best decision I’ve made so far.
+    </p>
+  </section>
+
+  <!-- STORY + IMAGE -->
+  <section class="section split">
+    <div class="image-card">
+      <div class="image-inner"></div>
+    </div>
+
+    <div class="info">
       <p>
-        I’m a Science & Business student at the University of Waterloo with a passion for
-        science, entrepreneurship, and thoughtful design.
-        I love building meaningful projects that feel both intentional and human.
+        Studying both science and business has given me the ability to move between
+        these worlds, and I’ve come to see myself as a translator between them.
       </p>
 
-      <a class="soft-btn" href="projects.html">View My Projects</a>
+      <p>
+        I’m most drawn to work that’s tangible and grounded in real life — projects
+        where the outcomes matter to people. Whether it’s making someone’s day a little
+        easier or contributing to work that can save a life, I find meaning in solving
+        problems where the impact is visible and human.
+      </p>
+
+      <p>
+        I aim to build things thoughtfully and intentionally — never rushed.
+      </p>
     </div>
-  </div>
+  </section>
+
+  <!-- PERSONAL -->
+  <section class="section center">
+    <h2>A little more about me</h2>
+    <p>
+      Outside of academics, I enjoy staying active — you’ll often find me at drop-in
+      volleyball or moving in small ways. I’ve recently gotten into reading, with
+      <em>The Silent Patient</em> being one of my favourites, and I love exploring new
+      food spots with friends.
+    </p>
+
+    <p>
+      More than anything, I value time with my family — whether that’s baking together,
+      going on walks, or simply slowing down. Those moments keep me grounded and remind
+      me why intentional work matters to me.
+    </p>
+  </section>
+
+  <!-- INTERESTS -->
+  <section class="section center">
+    <h2>What I’m into right now</h2>
+    <div class="interests">
+      <div class="interest">Creative branding & design</div>
+      <div class="interest">Health systems</div>
+      <div class="interest">Decision-making & strategy</div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="cta">
+      <h2>Let’s connect ✨</h2>
+      <a href="contact.html">Get in touch</a>
+    </div>
+  </section>
 
 </body>
 </html>
-
