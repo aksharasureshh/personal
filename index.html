@@ -4,21 +4,18 @@
   <meta charset="UTF-8" />
   <title>Akshara Suresh</title>
 
-  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --accent: #c9d3cc;       /* soft sage-grey */
+      --accent: #c9d3cc;
       --accent-dark: #aeb8b1;
-      --text-main: #111111;
-      --text-muted: #555555;
+      --text-main: #111;
+      --text-muted: #555;
       --bg-main: #fafafa;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -50,7 +47,6 @@
       margin-left: 30px;
       text-decoration: none;
       color: var(--text-main);
-      font-weight: 400;
       position: relative;
     }
 
@@ -65,9 +61,7 @@
       transition: width 0.3s ease;
     }
 
-    nav a:hover::after {
-      width: 100%;
-    }
+    nav a:hover::after { width: 100%; }
 
     /* SECTIONS */
     section {
@@ -77,11 +71,23 @@
     }
 
     /* HERO */
-    .hero h1 {
+    .hero-title {
       font-size: 4.2rem;
       font-weight: 500;
       letter-spacing: -0.03em;
+      overflow: hidden;
       margin-bottom: 30px;
+    }
+
+    .hero-title span {
+      display: inline-block;
+      transform: translateY(100%);
+      animation: revealText 0.9s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    @keyframes revealText {
+      to { transform: translateY(0); }
     }
 
     .hero p {
@@ -99,7 +105,6 @@
       align-items: center;
     }
 
-    /* TEXT */
     .text p {
       font-size: 1.05rem;
       line-height: 1.8;
@@ -107,35 +112,14 @@
       margin-bottom: 22px;
     }
 
-    /* VISUAL */
+    /* VISUAL (cursor-reactive) */
     .visual {
       height: 460px;
       border-radius: 28px;
-      background: linear-gradient(
-        135deg,
-        var(--accent),
-        #ffffff
-      );
+      background: linear-gradient(135deg, var(--accent), #ffffff);
       position: relative;
-      overflow: hidden;
-      transition: transform 0.4s ease;
-    }
-
-    .visual::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.35);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .visual:hover {
-      transform: translateY(-6px);
-    }
-
-    .visual:hover::after {
-      opacity: 1;
+      transition: transform 0.15s ease;
+      will-change: transform;
     }
 
     /* THINKING */
@@ -149,12 +133,8 @@
       padding: 36px;
       border-radius: 22px;
       border: 1px solid #e6e6e6;
-      background: #ffffff;
+      background: #fff;
       transition: transform 0.3s ease;
-    }
-
-    .think-card:hover {
-      transform: translateY(-6px);
     }
 
     .think-card h3 {
@@ -193,28 +173,17 @@
       transform: translateY(0);
     }
 
+    .stagger {
+      transition-delay: var(--delay);
+    }
+
     /* MOBILE */
     @media (max-width: 900px) {
-      nav {
-        padding: 22px 30px;
-      }
-
-      section {
-        padding: 0 30px;
-        margin: 100px auto;
-      }
-
-      .hero h1 {
-        font-size: 3rem;
-      }
-
-      .split {
-        grid-template-columns: 1fr;
-      }
-
-      .thinking {
-        grid-template-columns: 1fr;
-      }
+      nav { padding: 22px 30px; }
+      section { padding: 0 30px; margin: 100px auto; }
+      .hero-title { font-size: 3rem; }
+      .split { grid-template-columns: 1fr; }
+      .thinking { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -233,7 +202,7 @@
 
   <!-- HERO -->
   <section class="hero reveal">
-    <h1>Hi, I’m Akshara.</h1>
+    <h1 class="hero-title"><span>Hi, I’m Akshara.</span></h1>
     <p>
       I’m a Science & Business student at the University of Waterloo.
       I work at the intersection of analytical thinking and real-world impact,
@@ -246,14 +215,13 @@
     <div class="text">
       <p>
         I chose Science & Business somewhat indecisively, but it quickly became
-        the best decision I’ve made. It gave me fluency in two ways of thinking —
-        scientific rigor and strategic decision-making.
+        the best decision I’ve made — giving me fluency in scientific rigor
+        and strategic decision-making.
       </p>
 
       <p>
-        I’m most interested in work where outcomes matter to people. Whether it’s
-        improving daily efficiency or contributing to systems that save lives,
-        I’m drawn to problems with visible, human impact.
+        I’m most drawn to work where outcomes matter to people, whether that’s
+        improving everyday efficiency or contributing to systems that save lives.
       </p>
 
       <p>
@@ -261,21 +229,21 @@
       </p>
     </div>
 
-    <div class="visual"></div>
+    <div class="visual" id="visual"></div>
   </section>
 
   <!-- THINKING -->
   <section class="reveal">
     <div class="thinking">
-      <div class="think-card">
+      <div class="think-card stagger" style="--delay: 0ms;">
         <h3>Systems</h3>
-        <p>Understanding how decisions scale and affect people across contexts.</p>
+        <p>Understanding how decisions scale and affect people.</p>
       </div>
-      <div class="think-card">
+      <div class="think-card stagger" style="--delay: 120ms;">
         <h3>Design</h3>
-        <p>Shaping ideas so they’re clear, intentional, and human-centered.</p>
+        <p>Shaping ideas so they’re clear, intentional, and human.</p>
       </div>
-      <div class="think-card">
+      <div class="think-card stagger" style="--delay: 240ms;">
         <h3>Strategy</h3>
         <p>Approaching problems from multiple angles before acting.</p>
       </div>
@@ -287,18 +255,16 @@
     <a href="contact.html">Let’s connect</a>
   </section>
 
-  <!-- SCROLL SCRIPT -->
+  <!-- SCRIPTS -->
   <script>
+    /* Scroll Reveal */
     const reveals = document.querySelectorAll('.reveal');
 
     const revealOnScroll = () => {
       const windowHeight = window.innerHeight;
-
       reveals.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        const revealPoint = 120;
-
-        if (sectionTop < windowHeight - revealPoint) {
+        const top = section.getBoundingClientRect().top;
+        if (top < windowHeight - 120) {
           section.classList.add('active');
         }
       });
@@ -306,6 +272,21 @@
 
     window.addEventListener('scroll', revealOnScroll);
     revealOnScroll();
+
+    /* Cursor Reactive Visual */
+    const visual = document.getElementById('visual');
+
+    window.addEventListener('mousemove', e => {
+      if (!visual) return;
+      const rect = visual.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) / 25;
+      const y = (e.clientY - rect.top - rect.height / 2) / 25;
+      visual.style.transform = `rotateX(${-y}deg) rotateY(${x}deg)`;
+    });
+
+    window.addEventListener('mouseleave', () => {
+      if (visual) visual.style.transform = 'rotateX(0) rotateY(0)';
+    });
   </script>
 
 </body>
