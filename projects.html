@@ -1,11 +1,173 @@
- <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Projects</title>
+  <meta charset="UTF-8" />
+  <title>Projects | Akshara Suresh</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #fff5f8, #fdeff4);
+      color: #3a2f35;
+      min-height: 100vh;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #5c3b45;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: -6px;
+      left: 0;
+      background: #e7a6b3;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 100px auto;
+      padding: 0 25px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      margin-bottom: 60px;
+      color: #6a4b55;
+    }
+
+    .project-card {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 22px;
+      padding: 40px;
+      margin-bottom: 40px;
+      text-align: left;
+      box-shadow: 0 20px 60px rgba(231, 166, 179, 0.25);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 35px 90px rgba(231, 166, 179, 0.4);
+    }
+
+    .project-card h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .project-card p {
+      line-height: 1.7;
+      font-size: 1rem;
+      color: #5a3e47;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 18px;
+      margin-right: 10px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      background: #f2c3cd;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #3a2f35;
+    }
+
+    .coming-soon {
+      font-size: 0.9rem;
+      margin-top: 12px;
+      color: #8a5d6b;
+      font-style: italic;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Projects</h1>
-  <p>AquaPure, SkyAcres, and more coming soon.</p>
-  <a href="index.html">Back to About</a>
+
+  <nav>
+    <a href="index.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="resume.html">Resume</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="container">
+    <h1>Projects ✨</h1>
+    <p class="subtitle">
+      Selected projects that reflect my interests in health, creativity,
+      and building things with intention.
+    </p>
+
+    <!-- AquaPure -->
+    <div class="project-card">
+      <h3>AquaPure</h3>
+      <p>
+        A microplastics removal concept developed as a <strong>group project</strong>,
+        focused on improving water quality through sustainable filtration design
+        and environmental health considerations.
+      </p>
+      <span class="tag">Group Project</span>
+      <span class="tag">Environmental Health</span>
+    </div>
+
+    <!-- BalloonsByAks -->
+    <div class="project-card">
+      <h3>BalloonsByAks 🎈</h3>
+      <p>
+        A personal creative business centered around custom balloon decor
+        for events. This project includes branding, client coordination,
+        and the upcoming development of a dedicated website.
+      </p>
+      <span class="tag">Personal Project</span>
+      <span class="tag">Creative Business</span>
+      <p class="coming-soon">Website coming soon ✨</p>
+    </div>
+
+  </div>
+
 </body>
 </html>
