@@ -11,7 +11,7 @@
       --accent: #c9d3cc;
       --accent-dark: #aeb8b1;
       --text-main: #111;
-      --text-muted: #555;
+      --text-muted: #666;
       --bg-main: #fafafa;
     }
 
@@ -22,8 +22,10 @@
       font-family: 'Inter', sans-serif;
       background: var(--bg-main);
       color: var(--text-main);
+      overflow-x: hidden;
     }
 
+    /* NAV */
     nav {
       display: flex;
       justify-content: space-between;
@@ -33,6 +35,7 @@
       top: 0;
       background: rgba(250,250,250,0.9);
       backdrop-filter: blur(10px);
+      z-index: 10;
     }
 
     nav .name { font-weight: 600; }
@@ -57,52 +60,100 @@
 
     nav a:hover::after { width: 100%; }
 
+    /* PAGE */
     section {
-      max-width: 1100px;
-      margin: 140px auto;
+      max-width: 1300px;
+      margin: 120px auto;
       padding: 0 60px;
     }
 
     h1 {
-      font-size: 3.2rem;
+      font-size: 3.4rem;
       font-weight: 500;
-      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+      margin-bottom: 80px;
     }
 
-    p {
-      max-width: 600px;
-      color: var(--text-muted);
-      line-height: 1.8;
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 60px;
     }
 
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 90px;
+    }
+
+    /* PROJECT CARD */
     .project {
-      margin-top: 80px;
-      padding: 40px;
-      border-radius: 24px;
-      background: #fff;
-      border: 1px solid #e6e6e6;
-      transition: transform 0.3s ease;
       text-decoration: none;
       color: inherit;
-      display: block;
+      perspective: 1000px;
     }
 
-    .project:hover {
-      transform: translateY(-6px);
+    .image {
+      height: 380px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, var(--accent), #ffffff);
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
+      will-change: transform;
     }
 
-    .tag {
+    /* HOVER ZOOM MASK */
+    .image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.25);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .project:hover .image::after {
+      opacity: 1;
+    }
+
+    .project:hover .image {
+      transform: scale(1.03);
+    }
+
+    .project h2 {
+      margin: 22px 0 6px;
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+
+    .project p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .arrow {
+      margin-left: 6px;
       display: inline-block;
-      margin-top: 20px;
-      margin-right: 10px;
-      padding: 6px 14px;
-      border-radius: 20px;
-      background: #f0f0f0;
-      font-size: 0.85rem;
+      transition: transform 0.3s ease;
     }
 
+    .project:hover .arrow {
+      transform: translateX(6px);
+    }
+
+    /* SMALL CARD */
+    .small .image {
+      height: 260px;
+    }
+
+    /* MOBILE */
     @media (max-width: 900px) {
-      section { padding: 0 30px; margin: 100px auto; }
+      section { padding: 0 30px; }
+      h1 { font-size: 2.6rem; margin-bottom: 60px; }
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -120,32 +171,44 @@
   </nav>
 
   <section>
-    <h1>Projects</h1>
-    <p>
-      Selected work that reflects how I think about systems,
-      impact, and intentional problem-solving.
-    </p>
+    <h1>Selected work</h1>
 
-    <a href="aquapure.html" class="project">
-      <h2>AquaPure</h2>
-      <p>
-        A group project exploring microplastics removal and water quality,
-        with a focus on environmental health and scalable filtration design.
-      </p>
-      <span class="tag">Group Project</span>
-      <span class="tag">Environmental Health</span>
-    </a>
+    <div class="grid">
+      <!-- LEFT -->
+      <div class="column">
+        <a href="aquapure.html" class="project">
+          <div class="image tilt"></div>
+          <h2>AquaPure <span class="arrow">→</span></h2>
+          <p>Environmental health · Microplastics · Group project</p>
+        </a>
+      </div>
 
-    <div class="project">
-      <h2>BalloonsByAks</h2>
-      <p>
-        A personal creative business focused on custom balloon decor.
-        Currently expanding into a dedicated website and brand system.
-      </p>
-      <span class="tag">Personal Project</span>
-      <span class="tag">Creative Business</span>
+      <!-- RIGHT -->
+      <div class="column">
+        <a href="#" class="project small">
+          <div class="image tilt"></div>
+          <h2>BalloonsByAks <span class="arrow">→</span></h2>
+          <p>Creative business · Branding · Web (coming soon)</p>
+        </a>
+      </div>
     </div>
   </section>
+
+  <!-- CURSOR-REACTIVE TILT -->
+  <script>
+    document.querySelectorAll('.tilt').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) / 18;
+        const y = (e.clientY - rect.top - rect.height / 2) / 18;
+        card.style.transform = `rotateX(${-y}deg) rotateY(${x}deg) scale(1.03)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+      });
+    });
+  </script>
 
 </body>
 </html>
