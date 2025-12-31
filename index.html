@@ -25,23 +25,39 @@
       overflow-x: hidden;
     }
 
-    /* ===== BACKGROUND SHAPE ===== */
-    .background-shape {
+    /* ===== ABSTRACT BACKGROUND SHAPES ===== */
+    .bg-shape {
       position: fixed;
-      top: -300px;
-      right: -350px;
+      border-radius: 50%;
+      filter: blur(70px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .bg-shape.one {
       width: 1100px;
       height: 1100px;
+      top: -350px;
+      right: -400px;
       background: radial-gradient(
         circle at center,
         rgba(201, 211, 204, 0.45),
         rgba(201, 211, 204, 0.22),
         transparent 70%
       );
-      filter: blur(55px);
-      z-index: -1;
-      pointer-events: none;
-      transition: transform 0.2s ease-out;
+    }
+
+    .bg-shape.two {
+      width: 900px;
+      height: 900px;
+      bottom: -300px;
+      left: -350px;
+      background: radial-gradient(
+        circle at center,
+        rgba(230, 235, 232, 0.55),
+        rgba(230, 235, 232, 0.25),
+        transparent 70%
+      );
     }
 
     /* NAV */
@@ -57,7 +73,10 @@
       z-index: 10;
     }
 
-    nav .name { font-weight: 600; }
+    nav .name {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
 
     nav a {
       margin-left: 30px;
@@ -91,23 +110,12 @@
       font-size: 4.2rem;
       font-weight: 500;
       letter-spacing: -0.03em;
-      overflow: hidden;
       margin-bottom: 30px;
-    }
-
-    .hero-title span {
-      display: inline-block;
-      transform: translateY(100%);
-      animation: revealText 0.9s ease forwards;
-    }
-
-    @keyframes revealText {
-      to { transform: translateY(0); }
     }
 
     .hero p {
       font-size: 1.2rem;
-      max-width: 700px;
+      max-width: 640px;
       line-height: 1.8;
       color: var(--text-muted);
     }
@@ -132,32 +140,26 @@
       height: 460px;
       border-radius: 28px;
       background: linear-gradient(135deg, var(--accent), #ffffff);
-      transition: transform 0.2s ease-out;
-      will-change: transform;
     }
 
-    /* ===== DRAGGABLE THINKING CARDS ===== */
-    .thinking-wrapper {
-      display: flex;
-      gap: 32px;
-      position: relative;
-      touch-action: none;
+    /* FLASHCARDS (STATIC GRID) */
+    .thinking {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
     }
 
     .think-card {
-      min-width: 320px;
       padding: 40px;
       border-radius: 24px;
       border: 1px solid #e6e6e6;
       background: #ffffff;
-      cursor: grab;
-      user-select: none;
-      transition: box-shadow 0.3s ease;
-      will-change: transform;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .think-card:active {
-      cursor: grabbing;
+    .think-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.06);
     }
 
     .think-card h3 {
@@ -170,10 +172,6 @@
       font-size: 0.95rem;
       color: var(--text-muted);
       line-height: 1.6;
-    }
-
-    .think-card.dragging {
-      box-shadow: 0 18px 40px rgba(0,0,0,0.12);
     }
 
     /* CTA */
@@ -195,13 +193,16 @@
       section { padding: 0 30px; margin: 100px auto; }
       .hero-title { font-size: 3rem; }
       .split { grid-template-columns: 1fr; }
+      .thinking { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="background-shape" id="bgShape"></div>
+  <!-- BACKGROUND -->
+  <div class="bg-shape one"></div>
+  <div class="bg-shape two"></div>
 
   <nav>
     <div class="name">Akshara Suresh</div>
@@ -215,11 +216,12 @@
 
   <!-- HERO -->
   <section>
-    <h1 class="hero-title"><span>Hi, I’m Akshara.</span></h1>
+    <h1 class="hero-title">Hi, I’m Akshara.</h1>
     <p>
-      I love to learn — especially when it leads me to build something tangible.
-      As a Science & Business student at the University of Waterloo, this portfolio
-      is a project of its own: a space to explore ideas and learn intentionally by making.
+   When things felt uncertain, learning was always something I could control. Asking questions, exploring ideas,
+      and building understanding gave me a sense of direction. Over time, that curiosity turned into confidence.
+      . I'm a <strong>Science and Business</strong> student at the University of Waterloo, and this portfolio 
+      captures the ideas, projects, and decisions I’m learning through along the way.
     </p>
   </section>
 
@@ -227,20 +229,20 @@
   <section class="split">
     <div class="text">
       <p>
-        Science taught me how to ask better questions. Business taught me how
-        decisions scale beyond theory.
+        Science taught me how to ask better questions, while business taught me
+        how decisions scale beyond theory.
       </p>
       <p>
-        I’m most drawn to work that’s human and tangible — where thoughtful systems
-        can improve real experiences.
+        I’m most drawn to work at the intersection of science and business, where
+        analytical thinking and strategy come together to inform better decisions.
       </p>
     </div>
-    <div class="visual" id="visual"></div>
+    <div class="visual"></div>
   </section>
 
   <!-- THINKING -->
   <section>
-    <div class="thinking-wrapper">
+    <div class="thinking">
       <div class="think-card">
         <h3>Ask Better Questions</h3>
         <p>Understanding context and constraints before jumping to solutions.</p>
@@ -260,59 +262,6 @@
   <section class="cta">
     <a href="contact.html">Let’s connect</a>
   </section>
-
-  <!-- SCRIPTS -->
-  <script>
-    /* Narrative Scroll */
-    const bg = document.getElementById('bgShape');
-    const visual = document.getElementById('visual');
-
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      bg.style.transform = `translateY(${scrollY * 0.08}px)`;
-      if (visual) {
-        visual.style.transform = `scale(${1 - scrollY * 0.0002})`;
-      }
-    });
-
-    /* Draggable Cards (Mouse + Touch) */
-    document.querySelectorAll('.think-card').forEach(card => {
-      let startX = 0, startY = 0, x = 0, y = 0;
-
-      const startDrag = e => {
-        card.classList.add('dragging');
-        const p = e.touches ? e.touches[0] : e;
-        startX = p.clientX - x;
-        startY = p.clientY - y;
-        document.addEventListener('mousemove', onDrag);
-        document.addEventListener('mouseup', endDrag);
-        document.addEventListener('touchmove', onDrag);
-        document.addEventListener('touchend', endDrag);
-      };
-
-      const onDrag = e => {
-        const p = e.touches ? e.touches[0] : e;
-        x = p.clientX - startX;
-        y = p.clientY - startY;
-        card.style.transform = `translate(${x}px, ${y}px)`;
-      };
-
-      const endDrag = () => {
-        card.classList.remove('dragging');
-        card.style.transition = 'transform 0.4s ease';
-        card.style.transform = 'translate(0, 0)';
-        x = y = 0;
-        setTimeout(() => card.style.transition = '', 400);
-        document.removeEventListener('mousemove', onDrag);
-        document.removeEventListener('mouseup', endDrag);
-        document.removeEventListener('touchmove', onDrag);
-        document.removeEventListener('touchend', endDrag);
-      };
-
-      card.addEventListener('mousedown', startDrag);
-      card.addEventListener('touchstart', startDrag, { passive: true });
-    });
-  </script>
 
 </body>
 </html>
