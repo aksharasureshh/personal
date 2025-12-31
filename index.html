@@ -8,14 +8,14 @@
 
   <style>
     :root {
-      --accent: #c9d3cc;
-      --accent-dark: #aeb8b1;
       --text-main: #111;
       --text-muted: #555;
       --bg-main: #fafafa;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -29,7 +29,7 @@
     .bg-shape {
       position: fixed;
       border-radius: 50%;
-      filter: blur(70px);
+      filter: blur(80px);
       z-index: -1;
       pointer-events: none;
     }
@@ -37,12 +37,12 @@
     .bg-shape.one {
       width: 1100px;
       height: 1100px;
-      top: -350px;
-      right: -400px;
+      top: -300px;
+      right: -350px;
       background: radial-gradient(
-        circle at center,
-        rgba(201, 211, 204, 0.45),
-        rgba(201, 211, 204, 0.22),
+        circle at 30% 30%,
+        rgba(201, 211, 204, 0.55),
+        rgba(201, 211, 204, 0.3),
         transparent 70%
       );
     }
@@ -50,12 +50,12 @@
     .bg-shape.two {
       width: 900px;
       height: 900px;
-      bottom: -300px;
-      left: -350px;
+      bottom: -250px;
+      left: -300px;
       background: radial-gradient(
-        circle at center,
-        rgba(230, 235, 232, 0.55),
-        rgba(230, 235, 232, 0.25),
+        circle at 70% 70%,
+        rgba(230, 235, 232, 0.6),
+        rgba(230, 235, 232, 0.35),
         transparent 70%
       );
     }
@@ -92,11 +92,13 @@
       left: 0;
       width: 0%;
       height: 1px;
-      background: var(--accent-dark);
+      background: #999;
       transition: width 0.3s ease;
     }
 
-    nav a:hover::after { width: 100%; }
+    nav a:hover::after {
+      width: 100%;
+    }
 
     /* SECTIONS */
     section {
@@ -106,6 +108,10 @@
     }
 
     /* HERO */
+    .hero {
+      padding-top: 40px;
+    }
+
     .hero-title {
       font-size: 4.2rem;
       font-weight: 500;
@@ -118,9 +124,10 @@
       max-width: 640px;
       line-height: 1.8;
       color: var(--text-muted);
+      margin-bottom: 32px;
     }
 
-    /* SPLIT */
+    /* SPLIT SECTION */
     .split {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
@@ -132,17 +139,19 @@
       font-size: 1.05rem;
       line-height: 1.8;
       color: var(--text-muted);
-      margin-bottom: 22px;
+      margin-bottom: 32px;
     }
 
-    /* VISUAL */
+    /* VISUAL BLOCK */
     .visual {
       height: 460px;
       border-radius: 28px;
-      background: linear-gradient(135deg, var(--accent), #ffffff);
+      background: linear-gradient(135deg, #dfe6e1, #ffffff);
+      will-change: transform;
+      transition: transform 0.15s ease-out;
     }
 
-    /* FLASHCARDS (STATIC GRID) */
+    /* THINKING CARDS */
     .thinking {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -183,17 +192,32 @@
       text-decoration: none;
       color: var(--text-main);
       font-weight: 500;
-      border-bottom: 1px solid var(--accent-dark);
+      border-bottom: 1px solid #999;
       padding-bottom: 4px;
     }
 
     /* MOBILE */
     @media (max-width: 900px) {
-      nav { padding: 22px 30px; }
-      section { padding: 0 30px; margin: 100px auto; }
-      .hero-title { font-size: 3rem; }
-      .split { grid-template-columns: 1fr; }
-      .thinking { grid-template-columns: 1fr; }
+      nav {
+        padding: 22px 30px;
+      }
+
+      section {
+        padding: 0 30px;
+        margin: 100px auto;
+      }
+
+      .hero-title {
+        font-size: 3rem;
+      }
+
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .thinking {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -215,13 +239,14 @@
   </nav>
 
   <!-- HERO -->
-  <section>
+  <section class="hero">
     <h1 class="hero-title">Hi, I’m Akshara.</h1>
     <p>
-   When things felt uncertain, learning was always something I could control. Asking questions, exploring ideas,
-      and building understanding gave me a sense of direction. Over time, that curiosity turned into confidence.
-      . I'm a <strong>Science and Business</strong> student at the University of Waterloo, and this portfolio 
-      captures the ideas, projects, and decisions I’m learning through along the way.
+      When things felt uncertain, learning was always something I could control.
+      Asking questions, exploring ideas, and building understanding gave me a sense
+      of direction. Over time, that curiosity turned into confidence. I’m a Science
+      and Business student at the University of Waterloo, and this portfolio captures
+      the ideas, projects, and decisions I’m learning through along the way.
     </p>
   </section>
 
@@ -229,8 +254,8 @@
   <section class="split">
     <div class="text">
       <p>
-        Science taught me how to ask better questions, while business taught me
-        how decisions scale beyond theory.
+        Science taught me how to ask better questions, while business taught me how
+        decisions scale beyond theory.
       </p>
       <p>
         I’m most drawn to work at the intersection of science and business, where
@@ -262,6 +287,21 @@
   <section class="cta">
     <a href="contact.html">Let’s connect</a>
   </section>
+
+  <!-- SCROLL ANIMATION -->
+  <script>
+    const visual = document.querySelector('.visual');
+
+    window.addEventListener('scroll', () => {
+      if (!visual) return;
+      const scrollY = window.scrollY;
+
+      visual.style.transform = `
+        translateY(${scrollY * 0.08}px)
+        scale(${1 - scrollY * 0.00015})
+      `;
+    });
+  </script>
 
 </body>
 </html>
