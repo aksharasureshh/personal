@@ -219,6 +219,14 @@
     .flip-front h3 {
       font-weight: 500;
     }
+    
+.carousel-title {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 40px;
+}
 
     .flip-back {
       transform: rotateY(180deg);
@@ -292,7 +300,9 @@
       <p>
         When things felt uncertain, learning was always something I could control.
         Asking questions, exploring ideas, and building understanding gave me a sense
-        of direction. Over time, that curiosity turned into confidence.
+        of direction. Over time, that curiosity turned into confidence.</p>
+
+      <p>
         I’m a Science and Business student at the University of Waterloo, and this
         portfolio captures the ideas, projects, and decisions I’m learning through
         along the way.
@@ -306,7 +316,7 @@
     <div class="panel-wrap">
       <div class="panel first" id="panel-science">
         <p>
-          Science taught me how to ask better questions, while business taught me how
+          <strong>Science</strong> taught me how to ask better questions, while <strong>business</strong> taught me how
           decisions scale beyond theory.
         </p>
       </div>
@@ -320,6 +330,7 @@
     </div>
 
     <!-- FLIP CARD CAROUSEL -->
+    <h2 class="carousel-title">How I Think</h2>
     <div class="carousel-container">
       <button class="carousel-btn left">&#8592;</button>
 
@@ -378,11 +389,17 @@
     let current = 0;
 
     function showCard(index) {
-      cards.forEach((card, i) => {
-        card.classList.toggle('active', i === index);
-        card.classList.remove('flip');
-      });
-    }
+  cards.forEach((card, i) => {
+    card.classList.toggle('active', i === index);
+    card.classList.remove('flip');
+  });
+
+  // auto-flip the active card
+  const activeCard = cards[index];
+  setTimeout(() => {
+    activeCard.classList.add('flip');
+  }, 150);
+}
 
     leftBtn.onclick = () => {
       current = (current - 1 + cards.length) % cards.length;
