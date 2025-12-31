@@ -12,6 +12,7 @@
       --text-muted: #555;
       --bg-main: #fafafa;
       --accent: #dfe6e1;
+      --panel-bg: rgba(255,255,255,0.85);
     }
 
     * { box-sizing: border-box; }
@@ -98,7 +99,7 @@
     }
 
     .hero-title {
-      font-size: 3.6rem; /* reduced */
+      font-size: 3.6rem;
       font-weight: 500;
       letter-spacing: -0.03em;
       margin-bottom: 24px;
@@ -119,16 +120,37 @@
       transition: transform 0.15s ease-out;
     }
 
-    /* ===== SCIENCE x BUSINESS TEXT ===== */
-    .sx-text {
-      max-width: 620px;
+    /* ===== SPLIT PANEL TEXT ===== */
+    .panel-wrap {
+      margin-top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      position: relative;
     }
 
-    .sx-text p {
+    .panel {
+      max-width: 620px;
+      padding: 36px 40px;
+      background: var(--panel-bg);
+      border-radius: 26px;
+      border: 1px solid #e6e6e6;
+      backdrop-filter: blur(6px);
+    }
+
+    .panel.first {
+      align-self: flex-start;
+    }
+
+    .panel.second {
+      align-self: flex-end;
+    }
+
+    .panel p {
+      margin: 0;
       font-size: 1.05rem;
       line-height: 1.8;
       color: var(--text-muted);
-      margin-bottom: 28px;
     }
 
     /* ===== THINKING CARDS ===== */
@@ -136,7 +158,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 40px;
-      margin-top: 40px;
+      margin-top: 80px;
     }
 
     .think-card {
@@ -189,6 +211,11 @@
 
       .hero-title { font-size: 2.8rem; }
 
+      .panel.first,
+      .panel.second {
+        align-self: center;
+      }
+
       .thinking {
         grid-template-columns: 1fr;
       }
@@ -227,20 +254,25 @@
     <div class="hero-visual"></div>
   </section>
 
-  <!-- SCIENCE x BUSINESS PARAGRAPH -->
+  <!-- SPLIT PANELS -->
   <section>
-    <div class="sx-text">
-      <p>
-        Science taught me how to ask better questions, while business taught me how
-        decisions scale beyond theory.
-      </p>
-      <p>
-        I’m most drawn to work at the intersection of science and business, where
-        analytical thinking and strategy come together to inform better decisions.
-      </p>
+    <div class="panel-wrap">
+      <div class="panel first">
+        <p>
+          Science taught me how to ask better questions, while business taught me how
+          decisions scale beyond theory.
+        </p>
+      </div>
+
+      <div class="panel second">
+        <p>
+          I’m most drawn to work at the intersection of science and business, where
+          analytical thinking and strategy come together to inform better decisions.
+        </p>
+      </div>
     </div>
 
-    <!-- CARDS -->
+    <!-- THINKING CARDS -->
     <div class="thinking">
       <div class="think-card">
         <h3>Ask Better Questions</h3>
