@@ -24,16 +24,16 @@
       overflow-x: hidden;
     }
 
-    /* ================= ABSTRACT WAVE BACKGROUND ================= */
+    /* ===== ABSTRACT WAVE BACKGROUND ===== */
     .wave {
       position: fixed;
-      top: 0;
-      left: -20%;
-      width: 140%;
+      top: -10%;
+      left: -25%;
+      width: 150%;
       height: 120vh;
       background: radial-gradient(
         ellipse at center,
-        rgba(210, 220, 215, 0.6),
+        rgba(210, 220, 215, 0.55),
         rgba(210, 220, 215, 0.35),
         transparent 70%
       );
@@ -43,7 +43,7 @@
       pointer-events: none;
     }
 
-    /* ================= NAV ================= */
+    /* ===== NAV ===== */
     nav {
       display: flex;
       justify-content: space-between;
@@ -81,31 +81,31 @@
 
     nav a:hover::after { width: 100%; }
 
-    /* ================= SECTIONS ================= */
+    /* ===== SECTIONS ===== */
     section {
       max-width: 1200px;
-      margin: 140px auto;
+      margin: 120px auto;
       padding: 0 60px;
     }
 
-    /* ================= HERO ================= */
+    /* ===== HERO ===== */
     .hero {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
       gap: 80px;
       align-items: center;
-      padding-top: 60px;
+      padding-top: 50px;
     }
 
     .hero-title {
-      font-size: 4.2rem;
+      font-size: 3.6rem; /* reduced */
       font-weight: 500;
       letter-spacing: -0.03em;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .hero p {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       max-width: 560px;
       line-height: 1.8;
       color: var(--text-muted);
@@ -119,15 +119,27 @@
       transition: transform 0.15s ease-out;
     }
 
-    /* ================= SCIENCE x BUSINESS SECTION ================= */
-    .thinking-block {
+    /* ===== SCIENCE x BUSINESS TEXT ===== */
+    .sx-text {
+      max-width: 620px;
+    }
+
+    .sx-text p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    /* ===== THINKING CARDS ===== */
+    .thinking {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 40px;
-      margin-top: 60px;
+      margin-top: 40px;
     }
 
-    .thinking-item {
+    .think-card {
       padding: 36px;
       border-radius: 26px;
       background: #ffffff;
@@ -135,24 +147,24 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .thinking-item:hover {
+    .think-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 18px 36px rgba(0,0,0,0.06);
     }
 
-    .thinking-item h3 {
+    .think-card h3 {
       margin-top: 0;
       font-weight: 500;
       margin-bottom: 12px;
     }
 
-    .thinking-item p {
+    .think-card p {
       font-size: 0.95rem;
       color: var(--text-muted);
       line-height: 1.6;
     }
 
-    /* ================= CTA ================= */
+    /* ===== CTA ===== */
     .cta {
       text-align: center;
     }
@@ -165,19 +177,19 @@
       padding-bottom: 4px;
     }
 
-    /* ================= MOBILE ================= */
+    /* ===== MOBILE ===== */
     @media (max-width: 900px) {
       nav { padding: 22px 30px; }
-      section { padding: 0 30px; margin: 100px auto; }
+      section { padding: 0 30px; margin: 90px auto; }
 
       .hero {
         grid-template-columns: 1fr;
         gap: 50px;
       }
 
-      .hero-title { font-size: 3rem; }
+      .hero-title { font-size: 2.8rem; }
 
-      .thinking-block {
+      .thinking {
         grid-template-columns: 1fr;
       }
     }
@@ -186,7 +198,7 @@
 
 <body>
 
-  <!-- ABSTRACT WAVE -->
+  <!-- BACKGROUND -->
   <div class="wave"></div>
 
   <nav>
@@ -215,22 +227,32 @@
     <div class="hero-visual"></div>
   </section>
 
-  <!-- SCIENCE x BUSINESS -->
+  <!-- SCIENCE x BUSINESS PARAGRAPH -->
   <section>
-    <div class="thinking-block">
-      <div class="thinking-item">
-        <h3>Science</h3>
-        <p>Learning how to ask precise questions, test assumptions, and think critically about evidence.</p>
-      </div>
+    <div class="sx-text">
+      <p>
+        Science taught me how to ask better questions, while business taught me how
+        decisions scale beyond theory.
+      </p>
+      <p>
+        I’m most drawn to work at the intersection of science and business, where
+        analytical thinking and strategy come together to inform better decisions.
+      </p>
+    </div>
 
-      <div class="thinking-item">
-        <h3>Business</h3>
-        <p>Understanding how ideas scale, how decisions ripple outward, and how strategy shapes outcomes.</p>
+    <!-- CARDS -->
+    <div class="thinking">
+      <div class="think-card">
+        <h3>Ask Better Questions</h3>
+        <p>Understanding context and constraints before jumping to solutions.</p>
       </div>
-
-      <div class="thinking-item">
-        <h3>Intersection</h3>
-        <p>Bringing analytical thinking and strategy together to make clearer, more informed decisions.</p>
+      <div class="think-card">
+        <h3>Translate Complexity</h3>
+        <p>Bridging science, business, and design into clear ideas.</p>
+      </div>
+      <div class="think-card">
+        <h3>Learn by Building</h3>
+        <p>Using projects as a way to explore, test, and reflect.</p>
       </div>
     </div>
   </section>
@@ -240,7 +262,7 @@
     <a href="contact.html">Let’s connect</a>
   </section>
 
-  <!-- SCROLL MOTION -->
+  <!-- SCROLL EFFECT -->
   <script>
     const heroVisual = document.querySelector('.hero-visual');
 
