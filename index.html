@@ -99,7 +99,7 @@
     }
 
     .hero-title {
-      font-size: 3.6rem;
+      font-size: 3.4rem;
       font-weight: 500;
       letter-spacing: -0.03em;
       margin-bottom: 24px;
@@ -120,13 +120,12 @@
       transition: transform 0.15s ease-out;
     }
 
-    /* ===== SPLIT PANEL TEXT ===== */
+    /* ===== SPLIT PANELS ===== */
     .panel-wrap {
-      margin-top: 80px;
       display: flex;
       flex-direction: column;
       gap: 40px;
-      position: relative;
+      margin-top: 80px;
     }
 
     .panel {
@@ -138,13 +137,8 @@
       backdrop-filter: blur(6px);
     }
 
-    .panel.first {
-      align-self: flex-start;
-    }
-
-    .panel.second {
-      align-self: flex-end;
-    }
+    .panel.first { align-self: flex-start; }
+    .panel.second { align-self: flex-end; }
 
     .panel p {
       margin: 0;
@@ -153,38 +147,83 @@
       color: var(--text-muted);
     }
 
-    /* ===== THINKING CARDS ===== */
-    .thinking {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-      margin-top: 80px;
+    /* ===== FLIP CARD CAROUSEL ===== */
+    .carousel-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 100px;
     }
 
-    .think-card {
-      padding: 36px;
+    .carousel {
+      width: 320px;
+      height: 220px;
+      position: relative;
+    }
+
+    .flip-card {
+      width: 100%;
+      height: 100%;
+      perspective: 1000px;
+      display: none;
+    }
+
+    .flip-card.active { display: block; }
+
+    .flip-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(.4,.2,.2,1);
+    }
+
+    .flip-card:hover .flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card.flip .flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-front,
+    .flip-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       border-radius: 26px;
       background: #ffffff;
       border: 1px solid #e6e6e6;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      text-align: center;
     }
 
-    .think-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 36px rgba(0,0,0,0.06);
-    }
-
-    .think-card h3 {
-      margin-top: 0;
+    .flip-front h3 {
       font-weight: 500;
-      margin-bottom: 12px;
     }
 
-    .think-card p {
+    .flip-back {
+      transform: rotateY(180deg);
       font-size: 0.95rem;
       color: var(--text-muted);
       line-height: 1.6;
     }
+
+    .carousel-btn {
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #666;
+      transition: transform 0.2s ease;
+    }
+
+    .carousel-btn:hover { transform: scale(1.15); }
 
     /* ===== CTA ===== */
     .cta {
@@ -209,15 +248,11 @@
         gap: 50px;
       }
 
-      .hero-title { font-size: 2.8rem; }
+      .hero-title { font-size: 2.6rem; }
 
       .panel.first,
       .panel.second {
         align-self: center;
-      }
-
-      .thinking {
-        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -225,7 +260,6 @@
 
 <body>
 
-  <!-- BACKGROUND -->
   <div class="wave"></div>
 
   <nav>
@@ -272,20 +306,46 @@
       </div>
     </div>
 
-    <!-- THINKING CARDS -->
-    <div class="thinking">
-      <div class="think-card">
-        <h3>Ask Better Questions</h3>
-        <p>Understanding context and constraints before jumping to solutions.</p>
+    <!-- FLIP CARD CAROUSEL -->
+    <div class="carousel-container">
+      <button class="carousel-btn left">&#8592;</button>
+
+      <div class="carousel">
+        <div class="flip-card active">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <h3>Ask Better Questions</h3>
+            </div>
+            <div class="flip-back">
+              <p>Understanding context and constraints before jumping to solutions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <h3>Translate Complexity</h3>
+            </div>
+            <div class="flip-back">
+              <p>Bridging science, business, and design into clear ideas.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <h3>Learn by Building</h3>
+            </div>
+            <div class="flip-back">
+              <p>Using projects as a way to explore, test, and reflect.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="think-card">
-        <h3>Translate Complexity</h3>
-        <p>Bridging science, business, and design into clear ideas.</p>
-      </div>
-      <div class="think-card">
-        <h3>Learn by Building</h3>
-        <p>Using projects as a way to explore, test, and reflect.</p>
-      </div>
+
+      <button class="carousel-btn right">&#8594;</button>
     </div>
   </section>
 
@@ -294,12 +354,50 @@
     <a href="contact.html">Let’s connect</a>
   </section>
 
-  <!-- SCROLL EFFECT -->
+  <!-- SCRIPTS -->
   <script>
     const heroVisual = document.querySelector('.hero-visual');
+    const cards = document.querySelectorAll('.flip-card');
+    const leftBtn = document.querySelector('.carousel-btn.left');
+    const rightBtn = document.querySelector('.carousel-btn.right');
+    let current = 0;
+
+    function showCard(index) {
+      cards.forEach((card, i) => {
+        card.classList.toggle('active', i === index);
+        card.classList.remove('flip');
+      });
+    }
+
+    leftBtn.onclick = () => {
+      current = (current - 1 + cards.length) % cards.length;
+      showCard(current);
+    };
+
+    rightBtn.onclick = () => {
+      current = (current + 1) % cards.length;
+      showCard(current);
+    };
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('flip');
+      });
+    });
+
+    let startX = 0;
+    document.querySelector('.carousel').addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+    });
+
+    document.querySelector('.carousel').addEventListener('touchend', e => {
+      const endX = e.changedTouches[0].clientX;
+      if (startX - endX > 50) current = (current + 1) % cards.length;
+      if (endX - startX > 50) current = (current - 1 + cards.length) % cards.length;
+      showCard(current);
+    });
 
     window.addEventListener('scroll', () => {
-      if (!heroVisual) return;
       const y = window.scrollY;
       heroVisual.style.transform = `
         translateY(${y * 0.08}px)
