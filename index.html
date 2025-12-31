@@ -112,15 +112,25 @@
       color: var(--text-muted);
     }
 
+    /* 🔥 IMAGE FIX IS HERE 🔥 */
     .hero-visual {
-  height: 480px;
-  border-radius: 32px;
-  background-image: url("portfolio.HEIC");
-  background-size: cover;
-  background-position: center;
-  will-change: transform;
-  transition: transform 0.15s ease-out;
+      height: 480px;
+      border-radius: 32px;
+      background-image: url("images/portfolio.jpeg");
+      background-size: cover;
+      background-position: center;
+      will-change: transform;
+      transition: transform 0.15s ease-out;
+      position: relative;
+    }
 
+    /* optional soft overlay */
+    .hero-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 32px;
+      background: rgba(255,255,255,0.12);
     }
 
     /* ===== SPLIT PANELS ===== */
@@ -294,14 +304,14 @@
   <!-- SPLIT PANELS -->
   <section>
     <div class="panel-wrap">
-      <div class="panel first">
+      <div class="panel first" id="panel-science">
         <p>
           Science taught me how to ask better questions, while business taught me how
           decisions scale beyond theory.
         </p>
       </div>
 
-      <div class="panel second">
+      <div class="panel second" id="panel-intersection">
         <p>
           I’m most drawn to work at the intersection of science and business, where
           analytical thinking and strategy come together to inform better decisions.
@@ -363,6 +373,8 @@
     const cards = document.querySelectorAll('.flip-card');
     const leftBtn = document.querySelector('.carousel-btn.left');
     const rightBtn = document.querySelector('.carousel-btn.right');
+    const panelScience = document.getElementById('panel-science');
+    const panelIntersection = document.getElementById('panel-intersection');
     let current = 0;
 
     function showCard(index) {
@@ -402,10 +414,15 @@
 
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
+
       heroVisual.style.transform = `
         translateY(${y * 0.08}px)
         scale(${1 - y * 0.00015})
       `;
+
+      const offset = Math.min(y * 0.15, 80);
+      panelScience.style.transform = `translateX(${-offset}px)`;
+      panelIntersection.style.transform = `translateX(${offset}px)`;
     });
   </script>
 
