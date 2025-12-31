@@ -25,7 +25,7 @@
       overflow-x: hidden;
     }
 
-    /* ===== AMBIENT BACKGROUND SHAPE ===== */
+    /* ===== BACKGROUND SHAPE ===== */
     .background-shape {
       position: fixed;
       top: -300px;
@@ -41,6 +41,7 @@
       filter: blur(55px);
       z-index: -1;
       pointer-events: none;
+      transition: transform 0.2s ease-out;
     }
 
     /* NAV */
@@ -56,10 +57,7 @@
       z-index: 10;
     }
 
-    nav .name {
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
+    nav .name { font-weight: 600; }
 
     nav a {
       margin-left: 30px;
@@ -101,7 +99,6 @@
       display: inline-block;
       transform: translateY(100%);
       animation: revealText 0.9s ease forwards;
-      animation-delay: 0.2s;
     }
 
     @keyframes revealText {
@@ -110,7 +107,7 @@
 
     .hero p {
       font-size: 1.2rem;
-      max-width: 680px;
+      max-width: 700px;
       line-height: 1.8;
       color: var(--text-muted);
     }
@@ -135,27 +132,16 @@
       height: 460px;
       border-radius: 28px;
       background: linear-gradient(135deg, var(--accent), #ffffff);
-      transition: transform 0.15s ease;
+      transition: transform 0.2s ease-out;
       will-change: transform;
     }
 
-    /* ===== HORIZONTAL THINKING SECTION ===== */
+    /* ===== DRAGGABLE THINKING CARDS ===== */
     .thinking-wrapper {
-      margin-top: 40px;
-      overflow-x: auto;
-      padding-bottom: 20px;
-      scroll-snap-type: x mandatory;
       display: flex;
       gap: 32px;
-    }
-
-    .thinking-wrapper::-webkit-scrollbar {
-      height: 6px;
-    }
-
-    .thinking-wrapper::-webkit-scrollbar-thumb {
-      background: #ddd;
-      border-radius: 10px;
+      position: relative;
+      touch-action: none;
     }
 
     .think-card {
@@ -164,13 +150,14 @@
       border-radius: 24px;
       border: 1px solid #e6e6e6;
       background: #ffffff;
-      scroll-snap-align: start;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: grab;
+      user-select: none;
+      transition: box-shadow 0.3s ease;
+      will-change: transform;
     }
 
-    .think-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    .think-card:active {
+      cursor: grabbing;
     }
 
     .think-card h3 {
@@ -183,6 +170,10 @@
       font-size: 0.95rem;
       color: var(--text-muted);
       line-height: 1.6;
+    }
+
+    .think-card.dragging {
+      box-shadow: 0 18px 40px rgba(0,0,0,0.12);
     }
 
     /* CTA */
@@ -198,18 +189,6 @@
       padding-bottom: 4px;
     }
 
-    /* SCROLL REVEAL */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.9s ease, transform 0.9s ease;
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     /* MOBILE */
     @media (max-width: 900px) {
       nav { padding: 22px 30px; }
@@ -222,8 +201,7 @@
 
 <body>
 
-  <!-- BACKGROUND -->
-  <div class="background-shape"></div>
+  <div class="background-shape" id="bgShape"></div>
 
   <nav>
     <div class="name">Akshara Suresh</div>
@@ -236,87 +214,103 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero reveal">
+  <section>
     <h1 class="hero-title"><span>Hi, I’m Akshara.</span></h1>
     <p>
-      I genuinely <em>love</em> learning. Especially when it pushes me to explore.
-      As a Science & Business student at the University of Waterloo, curiosity
-      drives everything I do, including creating this portfolio.
+      I love to learn — especially when it leads me to build something tangible.
+      As a Science & Business student at the University of Waterloo, this portfolio
+      is a project of its own: a space to explore ideas and learn intentionally by making.
     </p>
   </section>
 
   <!-- STORY -->
-  <section class="split reveal">
+  <section class="split">
     <div class="text">
       <p>
-        I chose Science & Business because I couldn’t imagine limiting myself to
-        just one way of thinking. Science taught me how to ask better questions,
-        while business taught me how decisions scale beyond the classroom.
+        Science taught me how to ask better questions. Business taught me how
+        decisions scale beyond theory.
       </p>
-
       <p>
-        This portfolio is a project of its own. A space to explore ideas,
-        experiment with systems, and learn by doing.
-      </p>
-
-      <p>
-        I’m most drawn to work where thoughtful
-       decisions can meaningfully improve everyday experiences.
+        I’m most drawn to work that’s human and tangible — where thoughtful systems
+        can improve real experiences.
       </p>
     </div>
-
     <div class="visual" id="visual"></div>
   </section>
 
   <!-- THINKING -->
-  <section class="reveal">
+  <section>
     <div class="thinking-wrapper">
       <div class="think-card">
-        <h3>Systems</h3>
-        <p>Understanding how decisions ripple through real people and structures.</p>
+        <h3>Ask Better Questions</h3>
+        <p>Understanding context and constraints before jumping to solutions.</p>
       </div>
       <div class="think-card">
-        <h3>Design</h3>
-        <p>Shaping complexity into clarity through intentional choices.</p>
+        <h3>Translate Complexity</h3>
+        <p>Bridging science, business, and design into clear ideas.</p>
       </div>
       <div class="think-card">
-        <h3>Strategy</h3>
-        <p>Exploring tradeoffs and long-term impact before acting.</p>
+        <h3>Learn by Building</h3>
+        <p>Using projects as a way to explore, test, and reflect.</p>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="cta reveal">
+  <section class="cta">
     <a href="contact.html">Let’s connect</a>
   </section>
 
   <!-- SCRIPTS -->
   <script>
-    /* Scroll Reveal */
-    const reveals = document.querySelectorAll('.reveal');
-    const revealOnScroll = () => {
-      const h = window.innerHeight;
-      reveals.forEach(el => {
-        if (el.getBoundingClientRect().top < h - 120) {
-          el.classList.add('active');
-        }
-      });
-    };
-    window.addEventListener('scroll', revealOnScroll);
-    revealOnScroll();
-
-    /* Cursor Reactive Visual */
+    /* Narrative Scroll */
+    const bg = document.getElementById('bgShape');
     const visual = document.getElementById('visual');
-    window.addEventListener('mousemove', e => {
-      if (!visual) return;
-      const r = visual.getBoundingClientRect();
-      const x = (e.clientX - r.left - r.width / 2) / 25;
-      const y = (e.clientY - r.top - r.height / 2) / 25;
-      visual.style.transform = `rotateX(${-y}deg) rotateY(${x}deg)`;
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      bg.style.transform = `translateY(${scrollY * 0.08}px)`;
+      if (visual) {
+        visual.style.transform = `scale(${1 - scrollY * 0.0002})`;
+      }
     });
-    window.addEventListener('mouseleave', () => {
-      if (visual) visual.style.transform = 'rotateX(0) rotateY(0)';
+
+    /* Draggable Cards (Mouse + Touch) */
+    document.querySelectorAll('.think-card').forEach(card => {
+      let startX = 0, startY = 0, x = 0, y = 0;
+
+      const startDrag = e => {
+        card.classList.add('dragging');
+        const p = e.touches ? e.touches[0] : e;
+        startX = p.clientX - x;
+        startY = p.clientY - y;
+        document.addEventListener('mousemove', onDrag);
+        document.addEventListener('mouseup', endDrag);
+        document.addEventListener('touchmove', onDrag);
+        document.addEventListener('touchend', endDrag);
+      };
+
+      const onDrag = e => {
+        const p = e.touches ? e.touches[0] : e;
+        x = p.clientX - startX;
+        y = p.clientY - startY;
+        card.style.transform = `translate(${x}px, ${y}px)`;
+      };
+
+      const endDrag = () => {
+        card.classList.remove('dragging');
+        card.style.transition = 'transform 0.4s ease';
+        card.style.transform = 'translate(0, 0)';
+        x = y = 0;
+        setTimeout(() => card.style.transition = '', 400);
+        document.removeEventListener('mousemove', onDrag);
+        document.removeEventListener('mouseup', endDrag);
+        document.removeEventListener('touchmove', onDrag);
+        document.removeEventListener('touchend', endDrag);
+      };
+
+      card.addEventListener('mousedown', startDrag);
+      card.addEventListener('touchstart', startDrag, { passive: true });
     });
   </script>
 
