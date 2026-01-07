@@ -25,7 +25,7 @@
       overflow-x: hidden;
     }
 
-    /* ===== BACKGROUND ===== */
+    /* ===== ABSTRACT BACKGROUND ===== */
     .wave {
       position: fixed;
       top: -20%;
@@ -41,6 +41,7 @@
       transform: rotate(-6deg);
       filter: blur(70px);
       z-index: -1;
+      pointer-events: none;
     }
 
     /* ===== NAV ===== */
@@ -58,13 +59,28 @@
 
     nav .name {
       font-weight: 600;
+      letter-spacing: -0.02em;
     }
 
     nav a {
       margin-left: 30px;
       text-decoration: none;
       color: var(--text-main);
+      position: relative;
     }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: #999;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after { width: 100%; }
 
     /* ===== SECTIONS ===== */
     section {
@@ -79,11 +95,13 @@
       grid-template-columns: 1.1fr 0.9fr;
       gap: 80px;
       align-items: center;
+      padding-top: 50px;
     }
 
     .hero-title {
       font-size: 3rem;
       font-weight: 500;
+      letter-spacing: -0.03em;
       margin-bottom: 24px;
     }
 
@@ -100,6 +118,17 @@
       background-image: url("portfolio.jpeg");
       background-size: cover;
       background-position: center;
+      position: relative;
+      will-change: transform;
+      transition: transform 0.15s ease-out;
+    }
+
+    .hero-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 32px;
+      background: rgba(255,255,255,0.12);
     }
 
     /* ===== PANELS ===== */
@@ -108,6 +137,7 @@
       flex-direction: column;
       gap: 40px;
       margin-top: 80px;
+      overflow: hidden;
     }
 
     .panel {
@@ -116,10 +146,19 @@
       background: var(--panel-bg);
       border-radius: 26px;
       border: 1px solid #e6e6e6;
+      backdrop-filter: blur(6px);
+      transition: transform 0.2s ease-out;
     }
 
-    .panel.first { align-self: flex-start; }
-    .panel.second { align-self: flex-end; }
+    .panel.first {
+      align-self: flex-start;
+      transform: translateX(-120px);
+    }
+
+    .panel.second {
+      align-self: flex-end;
+      transform: translateX(120px);
+    }
 
     .panel p {
       margin: 0;
@@ -131,8 +170,10 @@
     /* ===== CAROUSEL ===== */
     .carousel-title {
       text-align: center;
+      font-weight: 500;
       font-size: 1.6rem;
-      margin: 100px 0 16px;
+      margin-top: 100px;
+      margin-bottom: 16px;
     }
 
     .carousel-container {
@@ -140,11 +181,13 @@
       align-items: center;
       justify-content: center;
       gap: 30px;
+      margin-top: 24px;
     }
 
     .carousel {
       width: 320px;
       height: 220px;
+      position: relative;
     }
 
     .flip-card {
@@ -159,10 +202,12 @@
     .flip-inner {
       width: 100%;
       height: 100%;
-      transition: transform 0.8s;
+      position: relative;
       transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(.4,.2,.2,1);
     }
 
+    .flip-card:hover .flip-inner,
     .flip-card.flip .flip-inner {
       transform: rotateY(180deg);
     }
@@ -185,7 +230,9 @@
 
     .flip-back {
       transform: rotateY(180deg);
+      font-size: 0.95rem;
       color: var(--text-muted);
+      line-height: 1.6;
     }
 
     .carousel-btn {
@@ -193,15 +240,25 @@
       border: none;
       font-size: 1.6rem;
       cursor: pointer;
+      color: #666;
     }
 
     /* ===== TIMELINE ===== */
     .timeline-section {
-      margin: 160px auto;
+      margin: 140px auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .timeline-section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .timeline-title {
       text-align: center;
+      font-weight: 500;
       font-size: 2rem;
       margin-bottom: 80px;
     }
@@ -226,37 +283,75 @@
     .timeline-item {
       position: absolute;
       width: 260px;
-      padding: 22px 24px;
+      padding: 20px 22px;
       background: #fff;
       border-radius: 22px;
       border: 1px solid #e6e6e6;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    .timeline-item.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      width: 1px;
+      background: #ccc;
     }
 
-    .t1 { left: 0%;   top: 40px; }
-    .t2 { left: 22%;  top: 200px; }
-    .t3 { left: 44%;  top: 40px; }
-    .t4 { left: 66%;  top: 200px; }
-    .t5 { left: 88%;  top: 40px; transform: translateX(-100%); }
+    .up::after {
+      top: 100%;
+      height: 60px;
+    }
+
+    .down::after {
+      bottom: 100%;
+      height: 60px;
+    }
+
+    .t1 { left: 0%; top: 30px; }
+    .t2 { left: 22%; top: 220px; }
+    .t3 { left: 44%; top: 30px; }
+    .t4 { left: 66%; top: 220px; }
+    .t5 { left: 88%; top: 30px; transform: translateX(-100%); }
+
+    .timeline-item h4 {
+      margin: 0 0 6px;
+      font-weight: 500;
+    }
+
+    .timeline-item span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
 
     /* ===== MOBILE ===== */
     @media (max-width: 900px) {
-      section { padding: 0 30px; }
-      .hero { grid-template-columns: 1fr; }
-      .timeline { height: auto; }
+      nav { padding: 22px 30px; }
+      section { padding: 0 30px; margin: 90px auto; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .hero-title { font-size: 2.4rem; }
+
+      .panel.first,
+      .panel.second {
+        align-self: center;
+      }
+
+      .timeline {
+        height: auto;
+      }
+
       .timeline::before { display: none; }
+
       .timeline-item {
         position: static;
         margin: 20px auto;
-        transform: none;
       }
+
+      .timeline-item::after { display: none; }
     }
   </style>
 </head>
@@ -281,6 +376,7 @@
     <p>
       When things felt uncertain, <strong>learning</strong> was always something I could control.
       Asking questions, exploring ideas, and building understanding gave me direction.
+      Over time, that curiosity turned into confidence.
     </p>
     <p>
       I’m a <strong>Science and Business</strong> student at the University of Waterloo, and this
@@ -292,11 +388,18 @@
 
 <section>
   <div class="panel-wrap">
-    <div class="panel first">
-      <p><strong>Science</strong> taught me how to ask better questions.</p>
+    <div class="panel first" id="panel-science">
+      <p>
+        <strong>Science</strong> taught me how to ask better questions, while <strong>business</strong>
+        taught me how decisions scale beyond theory.
+      </p>
     </div>
-    <div class="panel second">
-      <p>Business taught me how decisions scale beyond theory.</p>
+
+    <div class="panel second" id="panel-intersection">
+      <p>
+        I’m most drawn to work at the intersection of science and business, where analytical thinking
+        and strategy come together to inform better decisions.
+      </p>
     </div>
   </div>
 
@@ -304,55 +407,114 @@
 
   <div class="carousel-container">
     <button class="carousel-btn left">&#8592;</button>
+
     <div class="carousel">
-      <div class="flip-card active"><div class="flip-inner">
-        <div class="flip-front"><h3>Ask Better Questions</h3></div>
-        <div class="flip-back">Understand context first.</div>
-      </div></div>
+      <div class="flip-card active">
+        <div class="flip-inner">
+          <div class="flip-front"><h3>Ask Better Questions</h3></div>
+          <div class="flip-back"><p>Understanding context before jumping to solutions.</p></div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-front"><h3>Translate Complexity</h3></div>
+          <div class="flip-back"><p>Bridging science and business into clarity.</p></div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-front"><h3>Learn by Building</h3></div>
+          <div class="flip-back"><p>Using projects as a way to test and reflect.</p></div>
+        </div>
+      </div>
     </div>
+
     <button class="carousel-btn right">&#8594;</button>
   </div>
 </section>
 
-<section class="timeline-section">
+<section class="timeline-section" id="timeline">
   <h2 class="timeline-title">Work Experience at a Glimpse</h2>
 
   <div class="timeline">
-    <div class="timeline-item t1">BalloonsByAks<br><small>2022–Present</small></div>
-    <div class="timeline-item t2">RE/MAX<br><small>2022–2024</small></div>
-    <div class="timeline-item t3">House of Commons<br><small>2023</small></div>
-    <div class="timeline-item t4">Emkiro Health<br><small>2024</small></div>
-    <div class="timeline-item t5">DND<br><small>2024</small></div>
+    <div class="timeline-item up t1">
+      <h4>BalloonsByAks</h4>
+      <span>Built and scaled a creative service business.</span>
+    </div>
+
+    <div class="timeline-item down t2">
+      <h4>RE/MAX</h4>
+      <span>Supported administrative and digital operations.</span>
+    </div>
+
+    <div class="timeline-item up t3">
+      <h4>House of Commons</h4>
+      <span>Public-facing communications and research.</span>
+    </div>
+
+    <div class="timeline-item down t4">
+      <h4>Emkiro Health</h4>
+      <span>Patient care operations and systems.</span>
+    </div>
+
+    <div class="timeline-item up t5">
+      <h4>DND</h4>
+      <span>Infrastructure and environmental coordination.</span>
+    </div>
   </div>
 </section>
 
 <script>
+  const heroVisual = document.querySelector('.hero-visual');
+  const panelScience = document.getElementById('panel-science');
+  const panelIntersection = document.getElementById('panel-intersection');
   const cards = document.querySelectorAll('.flip-card');
+  const leftBtn = document.querySelector('.carousel-btn.left');
+  const rightBtn = document.querySelector('.carousel-btn.right');
+  const timelineSection = document.getElementById('timeline');
+
   let current = 0;
 
-  function showCard(i) {
-    cards.forEach(c => c.classList.remove('active','flip'));
-    cards[i].classList.add('active');
-    setTimeout(() => cards[i].classList.add('flip'), 200);
-    setTimeout(() => cards[i].classList.remove('flip'), 1800);
+  function showCard(index) {
+    cards.forEach((card, i) => {
+      card.classList.toggle('active', i === index);
+      card.classList.remove('flip');
+    });
+
+    const active = cards[index];
+    setTimeout(() => active.classList.add('flip'), 150);
+    setTimeout(() => active.classList.remove('flip'), 1800);
   }
 
-  document.querySelector('.left').onclick = () => {
+  leftBtn.onclick = () => {
     current = (current - 1 + cards.length) % cards.length;
     showCard(current);
   };
-  document.querySelector('.right').onclick = () => {
+
+  rightBtn.onclick = () => {
     current = (current + 1) % cards.length;
     showCard(current);
   };
 
-  const items = document.querySelectorAll('.timeline-item');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('visible');
-    });
-  }, { threshold: 0.2 });
-  items.forEach(i => obs.observe(i));
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+
+    heroVisual.style.transform = `
+      translateY(${y * 0.08}px)
+      scale(${1 - y * 0.00015})
+    `;
+
+    const offset = Math.max(120 - y * 0.25, 0);
+    panelScience.style.transform = `translateX(${-offset}px)`;
+    panelIntersection.style.transform = `translateX(${offset}px)`;
+
+    const rect = timelineSection.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.8) {
+      timelineSection.classList.add('visible');
+    }
+  });
 </script>
 
 </body>
