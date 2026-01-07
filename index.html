@@ -13,7 +13,6 @@
       --bg-main: #fafafa;
       --accent: #dfe6e1;
       --panel-bg: rgba(255,255,255,0.88);
-      --line: #d6d6d6;
     }
 
     * { box-sizing: border-box; }
@@ -83,6 +82,7 @@
 
     nav a:hover::after { width: 100%; }
 
+    /* ===== SECTIONS ===== */
     section {
       max-width: 1200px;
       margin: 120px auto;
@@ -110,7 +110,38 @@
       max-width: 560px;
       line-height: 1.8;
       color: var(--text-muted);
+      margin-bottom: 18px;
     }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 28px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #111;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .hero-cta span {
+      transition: transform 0.25s ease;
+    }
+
+    .hero-cta::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: #111;
+      transition: width 0.3s ease;
+    }
+
+    .hero-cta:hover::after { width: 100%; }
+    .hero-cta:hover span { transform: translateX(4px); }
 
     .hero-visual {
       height: 480px;
@@ -167,12 +198,80 @@
       color: var(--text-muted);
     }
 
+    /* ===== TIMELINE ===== */
+    .timeline-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 80px;
+    }
+
+    .timeline {
+      position: relative;
+      margin-top: 60px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 90%;
+      height: 1px;
+      background: #ddd;
+      transform: translateX(-50%);
+    }
+
+    .timeline-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      gap: 40px;
+    }
+
+    .timeline-item {
+      width: 220px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid #e6e6e6;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 30px;
+      background: #ccc;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .timeline-item.bottom::before {
+      top: auto;
+      bottom: -30px;
+    }
+
+    .timeline-dot {
+      width: 10px;
+      height: 10px;
+      background: #111;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
     /* ===== CAROUSEL ===== */
     .carousel-title {
       text-align: center;
       font-weight: 500;
       font-size: 1.6rem;
-      margin-top: 120px;
+      margin-top: 140px;
       margin-bottom: 16px;
     }
 
@@ -226,7 +325,6 @@
       justify-content: center;
       padding: 32px;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.06);
     }
 
     .flip-back {
@@ -244,95 +342,12 @@
       color: #666;
     }
 
-    /* ===== TIMELINE ===== */
-    .timeline-title {
-      text-align: center;
-      font-size: 1.8rem;
-      font-weight: 500;
-      margin-bottom: 80px;
-    }
-
-    .timeline {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 40px;
-      align-items: center;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--line);
-      transform: translateY(-50%);
-    }
-
-    .timeline-item {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .timeline-item.above { margin-bottom: 120px; }
-    .timeline-item.below { margin-top: 120px; }
-
-    .dot {
-      width: 12px;
-      height: 12px;
-      background: #111;
-      border-radius: 50%;
-      z-index: 2;
-    }
-
-    .connector {
-      width: 2px;
-      height: 40px;
-      background: var(--line);
-    }
-
-    .card {
-      background: #fff;
-      padding: 20px 22px;
-      border-radius: 18px;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.08);
-      text-align: center;
-      max-width: 220px;
-    }
-
-    .card h4 {
-      margin: 0;
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .card span {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .card p {
-      margin: 8px 0 0;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
+    /* ===== MOBILE ===== */
     @media (max-width: 900px) {
-      .timeline {
-        grid-template-columns: 1fr;
-      }
-
-      .timeline::before { display: none; }
-
-      .timeline-item.above,
-      .timeline-item.below {
-        margin: 0;
-      }
+      nav { padding: 22px 30px; }
+      section { padding: 0 30px; margin: 90px auto; }
+      .hero { grid-template-columns: 1fr; gap: 50px; }
+      .hero-title { font-size: 2.4rem; }
     }
   </style>
 </head>
@@ -351,29 +366,38 @@
   </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
   <div>
     <h1 class="hero-title">Hi, I’m Akshara.</h1>
+
     <p>
       When things felt uncertain, <strong>learning</strong> was always something I could control.
       Asking questions, exploring ideas, and building understanding gave me direction.
       Over time, that curiosity turned into confidence.
     </p>
+
     <p>
       I’m a <strong>Science and Business</strong> student at the University of Waterloo, and this
       portfolio captures the ideas, projects, and decisions I’m learning through
       along the way.
     </p>
+
+    <a href="projects.html" class="hero-cta">
+      View my work <span>→</span>
+    </a>
   </div>
+
   <div class="hero-visual"></div>
 </section>
 
+<!-- PANELS -->
 <section>
   <div class="panel-wrap">
     <div class="panel first" id="panel-science">
       <p>
-        <strong>Science</strong> taught me how to ask better questions, while
-        <strong>business</strong> taught me how decisions scale beyond theory.
+        <strong>Science</strong> taught me how to ask better questions, while <strong>business</strong> taught me how
+        decisions scale beyond theory.
       </p>
     </div>
 
@@ -384,94 +408,78 @@
       </p>
     </div>
   </div>
-
-  <h2 class="carousel-title">How I Think</h2>
-
-  <div class="carousel-container">
-    <button class="carousel-btn left">&#8592;</button>
-
-    <div class="carousel">
-      <div class="flip-card active">
-        <div class="flip-inner">
-          <div class="flip-front"><h3>Ask Better Questions</h3></div>
-          <div class="flip-back"><p>Understanding context before jumping to solutions.</p></div>
-        </div>
-      </div>
-
-      <div class="flip-card">
-        <div class="flip-inner">
-          <div class="flip-front"><h3>Translate Complexity</h3></div>
-          <div class="flip-back"><p>Bridging science and business into clarity.</p></div>
-        </div>
-      </div>
-
-      <div class="flip-card">
-        <div class="flip-inner">
-          <div class="flip-front"><h3>Learn by Building</h3></div>
-          <div class="flip-back"><p>Using projects as a way to test and reflect.</p></div>
-        </div>
-      </div>
-    </div>
-
-    <button class="carousel-btn right">&#8594;</button>
-  </div>
 </section>
 
+<!-- TIMELINE -->
 <section>
   <h2 class="timeline-title">Work Experience at a Glimpse</h2>
 
   <div class="timeline">
-    <div class="timeline-item above">
-      <div class="card">
-        <h4>BalloonsByAks</h4>
-        <span>2022 – Present</span>
-        <p>Built and scaled a creative service business.</p>
+    <div class="timeline-row">
+      <div class="timeline-item">
+        <strong>BalloonsByAks</strong><br>
+        2022 – Present<br>
+        Built and scaled a creative service business.
       </div>
-      <div class="connector"></div>
-      <div class="dot"></div>
-    </div>
 
-    <div class="timeline-item below">
-      <div class="dot"></div>
-      <div class="connector"></div>
-      <div class="card">
-        <h4>RE/MAX</h4>
-        <span>2022 – 2024</span>
-        <p>Supported administrative and digital operations.</p>
+      <div class="timeline-item bottom">
+        <strong>RE/MAX</strong><br>
+        2022 – 2024<br>
+        Supported administrative and digital operations.
       </div>
-    </div>
 
-    <div class="timeline-item above">
-      <div class="card">
-        <h4>House of Commons</h4>
-        <span>2023</span>
-        <p>Public-facing communications and research.</p>
+      <div class="timeline-item">
+        <strong>House of Commons</strong><br>
+        2023<br>
+        Public-facing communications and research.
       </div>
-      <div class="connector"></div>
-      <div class="dot"></div>
-    </div>
 
-    <div class="timeline-item below">
-      <div class="dot"></div>
-      <div class="connector"></div>
-      <div class="card">
-        <h4>Emkiro Health</h4>
-        <span>2024</span>
-        <p>Patient care operations and systems.</p>
+      <div class="timeline-item bottom">
+        <strong>Emkiro Health</strong><br>
+        2024<br>
+        Patient care operations and systems.
       </div>
-    </div>
 
-    <div class="timeline-item above">
-      <div class="card">
-        <h4>DND</h4>
-        <span>2024</span>
-        <p>Infrastructure and environmental coordination.</p>
+      <div class="timeline-item">
+        <strong>DND</strong><br>
+        2024<br>
+        Infrastructure and environmental coordination.
       </div>
-      <div class="connector"></div>
-      <div class="dot"></div>
     </div>
   </div>
 </section>
+
+<!-- CAROUSEL (MOVED HERE) -->
+<h2 class="carousel-title">How I Think</h2>
+
+<div class="carousel-container">
+  <button class="carousel-btn left">&#8592;</button>
+
+  <div class="carousel">
+    <div class="flip-card active">
+      <div class="flip-inner">
+        <div class="flip-front"><h3>Ask Better Questions</h3></div>
+        <div class="flip-back"><p>Understanding context before jumping to solutions.</p></div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front"><h3>Translate Complexity</h3></div>
+        <div class="flip-back"><p>Bridging science and business into clarity.</p></div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front"><h3>Learn by Building</h3></div>
+        <div class="flip-back"><p>Using projects as a way to test and reflect.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="carousel-btn right">&#8594;</button>
+</div>
 
 <script>
   const heroVisual = document.querySelector('.hero-visual');
@@ -520,3 +528,4 @@
 
 </body>
 </html>
+
