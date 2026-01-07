@@ -327,6 +327,63 @@
   margin-bottom: 6px;
   font-weight: 500;
 }
+    
+/* ===== TIMELINE ===== */
+.timeline-section {
+  max-width: 1200px;
+  margin: 160px auto 120px;
+  padding: 0 60px;
+  position: relative;
+}
+
+.timeline-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 80px;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  width: 900px;
+  height: 2px;
+  background: #ddd;
+  transform: translateX(-50%);
+}
+
+    .timeline-item {
+  position: absolute;
+  width: 320px;
+  background: #fff;
+  border-radius: 22px;
+  padding: 26px 28px;
+  border: 1px solid #e6e6e6;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* stagger positions */
+.timeline-item.one   { left: 5%;   top: 40px; }
+.timeline-item.two   { left: 32%;  top: 140px; }
+.timeline-item.three { left: 58%;  top: 20px; }
+.timeline-item.four  { left: 22%;  top: 260px; }
+.timeline-item.five  { left: 70%;  top: 220px; }
+
+.timeline-dot {
+  position: absolute;
+  top: 130px;
+  width: 10px;
+  height: 10px;
+  background: #111;
+  border-radius: 50%;
+}
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
   </style>
 </head>
@@ -413,7 +470,7 @@
     </div>
     <!-- TIMELINE -->
 <section class="timeline-section">
-  <h2 class="timeline-title">Experience, in Motion</h2>
+<h2 class="timeline-title">Work Experience at a Glimpse</h2>
 
   <div class="timeline-horizontal">
     <div class="timeline-line"></div>
@@ -522,6 +579,19 @@
       panelIntersection.style.transform = `translateX(${offset}px)`;
     });
   </script>
+<script>
+  const timelineItems = document.querySelectorAll('.timeline-item');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  timelineItems.forEach(item => observer.observe(item));
+</script>
 
 </body>
 </html>
