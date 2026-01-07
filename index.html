@@ -25,7 +25,7 @@
       overflow-x: hidden;
     }
 
-    /* ===== ABSTRACT BACKGROUND ===== */
+    /* ===== BACKGROUND ===== */
     .wave {
       position: fixed;
       top: -20%;
@@ -41,7 +41,6 @@
       transform: rotate(-6deg);
       filter: blur(70px);
       z-index: -1;
-      pointer-events: none;
     }
 
     /* ===== NAV ===== */
@@ -59,28 +58,13 @@
 
     nav .name {
       font-weight: 600;
-      letter-spacing: -0.02em;
     }
 
     nav a {
       margin-left: 30px;
       text-decoration: none;
       color: var(--text-main);
-      position: relative;
     }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0%;
-      height: 1px;
-      background: #999;
-      transition: width 0.3s ease;
-    }
-
-    nav a:hover::after { width: 100%; }
 
     /* ===== SECTIONS ===== */
     section {
@@ -95,13 +79,11 @@
       grid-template-columns: 1.1fr 0.9fr;
       gap: 80px;
       align-items: center;
-      padding-top: 50px;
     }
 
     .hero-title {
       font-size: 3rem;
       font-weight: 500;
-      letter-spacing: -0.03em;
       margin-bottom: 24px;
     }
 
@@ -118,17 +100,6 @@
       background-image: url("portfolio.jpeg");
       background-size: cover;
       background-position: center;
-      position: relative;
-      will-change: transform;
-      transition: transform 0.15s ease-out;
-    }
-
-    .hero-visual::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 32px;
-      background: rgba(255,255,255,0.12);
     }
 
     /* ===== PANELS ===== */
@@ -137,7 +108,6 @@
       flex-direction: column;
       gap: 40px;
       margin-top: 80px;
-      overflow: hidden;
     }
 
     .panel {
@@ -146,19 +116,10 @@
       background: var(--panel-bg);
       border-radius: 26px;
       border: 1px solid #e6e6e6;
-      backdrop-filter: blur(6px);
-      transition: transform 0.2s ease-out;
     }
 
-    .panel.first {
-      align-self: flex-start;
-      transform: translateX(-120px);
-    }
-
-    .panel.second {
-      align-self: flex-end;
-      transform: translateX(120px);
-    }
+    .panel.first { align-self: flex-start; }
+    .panel.second { align-self: flex-end; }
 
     .panel p {
       margin: 0;
@@ -170,10 +131,8 @@
     /* ===== CAROUSEL ===== */
     .carousel-title {
       text-align: center;
-      font-weight: 500;
       font-size: 1.6rem;
-      margin-top: 100px;
-      margin-bottom: 16px;
+      margin: 100px 0 16px;
     }
 
     .carousel-container {
@@ -181,13 +140,11 @@
       align-items: center;
       justify-content: center;
       gap: 30px;
-      margin-top: 24px;
     }
 
     .carousel {
       width: 320px;
       height: 220px;
-      position: relative;
     }
 
     .flip-card {
@@ -202,12 +159,10 @@
     .flip-inner {
       width: 100%;
       height: 100%;
-      position: relative;
+      transition: transform 0.8s;
       transform-style: preserve-3d;
-      transition: transform 0.8s cubic-bezier(.4,.2,.2,1);
     }
 
-    .flip-card:hover .flip-inner,
     .flip-card.flip .flip-inner {
       transform: rotateY(180deg);
     }
@@ -230,9 +185,7 @@
 
     .flip-back {
       transform: rotateY(180deg);
-      font-size: 0.95rem;
       color: var(--text-muted);
-      line-height: 1.6;
     }
 
     .carousel-btn {
@@ -240,357 +193,166 @@
       border: none;
       font-size: 1.6rem;
       cursor: pointer;
-      color: #666;
     }
+
+    /* ===== TIMELINE ===== */
+    .timeline-section {
+      margin: 160px auto;
+    }
+
+    .timeline-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 80px;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      height: 360px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #ddd;
+    }
+
+    .timeline-item {
+      position: absolute;
+      width: 260px;
+      padding: 22px 24px;
+      background: #fff;
+      border-radius: 22px;
+      border: 1px solid #e6e6e6;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .t1 { left: 0%;   top: 40px; }
+    .t2 { left: 22%;  top: 200px; }
+    .t3 { left: 44%;  top: 40px; }
+    .t4 { left: 66%;  top: 200px; }
+    .t5 { left: 88%;  top: 40px; transform: translateX(-100%); }
 
     /* ===== MOBILE ===== */
     @media (max-width: 900px) {
-      nav { padding: 22px 30px; }
-      section { padding: 0 30px; margin: 90px auto; }
-
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 50px;
-      }
-
-      .hero-title { font-size: 2.4rem; }
-
-      .panel.first,
-      .panel.second {
-        align-self: center;
+      section { padding: 0 30px; }
+      .hero { grid-template-columns: 1fr; }
+      .timeline { height: auto; }
+      .timeline::before { display: none; }
+      .timeline-item {
+        position: static;
+        margin: 20px auto;
+        transform: none;
       }
     }
-
-    /* ===== HORIZONTAL TIMELINE ===== */
-
-.timeline-section {
-  margin-top: 140px;
-}
-
-.timeline-title {
-  text-align: center;
-  font-size: 1.6rem;
-  font-weight: 500;
-  margin-bottom: 60px;
-}
-
-.timeline-horizontal {
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 60px;
-}
-
-.timeline-line {
-  position: absolute;
-  top: 50%;
-  left: 60px;
-  right: 60px;
-  height: 2px;
-  background: #dcdcdc;
-}
-
-.timeline-item {
-  position: absolute;
-  width: 240px;
-  text-align: center;
-}
-
-.timeline-dot {
-  width: 12px;
-  height: 12px;
-  background: #111;
-  border-radius: 50%;
-  margin: 0 auto;
-}
-
-.timeline-connector {
-  width: 2px;
-  height: 40px;
-  background: #dcdcdc;
-  margin: 0 auto;
-}
-
-.timeline-card {
-  background: var(--panel-bg);
-  border-radius: 22px;
-  padding: 20px 22px;
-  margin-top: 12px;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  border: 1px solid #e6e6e6;
-}
-
-.timeline-card strong {
-  color: var(--text-main);
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 500;
-}
-    
-/* ===== TIMELINE ===== */
-.timeline-section {
-  max-width: 1200px;
-  margin: 160px auto 120px;
-  padding: 0 60px;
-  position: relative;
-}
-
-.timeline-title {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 500;
-  margin-bottom: 80px;
-}
-
-.timeline-line {
-  position: absolute;
-  top: 140px;
-  left: 50%;
-  width: 900px;
-  height: 2px;
-  background: #ddd;
-  transform: translateX(-50%);
-}
-
-    .timeline-item {
-  position: absolute;
-  width: 320px;
-  background: #fff;
-  border-radius: 22px;
-  padding: 26px 28px;
-  border: 1px solid #e6e6e6;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-/* stagger positions */
-.timeline-item.one   { left: 5%;   top: 40px; }
-.timeline-item.two   { left: 32%;  top: 140px; }
-.timeline-item.three { left: 58%;  top: 20px; }
-.timeline-item.four  { left: 22%;  top: 260px; }
-.timeline-item.five  { left: 70%;  top: 220px; }
-
-.timeline-dot {
-  position: absolute;
-  top: 130px;
-  width: 10px;
-  height: 10px;
-  background: #111;
-  border-radius: 50%;
-}
-.timeline-item.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
   </style>
 </head>
 
 <body>
 
-  <div class="wave"></div>
+<div class="wave"></div>
 
-  <nav>
-    <div class="name">Akshara Suresh</div>
-    <div>
-      <a href="index.html">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="resume.html">Resume</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </nav>
+<nav>
+  <div class="name">Akshara Suresh</div>
+  <div>
+    <a href="index.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="resume.html">Resume</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <h1 class="hero-title">Hi, I’m Akshara.</h1>
-      <p>
-        When things felt uncertain, <strong>learning</strong> was always something I could control.
-        Asking questions, exploring ideas, and building understanding gave me direction.
-        Over time, that curiosity turned into confidence.</p>
+<section class="hero">
+  <div>
+    <h1 class="hero-title">Hi, I’m Akshara.</h1>
+    <p>
+      When things felt uncertain, <strong>learning</strong> was always something I could control.
+      Asking questions, exploring ideas, and building understanding gave me direction.
     </p>
-        I’m a <strong>Science and Business</strong> student at the University of Waterloo, and this
-        portfolio captures the ideas, projects, and decisions I’m learning through
-        along the way.
-      </p>
+    <p>
+      I’m a <strong>Science and Business</strong> student at the University of Waterloo, and this
+      portfolio captures the ideas, projects, and decisions I’m learning through along the way.
+    </p>
+  </div>
+  <div class="hero-visual"></div>
+</section>
+
+<section>
+  <div class="panel-wrap">
+    <div class="panel first">
+      <p><strong>Science</strong> taught me how to ask better questions.</p>
     </div>
-    <div class="hero-visual"></div>
-  </section>
-
-  <!-- PANELS -->
-  <section>
-    <div class="panel-wrap">
-      <div class="panel first" id="panel-science">
-        <p>
-          <strong>Science</strong> taught me how to ask better questions, while <strong>business</strong> taught me how
-          decisions scale beyond theory.
-        </p>
-      </div>
-
-      <div class="panel second" id="panel-intersection">
-        <p>
-          I’m most drawn to work at the intersection of science and business, where
-          analytical thinking and strategy come together to inform better decisions.
-        </p>
-      </div>
+    <div class="panel second">
+      <p>Business taught me how decisions scale beyond theory.</p>
     </div>
+  </div>
 
-    <!-- CAROUSEL -->
-    <h2 class="carousel-title">How I Think</h2>
+  <h2 class="carousel-title">How I Think</h2>
 
-    <div class="carousel-container">
-      <button class="carousel-btn left">&#8592;</button>
-
-      <div class="carousel">
-        <div class="flip-card active">
-          <div class="flip-inner">
-            <div class="flip-front"><h3>Ask Better Questions</h3></div>
-            <div class="flip-back"><p>Understanding context before jumping to solutions.</p></div>
-          </div>
-        </div>
-
-        <div class="flip-card">
-          <div class="flip-inner">
-            <div class="flip-front"><h3>Translate Complexity</h3></div>
-            <div class="flip-back"><p>Bridging science and business into clarity.</p></div>
-          </div>
-        </div>
-
-        <div class="flip-card">
-          <div class="flip-inner">
-            <div class="flip-front"><h3>Learn by Building</h3></div>
-            <div class="flip-back"><p>Using projects as a way to test and reflect.</p></div>
-          </div>
-        </div>
-      </div>
-
-      <button class="carousel-btn right">&#8594;</button>
+  <div class="carousel-container">
+    <button class="carousel-btn left">&#8592;</button>
+    <div class="carousel">
+      <div class="flip-card active"><div class="flip-inner">
+        <div class="flip-front"><h3>Ask Better Questions</h3></div>
+        <div class="flip-back">Understand context first.</div>
+      </div></div>
     </div>
-    <!-- TIMELINE -->
-<section class="timeline-section">
-<h2 class="timeline-title">Work Experience at a Glimpse</h2>
-
-  <div class="timeline-horizontal">
-    <div class="timeline-line"></div>
-
-    <!-- Item 1 -->
-    <div class="timeline-item" style="left: 5%; top: 0;">
-      <div class="timeline-card">
-        <strong>BalloonsByAks</strong>
-        2022 – Present<br>
-        Built and scaled a creative service business.
-      </div>
-      <div class="timeline-connector"></div>
-      <div class="timeline-dot"></div>
-    </div>
-
-    <!-- Item 2 -->
-    <div class="timeline-item" style="left: 25%; top: 55%;">
-      <div class="timeline-dot"></div>
-      <div class="timeline-connector"></div>
-      <div class="timeline-card">
-        <strong>RE/MAX</strong>
-        2022 – 2024<br>
-        Supported administrative and digital operations.
-      </div>
-    </div>
-
-    <!-- Item 3 -->
-    <div class="timeline-item" style="left: 45%; top: 0;">
-      <div class="timeline-card">
-        <strong>House of Commons</strong>
-        2023<br>
-        Public-facing communications and research.
-      </div>
-      <div class="timeline-connector"></div>
-      <div class="timeline-dot"></div>
-    </div>
-
-    <!-- Item 4 -->
-    <div class="timeline-item" style="left: 65%; top: 55%;">
-      <div class="timeline-dot"></div>
-      <div class="timeline-connector"></div>
-      <div class="timeline-card">
-        <strong>Emkiro Health</strong>
-        2024<br>
-        Patient care operations and systems.
-      </div>
-    </div>
-
-    <!-- Item 5 -->
-    <div class="timeline-item" style="left: 85%; top: 0;">
-      <div class="timeline-card">
-        <strong>DND</strong>
-        2024<br>
-        Infrastructure & environmental coordination.
-      </div>
-      <div class="timeline-connector"></div>
-      <div class="timeline-dot"></div>
-    </div>
-
+    <button class="carousel-btn right">&#8594;</button>
   </div>
 </section>
 
-  </section>
+<section class="timeline-section">
+  <h2 class="timeline-title">Work Experience at a Glimpse</h2>
 
-  <script>
-    const heroVisual = document.querySelector('.hero-visual');
-    const panelScience = document.getElementById('panel-science');
-    const panelIntersection = document.getElementById('panel-intersection');
-    const cards = document.querySelectorAll('.flip-card');
-    const leftBtn = document.querySelector('.carousel-btn.left');
-    const rightBtn = document.querySelector('.carousel-btn.right');
+  <div class="timeline">
+    <div class="timeline-item t1">BalloonsByAks<br><small>2022–Present</small></div>
+    <div class="timeline-item t2">RE/MAX<br><small>2022–2024</small></div>
+    <div class="timeline-item t3">House of Commons<br><small>2023</small></div>
+    <div class="timeline-item t4">Emkiro Health<br><small>2024</small></div>
+    <div class="timeline-item t5">DND<br><small>2024</small></div>
+  </div>
+</section>
 
-    let current = 0;
-
-    function showCard(index) {
-      cards.forEach((card, i) => {
-        card.classList.toggle('active', i === index);
-        card.classList.remove('flip');
-      });
-
-      const active = cards[index];
-      setTimeout(() => active.classList.add('flip'), 150);
-      setTimeout(() => active.classList.remove('flip'), 1800);
-    }
-
-    leftBtn.onclick = () => {
-      current = (current - 1 + cards.length) % cards.length;
-      showCard(current);
-    };
-
-    rightBtn.onclick = () => {
-      current = (current + 1) % cards.length;
-      showCard(current);
-    };
-
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-
-      heroVisual.style.transform = `
-        translateY(${y * 0.08}px)
-        scale(${1 - y * 0.00015})
-      `;
-
-      const offset = Math.max(120 - y * 0.25, 0);
-      panelScience.style.transform = `translateX(${-offset}px)`;
-      panelIntersection.style.transform = `translateX(${offset}px)`;
-    });
-  </script>
 <script>
-  const timelineItems = document.querySelectorAll('.timeline-item');
+  const cards = document.querySelectorAll('.flip-card');
+  let current = 0;
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+  function showCard(i) {
+    cards.forEach(c => c.classList.remove('active','flip'));
+    cards[i].classList.add('active');
+    setTimeout(() => cards[i].classList.add('flip'), 200);
+    setTimeout(() => cards[i].classList.remove('flip'), 1800);
+  }
+
+  document.querySelector('.left').onclick = () => {
+    current = (current - 1 + cards.length) % cards.length;
+    showCard(current);
+  };
+  document.querySelector('.right').onclick = () => {
+    current = (current + 1) % cards.length;
+    showCard(current);
+  };
+
+  const items = document.querySelectorAll('.timeline-item');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
     });
   }, { threshold: 0.2 });
-
-  timelineItems.forEach(item => observer.observe(item));
+  items.forEach(i => obs.observe(i));
 </script>
 
 </body>
