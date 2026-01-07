@@ -11,8 +11,7 @@
       --text-main: #111;
       --text-muted: #555;
       --bg-main: #fafafa;
-      --accent: #dfe6e1;
-      --panel-bg: rgba(255,255,255,0.88);
+      --panel-bg: rgba(255,255,255,0.9);
     }
 
     * { box-sizing: border-box; }
@@ -25,7 +24,7 @@
       overflow-x: hidden;
     }
 
-    /* ===== ABSTRACT BACKGROUND ===== */
+    /* ===== BACKGROUND ===== */
     .wave {
       position: fixed;
       top: -20%;
@@ -41,7 +40,6 @@
       transform: rotate(-6deg);
       filter: blur(70px);
       z-index: -1;
-      pointer-events: none;
     }
 
     /* ===== NAV ===== */
@@ -57,30 +55,11 @@
       z-index: 10;
     }
 
-    nav .name {
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-
     nav a {
       margin-left: 30px;
       text-decoration: none;
-      color: var(--text-main);
-      position: relative;
+      color: #111;
     }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0%;
-      height: 1px;
-      background: #999;
-      transition: width 0.3s ease;
-    }
-
-    nav a:hover::after { width: 100%; }
 
     /* ===== SECTIONS ===== */
     section {
@@ -95,13 +74,11 @@
       grid-template-columns: 1.1fr 0.9fr;
       gap: 80px;
       align-items: center;
-      padding-top: 50px;
     }
 
     .hero-title {
       font-size: 3rem;
       font-weight: 500;
-      letter-spacing: -0.03em;
       margin-bottom: 24px;
     }
 
@@ -115,20 +92,8 @@
     .hero-visual {
       height: 480px;
       border-radius: 32px;
-      background-image: url("portfolio.jpeg");
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      will-change: transform;
+      background: url("portfolio.jpeg") center/cover;
       transition: transform 0.15s ease-out;
-    }
-
-    .hero-visual::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 32px;
-      background: rgba(255,255,255,0.12);
     }
 
     /* ===== PANELS ===== */
@@ -137,7 +102,6 @@
       flex-direction: column;
       gap: 40px;
       margin-top: 80px;
-      overflow: hidden;
     }
 
     .panel {
@@ -146,41 +110,25 @@
       background: var(--panel-bg);
       border-radius: 26px;
       border: 1px solid #e6e6e6;
-      backdrop-filter: blur(6px);
       transition: transform 0.2s ease-out;
     }
 
-    .panel.first {
-      align-self: flex-start;
-      transform: translateX(-120px);
-    }
-
-    .panel.second {
-      align-self: flex-end;
-      transform: translateX(120px);
-    }
-
-    .panel p {
-      margin: 0;
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: var(--text-muted);
-    }
+    .panel.first { align-self: flex-start; transform: translateX(-120px); }
+    .panel.second { align-self: flex-end; transform: translateX(120px); }
 
     /* ===== TIMELINE ===== */
     .timeline-section {
-      position: relative;
       margin-top: 160px;
+      position: relative;
     }
 
     .timeline-title {
       text-align: center;
       font-size: 2rem;
-      font-weight: 500;
-      margin-bottom: 100px;
+      margin-bottom: 90px;
     }
 
-    .timeline-line {
+    .timeline-axis {
       position: absolute;
       top: 200px;
       left: 50%;
@@ -190,14 +138,21 @@
       transform: translateX(-50%);
     }
 
+    .timeline-grid {
+      position: relative;
+      width: 900px;
+      margin: 0 auto;
+      height: 420px;
+    }
+
     .timeline-item {
       position: absolute;
-      width: 280px;
+      width: 260px;
       padding: 22px 26px;
       background: #fff;
       border-radius: 22px;
       border: 1px solid #e6e6e6;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.07);
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
@@ -208,51 +163,39 @@
       transform: translateY(0);
     }
 
-    .timeline-item h4 {
-      margin: 0;
-      font-weight: 600;
-    }
-
-    .timeline-years {
-      font-size: 0.85rem;
-      color: #888;
-      margin-bottom: 6px;
-    }
-
-    .timeline-item span {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-
-    /* positions */
-    .t1 { left: 0%; top: 80px; }
-    .t2 { left: 25%; top: 280px; }
-    .t3 { left: 50%; top: 80px; transform: translateX(-50%); }
-    .t4 { left: 75%; top: 280px; transform: translateX(-50%); }
-    .t5 { left: 100%; top: 80px; transform: translateX(-100%); }
-
-    .connector {
+    .timeline-item::before {
+      content: '';
       position: absolute;
-      width: 1px;
+      width: 2px;
       background: #ccc;
+      left: 50%;
     }
+
+    .top::before { height: 40px; bottom: -40px; }
+    .bottom::before { height: 40px; top: -40px; }
+
+    .timeline-item h4 { margin: 0; font-weight: 600; }
+    .timeline-years { font-size: 0.85rem; color: #888; margin-bottom: 6px; }
+    .timeline-item span { font-size: 0.95rem; color: var(--text-muted); }
+
+    /* positions (CENTERED + PROPORTIONAL) */
+    .t1 { left: 0; top: 60px; }
+    .t2 { left: 320px; top: 220px; }
+    .t3 { left: 640px; top: 60px; }
+    .t4 { left: 160px; top: 220px; }
+    .t5 { left: 480px; top: 220px; }
+
+    /* subtle gradient accents */
+    .accent-1 { background: linear-gradient(#fff, #f3f7f5); }
+    .accent-2 { background: linear-gradient(#fff, #f6f3f7); }
+    .accent-3 { background: linear-gradient(#fff, #f5f6f8); }
 
     /* ===== MOBILE ===== */
     @media (max-width: 900px) {
-      nav { padding: 22px 30px; }
-      section { padding: 0 30px; margin: 90px auto; }
-
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 50px;
-      }
-
-      .hero-title { font-size: 2.4rem; }
-
-      .timeline-line { display: none; }
+      .timeline-axis, .timeline-grid { display: none; }
       .timeline-item {
         position: static;
-        margin: 30px auto;
+        margin: 24px auto;
         opacity: 1;
         transform: none;
       }
@@ -262,120 +205,82 @@
 
 <body>
 
-  <div class="wave"></div>
+<div class="wave"></div>
 
-  <nav>
-    <div class="name">Akshara Suresh</div>
-    <div>
-      <a href="index.html">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="resume.html">Resume</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </nav>
+<nav>
+  <div>Akshara Suresh</div>
+  <div>
+    <a href="index.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="resume.html">Resume</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <h1 class="hero-title">Hi, I’m Akshara.</h1>
-      <p>
-        When things felt uncertain, <strong>learning</strong> was always something I could control.
-        Asking questions, exploring ideas, and building understanding gave me direction.
-        Over time, that curiosity turned into confidence.
-      </p>
-      <p>
-        I’m a <strong>Science and Business</strong> student at the University of Waterloo, and this
-        portfolio captures the ideas, projects, and decisions I’m learning through
-        along the way.
-      </p>
-    </div>
-    <div class="hero-visual"></div>
-  </section>
+<section class="hero">
+  <div>
+    <h1 class="hero-title">Hi, I’m Akshara.</h1>
+    <p>
+      When things felt uncertain, <strong>learning</strong> was always something I could control.
+      Asking questions, exploring ideas, and building understanding gave me direction.
+      Over time, that curiosity turned into confidence.
+    </p>
+    <p>
+      I’m a <strong>Science and Business</strong> student at the University of Waterloo, and this
+      portfolio captures the ideas, projects, and decisions I’m learning through along the way.
+    </p>
+  </div>
+  <div class="hero-visual"></div>
+</section>
 
-  <!-- PANELS -->
-  <section>
-    <div class="panel-wrap">
-      <div class="panel first" id="panel-science">
-        <p>
-          <strong>Science</strong> taught me how to ask better questions, while <strong>business</strong>
-          taught me how decisions scale beyond theory.
-        </p>
-      </div>
+<section class="timeline-section">
+  <h2 class="timeline-title">Work Experience at a Glimpse</h2>
+  <div class="timeline-axis"></div>
 
-      <div class="panel second" id="panel-intersection">
-        <p>
-          I’m most drawn to work at the intersection of science and business, where
-          analytical thinking and strategy come together to inform better decisions.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- TIMELINE -->
-  <section class="timeline-section">
-    <h2 class="timeline-title">Work Experience at a Glimpse</h2>
-    <div class="timeline-line"></div>
-
-    <div class="timeline-item t1">
+  <div class="timeline-grid">
+    <div class="timeline-item top t1 accent-1">
       <h4>BalloonsByAks</h4>
       <div class="timeline-years">2022 – Present</div>
       <span>Built and scaled a creative service business.</span>
     </div>
 
-    <div class="timeline-item t2">
+    <div class="timeline-item bottom t4 accent-2">
       <h4>RE/MAX</h4>
       <div class="timeline-years">2022 – 2024</div>
       <span>Supported administrative and digital operations.</span>
     </div>
 
-    <div class="timeline-item t3">
+    <div class="timeline-item top t3 accent-3">
+      <h4>DND</h4>
+      <div class="timeline-years">2024</div>
+      <span>Infrastructure and environmental coordination.</span>
+    </div>
+
+    <div class="timeline-item top t1 accent-2" style="left:320px;">
       <h4>House of Commons</h4>
       <div class="timeline-years">2023</div>
       <span>Public-facing communications and research.</span>
     </div>
 
-    <div class="timeline-item t4">
+    <div class="timeline-item bottom t5 accent-1">
       <h4>Emkiro Health</h4>
       <div class="timeline-years">2024</div>
       <span>Patient care operations and systems.</span>
     </div>
+  </div>
+</section>
 
-    <div class="timeline-item t5">
-      <h4>DND</h4>
-      <div class="timeline-years">2024</div>
-      <span>Infrastructure and environmental coordination.</span>
-    </div>
-  </section>
+<script>
+  const items = document.querySelectorAll('.timeline-item');
 
-  <script>
-    const heroVisual = document.querySelector('.hero-visual');
-    const panelScience = document.getElementById('panel-science');
-    const panelIntersection = document.getElementById('panel-intersection');
-    const timelineItems = document.querySelectorAll('.timeline-item');
-
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-
-      heroVisual.style.transform = `
-        translateY(${y * 0.08}px)
-        scale(${1 - y * 0.00015})
-      `;
-
-      const offset = Math.max(120 - y * 0.25, 0);
-      panelScience.style.transform = `translateX(${-offset}px)`;
-      panelIntersection.style.transform = `translateX(${offset}px)`;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
     });
+  }, { threshold: 0.3 });
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.2 });
-
-    timelineItems.forEach(item => observer.observe(item));
-  </script>
+  items.forEach(i => observer.observe(i));
+</script>
 
 </body>
 </html>
