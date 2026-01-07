@@ -11,7 +11,9 @@
       --text-main: #111;
       --text-muted: #555;
       --bg-main: #fafafa;
+      --accent: #dfe6e1;
       --panel-bg: rgba(255,255,255,0.88);
+      --line: #d6d6d6;
     }
 
     * { box-sizing: border-box; }
@@ -24,7 +26,6 @@
       overflow-x: hidden;
     }
 
-    /* ===== ABSTRACT BACKGROUND ===== */
     .wave {
       position: fixed;
       top: -20%;
@@ -43,7 +44,6 @@
       pointer-events: none;
     }
 
-    /* ===== NAV ===== */
     nav {
       display: flex;
       justify-content: space-between;
@@ -56,7 +56,10 @@
       z-index: 10;
     }
 
-    nav .name { font-weight: 600; }
+    nav .name {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
 
     nav a {
       margin-left: 30px;
@@ -78,20 +81,18 @@
 
     nav a:hover::after { width: 100%; }
 
-    /* ===== SECTIONS ===== */
     section {
       max-width: 1200px;
       margin: 120px auto;
       padding: 0 60px;
     }
 
-    /* ===== HERO ===== */
     .hero {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
       gap: 80px;
       align-items: center;
-      padding-top: 60px;
+      padding-top: 50px;
     }
 
     .hero-title {
@@ -127,17 +128,6 @@
       background: rgba(255,255,255,0.12);
     }
 
-    .hero-cta {
-      margin-top: 32px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      font-weight: 500;
-      color: #111;
-    }
-
-    /* ===== PANELS ===== */
     .panel-wrap {
       display: flex;
       flex-direction: column;
@@ -183,44 +173,73 @@
 
     .timeline {
       position: relative;
-      height: 280px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 40px;
+      align-items: center;
     }
 
-    .timeline-line {
+    .timeline::before {
+      content: '';
       position: absolute;
       top: 50%;
       left: 0;
-      width: 100%;
-      height: 1px;
-      background: #ddd;
+      right: 0;
+      height: 2px;
+      background: var(--line);
+      transform: translateY(-50%);
     }
 
     .timeline-item {
-      position: absolute;
-      width: 220px;
-      background: #fff;
-      border-radius: 20px;
-      padding: 20px;
-      border: 1px solid #e6e6e6;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.08);
-      transform: translateX(-50%);
-      font-size: 0.95rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
     }
 
-    .timeline-item::after {
-      content: '';
-      position: absolute;
-      left: 50%;
+    .timeline-item.above { margin-bottom: 120px; }
+    .timeline-item.below { margin-top: 120px; }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      background: #111;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .connector {
       width: 2px;
-      background: #ccc;
-      transform: translateX(-50%);
+      height: 40px;
+      background: var(--line);
     }
 
-    .timeline-item.top { top: 0; }
-    .timeline-item.top::after { bottom: -40px; height: 40px; }
+    .card {
+      background: #fff;
+      padding: 20px 22px;
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+      text-align: center;
+      max-width: 220px;
+    }
 
-    .timeline-item.bottom { bottom: 0; }
-    .timeline-item.bottom::after { top: -40px; height: 40px; }
+    .card h4 {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .card span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .card p {
+      margin: 8px 0 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
 
     /* ===== CAROUSEL ===== */
     .carousel-title {
@@ -262,6 +281,7 @@
       transition: transform 0.8s cubic-bezier(.4,.2,.2,1);
     }
 
+    .flip-card:hover .flip-inner,
     .flip-card.flip .flip-inner {
       transform: rotateY(180deg);
     }
@@ -280,12 +300,14 @@
       justify-content: center;
       padding: 32px;
       text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.06);
     }
 
     .flip-back {
       transform: rotateY(180deg);
       font-size: 0.95rem;
       color: var(--text-muted);
+      line-height: 1.6;
     }
 
     .carousel-btn {
@@ -295,18 +317,11 @@
       cursor: pointer;
       color: #666;
     }
-
-    /* ===== MOBILE ===== */
-    @media (max-width: 900px) {
-      nav { padding: 22px 30px; }
-      section { padding: 0 30px; margin: 90px auto; }
-      .hero { grid-template-columns: 1fr; }
-      .timeline { height: auto; }
-    }
   </style>
 </head>
 
 <body>
+
 <div class="wave"></div>
 
 <nav>
@@ -329,65 +344,94 @@
     </p>
     <p>
       I’m a <strong>Science and Business</strong> student at the University of Waterloo, and this
-      portfolio captures the ideas, projects, and decisions I’m learning through along the way.
+      portfolio captures the ideas, projects, and decisions I’m learning through
+      along the way.
     </p>
-
-    <a class="hero-cta" href="projects.html">View my work →</a>
   </div>
-
   <div class="hero-visual"></div>
 </section>
 
 <section>
   <div class="panel-wrap">
     <div class="panel first" id="panel-science">
-      <p><strong>Science</strong> taught me how to ask better questions, while <strong>business</strong> taught me how decisions scale beyond theory.</p>
+      <p>
+        <strong>Science</strong> taught me how to ask better questions, while
+        <strong>business</strong> taught me how decisions scale beyond theory.
+      </p>
     </div>
 
     <div class="panel second" id="panel-intersection">
-      <p>I’m most drawn to work at the intersection of science and business, where analytical thinking and strategy come together to inform better decisions.</p>
+      <p>
+        I’m most drawn to work at the intersection of science and business, where
+        analytical thinking and strategy come together to inform better decisions.
+      </p>
     </div>
   </div>
 </section>
 
+<!-- TIMELINE -->
 <section>
   <h2 class="timeline-title">Work Experience at a Glimpse</h2>
 
   <div class="timeline">
-    <div class="timeline-line"></div>
-
-    <div class="timeline-item top" style="left: 0%;">
-      <strong>BalloonsByAks</strong><br>2022 – Present<br>
-      Built and scaled a creative service business.
+    <div class="timeline-item above">
+      <div class="card">
+        <h4>BalloonsByAks</h4>
+        <span>2022 – Present</span>
+        <p>Built and scaled a creative service business.</p>
+      </div>
+      <div class="connector"></div>
+      <div class="dot"></div>
     </div>
 
-    <div class="timeline-item bottom" style="left: 20%;">
-      <strong>RE/MAX</strong><br>2022 – 2024<br>
-      Supported administrative and digital operations.
+    <div class="timeline-item below">
+      <div class="dot"></div>
+      <div class="connector"></div>
+      <div class="card">
+        <h4>RE/MAX</h4>
+        <span>2022 – 2024</span>
+        <p>Supported administrative and digital operations.</p>
+      </div>
     </div>
 
-    <div class="timeline-item top" style="left: 40%;">
-      <strong>House of Commons</strong><br>2023<br>
-      Public-facing communications and research.
+    <div class="timeline-item above">
+      <div class="card">
+        <h4>House of Commons</h4>
+        <span>2023</span>
+        <p>Public-facing communications and research.</p>
+      </div>
+      <div class="connector"></div>
+      <div class="dot"></div>
     </div>
 
-    <div class="timeline-item bottom" style="left: 60%;">
-      <strong>Emkiro Health</strong><br>2024<br>
-      Patient care operations and systems.
+    <div class="timeline-item below">
+      <div class="dot"></div>
+      <div class="connector"></div>
+      <div class="card">
+        <h4>Emkiro Health</h4>
+        <span>2024</span>
+        <p>Patient care operations and systems.</p>
+      </div>
     </div>
 
-    <div class="timeline-item top" style="left: 80%;">
-      <strong>DND</strong><br>2024<br>
-      Infrastructure and environmental coordination.
+    <div class="timeline-item above">
+      <div class="card">
+        <h4>DND</h4>
+        <span>2024</span>
+        <p>Infrastructure and environmental coordination.</p>
+      </div>
+      <div class="connector"></div>
+      <div class="dot"></div>
     </div>
   </div>
 </section>
 
+<!-- CAROUSEL MOVED TO BOTTOM -->
 <section>
   <h2 class="carousel-title">How I Think</h2>
 
   <div class="carousel-container">
-    <button class="carousel-btn left">←</button>
+    <button class="carousel-btn left">&#8592;</button>
 
     <div class="carousel">
       <div class="flip-card active">
@@ -412,7 +456,7 @@
       </div>
     </div>
 
-    <button class="carousel-btn right">→</button>
+    <button class="carousel-btn right">&#8594;</button>
   </div>
 </section>
 
@@ -450,12 +494,16 @@
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
 
-    heroVisual.style.transform = `translateY(${y * 0.08}px) scale(${1 - y * 0.00015})`;
+    heroVisual.style.transform = `
+      translateY(${y * 0.08}px)
+      scale(${1 - y * 0.00015})
+    `;
 
     const offset = Math.max(120 - y * 0.25, 0);
     panelScience.style.transform = `translateX(${-offset}px)`;
     panelIntersection.style.transform = `translateX(${offset}px)`;
   });
 </script>
+
 </body>
 </html>
