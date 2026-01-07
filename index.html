@@ -12,7 +12,7 @@
       --text-muted: #555;
       --bg-main: #fafafa;
       --accent: #dfe6e1;
-      --panel-bg: rgba(255,255,255,0.85);
+      --panel-bg: rgba(255,255,255,0.88);
     }
 
     * { box-sizing: border-box; }
@@ -25,22 +25,22 @@
       overflow-x: hidden;
     }
 
-    /* ===== ABSTRACT WAVE BACKGROUND ===== */
+    /* ===== ABSTRACT BACKGROUND ===== */
     .wave {
       position: fixed;
-      top: -10%;
-      left: -25%;
-      width: 150%;
-      height: 120vh;
+      top: -20%;
+      left: -30%;
+      width: 160%;
+      height: 140vh;
       background: radial-gradient(
         ellipse at center,
-        rgba(210, 220, 215, 0.55),
-        rgba(210, 220, 215, 0.35),
+        rgba(210,220,215,0.55),
+        rgba(210,220,215,0.35),
         transparent 70%
       );
       transform: rotate(-6deg);
+      filter: blur(70px);
       z-index: -1;
-      filter: blur(60px);
       pointer-events: none;
     }
 
@@ -99,32 +99,30 @@
     }
 
     .hero-title {
-      font-size: 3.4rem;
+      font-size: 3rem;
       font-weight: 500;
       letter-spacing: -0.03em;
       margin-bottom: 24px;
     }
 
     .hero p {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       max-width: 560px;
       line-height: 1.8;
       color: var(--text-muted);
     }
 
-    /* IMAGE FIX IS HERE */
     .hero-visual {
       height: 480px;
       border-radius: 32px;
       background-image: url("portfolio.jpeg");
       background-size: cover;
       background-position: center;
+      position: relative;
       will-change: transform;
       transition: transform 0.15s ease-out;
-      position: relative;
     }
 
-    /* optional soft overlay */
     .hero-visual::after {
       content: '';
       position: absolute;
@@ -133,12 +131,13 @@
       background: rgba(255,255,255,0.12);
     }
 
-    /* ===== SPLIT PANELS ===== */
+    /* ===== PANELS ===== */
     .panel-wrap {
       display: flex;
       flex-direction: column;
       gap: 40px;
       margin-top: 80px;
+      overflow: hidden;
     }
 
     .panel {
@@ -148,10 +147,18 @@
       border-radius: 26px;
       border: 1px solid #e6e6e6;
       backdrop-filter: blur(6px);
+      transition: transform 0.2s ease-out;
     }
 
-    .panel.first { align-self: flex-start; }
-    .panel.second { align-self: flex-end; }
+    .panel.first {
+      align-self: flex-start;
+      transform: translateX(-120px);
+    }
+
+    .panel.second {
+      align-self: flex-end;
+      transform: translateX(120px);
+    }
 
     .panel p {
       margin: 0;
@@ -160,13 +167,21 @@
       color: var(--text-muted);
     }
 
-    /* ===== FLIP CARD CAROUSEL ===== */
+    /* ===== CAROUSEL ===== */
+    .carousel-title {
+      text-align: center;
+      font-weight: 500;
+      font-size: 1.6rem;
+      margin-top: 100px;
+      margin-bottom: 16px;
+    }
+
     .carousel-container {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 30px;
-      margin-top: 50px;
+      margin-top: 24px;
     }
 
     .carousel {
@@ -192,10 +207,7 @@
       transition: transform 0.8s cubic-bezier(.4,.2,.2,1);
     }
 
-    .flip-card:hover .flip-inner {
-      transform: rotateY(180deg);
-    }
-
+    .flip-card:hover .flip-inner,
     .flip-card.flip .flip-inner {
       transform: rotateY(180deg);
     }
@@ -206,7 +218,7 @@
       width: 100%;
       height: 100%;
       border-radius: 26px;
-      background: #ffffff;
+      background: #fff;
       border: 1px solid #e6e6e6;
       backface-visibility: hidden;
       display: flex;
@@ -215,20 +227,6 @@
       padding: 32px;
       text-align: center;
     }
-
-    .flip-front h3 {
-      font-weight: 500;
-    }
-    
-  .carousel-title {
-  text-align: center;
-  font-weight: 500;
-  font-size: 1.6rem;
-  letter-spacing: -0.02em;
-  margin-top: 60px;
-  margin-bottom: 15px;
-}
-  
 
     .flip-back {
       transform: rotateY(180deg);
@@ -243,22 +241,6 @@
       font-size: 1.6rem;
       cursor: pointer;
       color: #666;
-      transition: transform 0.2s ease;
-    }
-
-    .carousel-btn:hover { transform: scale(1.15); }
-
-    /* ===== CTA ===== */
-    .cta {
-      text-align: center;
-    }
-
-    .cta a {
-      text-decoration: none;
-      color: var(--text-main);
-      font-weight: 500;
-      border-bottom: 1px solid #999;
-      padding-bottom: 4px;
     }
 
     /* ===== MOBILE ===== */
@@ -271,7 +253,7 @@
         gap: 50px;
       }
 
-      .hero-title { font-size: 2.6rem; }
+      .hero-title { font-size: 2.4rem; }
 
       .panel.first,
       .panel.second {
@@ -300,12 +282,10 @@
     <div>
       <h1 class="hero-title">Hi, I’m Akshara.</h1>
       <p>
-        When things felt uncertain, learning was always something I could control.
-        Asking questions, exploring ideas, and building understanding gave me a sense
-        of direction. Over time, that curiosity turned into confidence.</p>
-
-      <p>
-        I’m a Science and Business student at the University of Waterloo, and this
+        When things felt uncertain, <strong>learning</strong> was always something I could control.
+        Asking questions, exploring ideas, and building understanding gave me direction.
+        Over time, that curiosity turned into confidence.
+        I’m a <strong>Science and Business</strong> student at the University of Waterloo, and this
         portfolio captures the ideas, projects, and decisions I’m learning through
         along the way.
       </p>
@@ -313,7 +293,7 @@
     <div class="hero-visual"></div>
   </section>
 
-  <!-- SPLIT PANELS -->
+  <!-- PANELS -->
   <section>
     <div class="panel-wrap">
       <div class="panel first" id="panel-science">
@@ -331,42 +311,31 @@
       </div>
     </div>
 
-    <!-- FLIP CARD CAROUSEL -->
+    <!-- CAROUSEL -->
     <h2 class="carousel-title">How I Think</h2>
+
     <div class="carousel-container">
       <button class="carousel-btn left">&#8592;</button>
 
       <div class="carousel">
         <div class="flip-card active">
           <div class="flip-inner">
-            <div class="flip-front">
-              <h3>Ask Better Questions</h3>
-            </div>
-            <div class="flip-back">
-              <p>Understanding context and constraints before jumping to solutions.</p>
-            </div>
+            <div class="flip-front"><h3>Ask Better Questions</h3></div>
+            <div class="flip-back"><p>Understanding context before jumping to solutions.</p></div>
           </div>
         </div>
 
         <div class="flip-card">
           <div class="flip-inner">
-            <div class="flip-front">
-              <h3>Translate Complexity</h3>
-            </div>
-            <div class="flip-back">
-              <p>Bridging science, business, and design into clear ideas.</p>
-            </div>
+            <div class="flip-front"><h3>Translate Complexity</h3></div>
+            <div class="flip-back"><p>Bridging science and business into clarity.</p></div>
           </div>
         </div>
 
         <div class="flip-card">
           <div class="flip-inner">
-            <div class="flip-front">
-              <h3>Learn by Building</h3>
-            </div>
-            <div class="flip-back">
-              <p>Using projects as a way to explore, test, and reflect.</p>
-            </div>
+            <div class="flip-front"><h3>Learn by Building</h3></div>
+            <div class="flip-back"><p>Using projects as a way to test and reflect.</p></div>
           </div>
         </div>
       </div>
@@ -375,33 +344,26 @@
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta">
-    <a href="contact.html">Let’s connect</a>
-  </section>
-
-  <!-- SCRIPTS -->
   <script>
     const heroVisual = document.querySelector('.hero-visual');
+    const panelScience = document.getElementById('panel-science');
+    const panelIntersection = document.getElementById('panel-intersection');
     const cards = document.querySelectorAll('.flip-card');
     const leftBtn = document.querySelector('.carousel-btn.left');
     const rightBtn = document.querySelector('.carousel-btn.right');
-    const panelScience = document.getElementById('panel-science');
-    const panelIntersection = document.getElementById('panel-intersection');
+
     let current = 0;
 
     function showCard(index) {
-  cards.forEach((card, i) => {
-    card.classList.toggle('active', i === index);
-    card.classList.remove('flip');
-  });
+      cards.forEach((card, i) => {
+        card.classList.toggle('active', i === index);
+        card.classList.remove('flip');
+      });
 
-  // auto-flip the active card
-  const activeCard = cards[index];
-  setTimeout(() => {
-    activeCard.classList.add('flip');
-  }, 150);
-}
+      const active = cards[index];
+      setTimeout(() => active.classList.add('flip'), 150);
+      setTimeout(() => active.classList.remove('flip'), 1800);
+    }
 
     leftBtn.onclick = () => {
       current = (current - 1 + cards.length) % cards.length;
@@ -413,24 +375,6 @@
       showCard(current);
     };
 
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        card.classList.toggle('flip');
-      });
-    });
-
-    let startX = 0;
-    document.querySelector('.carousel').addEventListener('touchstart', e => {
-      startX = e.touches[0].clientX;
-    });
-
-    document.querySelector('.carousel').addEventListener('touchend', e => {
-      const endX = e.changedTouches[0].clientX;
-      if (startX - endX > 50) current = (current + 1) % cards.length;
-      if (endX - startX > 50) current = (current - 1 + cards.length) % cards.length;
-      showCard(current);
-    });
-
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
 
@@ -439,7 +383,7 @@
         scale(${1 - y * 0.00015})
       `;
 
-      const offset = Math.min(y * 0.15, 80);
+      const offset = Math.max(120 - y * 0.25, 0);
       panelScience.style.transform = `translateX(${-offset}px)`;
       panelIntersection.style.transform = `translateX(${offset}px)`;
     });
