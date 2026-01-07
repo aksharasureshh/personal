@@ -22,11 +22,13 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-      background: radial-gradient(circle at 70% 40%, #eef3f0, transparent 55%),
-                  radial-gradient(circle at 20% 70%, #edf1ee, transparent 50%),
-                  var(--bg);
+      background:
+        radial-gradient(circle at 75% 30%, #edf2ef, transparent 55%),
+        radial-gradient(circle at 20% 70%, #eef3f0, transparent 50%),
+        var(--bg);
       color: var(--text);
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     a {
@@ -50,30 +52,42 @@
 
     .hero {
       max-width: 1100px;
-      margin: 100px auto 120px;
+      margin: 120px auto 140px;
       padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      align-items: center;
     }
 
     .hero h1 {
-      font-size: 3.2rem;
+      font-size: 2.8rem;
       font-weight: 600;
       margin-bottom: 24px;
     }
 
     .hero p {
-      max-width: 720px;
       font-size: 1rem;
       color: var(--muted);
+      max-width: 520px;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 420px;
+      border-radius: 32px;
+      background: linear-gradient(135deg, #e8edea, #dfe6e2);
+      box-shadow: 0 40px 120px rgba(0,0,0,0.08);
     }
 
     /* -------- FLOATING SCIENCE / BUSINESS TEXT -------- */
 
     .dual-text {
-      position: relative;
       max-width: 1100px;
       margin: 160px auto;
       padding: 0 40px;
-      height: 200px;
+      position: relative;
+      height: 240px;
     }
 
     .dual {
@@ -81,19 +95,19 @@
       width: 520px;
       background: var(--card);
       padding: 32px;
-      border-radius: 20px;
+      border-radius: 24px;
       box-shadow: 0 30px 80px rgba(0,0,0,0.04);
       opacity: 0;
       transition: all 1s ease;
     }
 
     .dual.left {
-      left: -120px;
+      left: -140px;
       top: 0;
     }
 
     .dual.right {
-      right: -120px;
+      right: -140px;
       bottom: 0;
     }
 
@@ -164,7 +178,7 @@
 
     .timeline-dot {
       position: absolute;
-      top: 40px;
+      top: 36px;
       left: 50%;
       width: 14px;
       height: 14px;
@@ -191,7 +205,7 @@
 
     .timeline-card h3 {
       font-size: 1.2rem;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .timeline-card span {
@@ -264,13 +278,14 @@
       justify-content: center;
       padding: 24px;
       box-shadow: 0 30px 80px rgba(0,0,0,0.05);
+      text-align: center;
     }
 
     .card-back {
       transform: rotateY(180deg);
     }
 
-    /* ---------------- FOOTER CTA ---------------- */
+    /* ---------------- CTA ---------------- */
 
     .cta {
       text-align: center;
@@ -280,6 +295,36 @@
     .cta a {
       font-weight: 500;
       font-size: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .dual {
+        position: static;
+        width: 100%;
+        margin-bottom: 24px;
+      }
+
+      .dual-text {
+        height: auto;
+      }
+
+      .timeline::before {
+        left: 8px;
+      }
+
+      .timeline-item {
+        width: 100%;
+        margin-left: 40px;
+        text-align: left;
+      }
+
+      .timeline-dot {
+        left: 8px;
+      }
     }
   </style>
 </head>
@@ -297,15 +342,18 @@
 </header>
 
 <section class="hero">
-  <h1>Hi, I’m Akshara.</h1>
-  <p>
-    When things felt uncertain, learning was always something I could control.
-    Asking questions, exploring ideas, and building understanding gave me a sense
-    of direction. Over time, that curiosity turned into confidence.
-    I’m a Science and Business student at the University of Waterloo, and this
-    portfolio captures the ideas, projects, and decisions I’m learning through
-    along the way.
-  </p>
+  <div>
+    <h1>Hi, I’m Akshara.</h1>
+    <p>
+      When things felt uncertain, learning was always something I could control.
+      Asking questions, exploring ideas, and building understanding gave me a sense
+      of direction. Over time, that curiosity turned into confidence.
+      I’m a Science and Business student at the University of Waterloo, and this
+      portfolio captures the ideas, projects, and decisions I’m learning through
+      along the way.
+    </p>
+  </div>
+  <div class="hero-image"></div>
 </section>
 
 <section class="dual-text">
@@ -405,7 +453,7 @@
 <h2 class="carousel-title">How I Think</h2>
 
 <div class="carousel">
-  <div class="arrow" onclick="prevCard()">←</div>
+  <div class="arrow" onclick="flipCard()">←</div>
 
   <div class="card">
     <div class="card-inner">
@@ -414,7 +462,7 @@
     </div>
   </div>
 
-  <div class="arrow" onclick="nextCard()">→</div>
+  <div class="arrow" onclick="flipCard()">→</div>
 </div>
 
 <div class="cta">
@@ -442,12 +490,7 @@
     });
   });
 
-  function nextCard() {
-    card.classList.add('flip');
-    setTimeout(() => card.classList.remove('flip'), 1200);
-  }
-
-  function prevCard() {
+  function flipCard() {
     card.classList.add('flip');
     setTimeout(() => card.classList.remove('flip'), 1200);
   }
