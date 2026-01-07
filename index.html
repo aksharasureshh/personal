@@ -82,6 +82,7 @@
 
     nav a:hover::after { width: 100%; }
 
+    /* ===== SECTIONS ===== */
     section {
       max-width: 1200px;
       margin: 120px auto;
@@ -94,13 +95,14 @@
       grid-template-columns: 1.1fr 0.9fr;
       gap: 80px;
       align-items: center;
+      padding-top: 50px;
     }
 
     .hero-title {
       font-size: 3rem;
       font-weight: 500;
       letter-spacing: -0.03em;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .hero p {
@@ -110,38 +112,6 @@
       color: var(--text-muted);
     }
 
-    .view-work {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 28px;
-      font-weight: 500;
-      text-decoration: none;
-      color: #111;
-      position: relative;
-    }
-
-    .view-work span {
-      transition: transform 0.3s ease;
-    }
-
-    .view-work:hover span {
-      transform: translateX(6px);
-    }
-
-    .view-work::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 0;
-      width: 0%;
-      height: 1px;
-      background: #999;
-      transition: width 0.3s ease;
-    }
-
-    .view-work:hover::after { width: 100%; }
-
     .hero-visual {
       height: 480px;
       border-radius: 32px;
@@ -150,6 +120,7 @@
       background-position: center;
       position: relative;
       will-change: transform;
+      transition: transform 0.15s ease-out;
     }
 
     .hero-visual::after {
@@ -160,7 +131,7 @@
       background: rgba(255,255,255,0.12);
     }
 
-    /* ===== SLIDING PANELS ===== */
+    /* ===== PANELS ===== */
     .panel-wrap {
       display: flex;
       flex-direction: column;
@@ -176,12 +147,18 @@
       border-radius: 26px;
       border: 1px solid #e6e6e6;
       backdrop-filter: blur(6px);
-      opacity: 0;
-      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+      transition: transform 0.2s ease-out;
     }
 
-    .panel.first { align-self: flex-start; transform: translateX(-140px); }
-    .panel.second { align-self: flex-end; transform: translateX(140px); }
+    .panel.first {
+      align-self: flex-start;
+      transform: translateX(-120px);
+    }
+
+    .panel.second {
+      align-self: flex-end;
+      transform: translateX(120px);
+    }
 
     .panel p {
       margin: 0;
@@ -190,124 +167,27 @@
       color: var(--text-muted);
     }
 
-    /* ===== TIMELINE ===== */
-    .timeline-title {
-      text-align: center;
-      font-size: 1.8rem;
-      font-weight: 500;
-      margin-bottom: 80px;
-    }
-
-    .timeline {
-      position: relative;
-      margin: 0 auto;
-      padding-left: 50%;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      width: 2px;
-      height: 100%;
-      background: #ddd;
-    }
-
-    .timeline-item {
-      position: relative;
-      width: 50%;
-      padding: 40px 50px;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.6s ease;
-    }
-
-    .timeline-item.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .timeline-item.left {
-      left: -50%;
-      text-align: right;
-    }
-
-    .timeline-item.right {
-      left: 0;
-    }
-
-    .timeline-dot {
-      position: absolute;
-      top: 60px;
-      left: calc(100% - 6px);
-      width: 12px;
-      height: 12px;
-      background: #aaa;
-      border-radius: 50%;
-    }
-
-    .timeline-item.right .timeline-dot {
-      left: -6px;
-    }
-
-    .timeline-card {
-      background: #fff;
-      border-radius: 22px;
-      padding: 28px;
-      border: 1px solid #e6e6e6;
-    }
-
-    .timeline-card h3 {
-      margin: 0 0 8px;
-      font-weight: 500;
-    }
-
-    .timeline-card span {
-      font-size: 0.9rem;
-      color: #777;
-    }
-
-    .timeline-card p {
-      margin-top: 12px;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: var(--text-muted);
-    }
-
-    .timeline-img {
-      height: 120px;
-      border-radius: 16px;
-      margin-top: 18px;
-      background: linear-gradient(135deg, #e4ebe7, #f6f8f7);
-    }
-
     /* ===== CAROUSEL ===== */
     .carousel-title {
       text-align: center;
-      font-size: 1.6rem;
       font-weight: 500;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
+      font-size: 1.6rem;
+      margin-top: 100px;
       margin-bottom: 16px;
-    }
-
-    .carousel-title.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     .carousel-container {
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       gap: 30px;
+      margin-top: 24px;
     }
 
     .carousel {
       width: 320px;
       height: 220px;
+      position: relative;
     }
 
     .flip-card {
@@ -322,6 +202,7 @@
     .flip-inner {
       width: 100%;
       height: 100%;
+      position: relative;
       transform-style: preserve-3d;
       transition: transform 0.8s cubic-bezier(.4,.2,.2,1);
     }
@@ -331,17 +212,19 @@
       transform: rotateY(180deg);
     }
 
-    .flip-front, .flip-back {
+    .flip-front,
+    .flip-back {
       position: absolute;
-      inset: 0;
+      width: 100%;
+      height: 100%;
       border-radius: 26px;
       background: #fff;
       border: 1px solid #e6e6e6;
+      backface-visibility: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 32px;
-      backface-visibility: hidden;
       text-align: center;
     }
 
@@ -349,6 +232,7 @@
       transform: rotateY(180deg);
       font-size: 0.95rem;
       color: var(--text-muted);
+      line-height: 1.6;
     }
 
     .carousel-btn {
@@ -361,17 +245,26 @@
 
     /* ===== MOBILE ===== */
     @media (max-width: 900px) {
-      section { padding: 0 30px; }
-      .hero { grid-template-columns: 1fr; }
-      .timeline { padding-left: 0; }
-      .timeline::before { left: 20px; }
-      .timeline-item { width: 100%; left: 0 !important; padding-left: 60px; text-align: left; }
-      .timeline-dot { left: 14px !important; }
+      nav { padding: 22px 30px; }
+      section { padding: 0 30px; margin: 90px auto; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .hero-title { font-size: 2.4rem; }
+
+      .panel.first,
+      .panel.second {
+        align-self: center;
+      }
     }
   </style>
 </head>
 
 <body>
+
   <div class="wave"></div>
 
   <nav>
@@ -389,11 +282,14 @@
     <div>
       <h1 class="hero-title">Hi, I’m Akshara.</h1>
       <p>
-        When things felt uncertain, learning was always something I could control.
-        Asking questions and building understanding gave me direction.
-        I’m a Science and Business student at the University of Waterloo, exploring how ideas turn into decisions.
+        When things felt uncertain, <strong>learning</strong> was always something I could control.
+        Asking questions, exploring ideas, and building understanding gave me direction.
+        Over time, that curiosity turned into confidence.</p>
+    </p>
+        I’m a <strong>Science and Business</strong> student at the University of Waterloo, and this
+        portfolio captures the ideas, projects, and decisions I’m learning through
+        along the way.
       </p>
-      <a href="projects.html" class="view-work">View my work <span>→</span></a>
     </div>
     <div class="hero-visual"></div>
   </section>
@@ -402,85 +298,97 @@
   <section>
     <div class="panel-wrap">
       <div class="panel first" id="panel-science">
-        <p>Science taught me how to ask better questions, while business taught me how decisions scale beyond theory.</p>
+        <p>
+          <strong>Science</strong> taught me how to ask better questions, while <strong>business</strong> taught me how
+          decisions scale beyond theory.
+        </p>
       </div>
+
       <div class="panel second" id="panel-intersection">
-        <p>I’m drawn to work at the intersection of science and business, where analysis and strategy inform better decisions.</p>
+        <p>
+          I’m most drawn to work at the intersection of science and business, where
+          analytical thinking and strategy come together to inform better decisions.
+        </p>
       </div>
     </div>
-  </section>
 
-  <!-- TIMELINE -->
-  <section>
-    <h2 class="timeline-title">Experience, in Motion</h2>
-    <div class="timeline">
-      <!-- repeat items -->
-      <div class="timeline-item left"><div class="timeline-dot"></div><div class="timeline-card"><h3>BalloonsByAks</h3><span>2022 – Present</span><p>Built and scaled a creative service business, learning how branding, operations, and client experience intersect.</p><div class="timeline-img"></div></div></div>
-      <div class="timeline-item right"><div class="timeline-dot"></div><div class="timeline-card"><h3>RE/MAX Community Realty</h3><span>2022 – 2024</span><p>Supported real estate operations through marketing, digital tools, and structured workflows.</p><div class="timeline-img"></div></div></div>
-      <div class="timeline-item left"><div class="timeline-dot"></div><div class="timeline-card"><h3>House of Commons</h3><span>Summer 2023</span><p>Worked in public-facing communications and research supporting equity initiatives.</p><div class="timeline-img"></div></div></div>
-      <div class="timeline-item right"><div class="timeline-dot"></div><div class="timeline-card"><h3>Emkiro Health Services</h3><span>Winter 2024</span><p>Supported patient care operations across clinical workflows and insurance systems.</p><div class="timeline-img"></div></div></div>
-      <div class="timeline-item left"><div class="timeline-dot"></div><div class="timeline-card"><h3>Department of National Defence</h3><span>Fall 2024</span><p>Supported infrastructure and environmental decision-making at a national scale.</p><div class="timeline-img"></div></div></div>
-    </div>
-  </section>
-
-  <!-- CAROUSEL -->
-  <section>
+    <!-- CAROUSEL -->
     <h2 class="carousel-title">How I Think</h2>
+
     <div class="carousel-container">
-      <button class="carousel-btn left">←</button>
+      <button class="carousel-btn left">&#8592;</button>
+
       <div class="carousel">
-        <div class="flip-card active"><div class="flip-inner"><div class="flip-front"><h3>Ask Better Questions</h3></div><div class="flip-back">Context before solutions.</div></div></div>
-        <div class="flip-card"><div class="flip-inner"><div class="flip-front"><h3>Translate Complexity</h3></div><div class="flip-back">Clarity across disciplines.</div></div></div>
-        <div class="flip-card"><div class="flip-inner"><div class="flip-front"><h3>Learn by Building</h3></div><div class="flip-back">Testing ideas through action.</div></div></div>
+        <div class="flip-card active">
+          <div class="flip-inner">
+            <div class="flip-front"><h3>Ask Better Questions</h3></div>
+            <div class="flip-back"><p>Understanding context before jumping to solutions.</p></div>
+          </div>
+        </div>
+
+        <div class="flip-card">
+          <div class="flip-inner">
+            <div class="flip-front"><h3>Translate Complexity</h3></div>
+            <div class="flip-back"><p>Bridging science and business into clarity.</p></div>
+          </div>
+        </div>
+
+        <div class="flip-card">
+          <div class="flip-inner">
+            <div class="flip-front"><h3>Learn by Building</h3></div>
+            <div class="flip-back"><p>Using projects as a way to test and reflect.</p></div>
+          </div>
+        </div>
       </div>
-      <button class="carousel-btn right">→</button>
+
+      <button class="carousel-btn right">&#8594;</button>
     </div>
   </section>
 
   <script>
     const heroVisual = document.querySelector('.hero-visual');
-    const panels = document.querySelectorAll('.panel');
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    const title = document.querySelector('.carousel-title');
+    const panelScience = document.getElementById('panel-science');
+    const panelIntersection = document.getElementById('panel-intersection');
     const cards = document.querySelectorAll('.flip-card');
-    const left = document.querySelector('.carousel-btn.left');
-    const right = document.querySelector('.carousel-btn.right');
+    const leftBtn = document.querySelector('.carousel-btn.left');
+    const rightBtn = document.querySelector('.carousel-btn.right');
+
     let current = 0;
 
-    function showCard(i) {
-      cards.forEach((c, idx) => {
-        c.classList.toggle('active', idx === i);
-        c.classList.remove('flip');
+    function showCard(index) {
+      cards.forEach((card, i) => {
+        card.classList.toggle('active', i === index);
+        card.classList.remove('flip');
       });
-      const active = cards[i];
+
+      const active = cards[index];
       setTimeout(() => active.classList.add('flip'), 150);
       setTimeout(() => active.classList.remove('flip'), 1800);
     }
 
-    left.onclick = () => { current = (current - 1 + cards.length) % cards.length; showCard(current); };
-    right.onclick = () => { current = (current + 1) % cards.length; showCard(current); };
+    leftBtn.onclick = () => {
+      current = (current - 1 + cards.length) % cards.length;
+      showCard(current);
+    };
+
+    rightBtn.onclick = () => {
+      current = (current + 1) % cards.length;
+      showCard(current);
+    };
 
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
-      heroVisual.style.transform = `translateY(${y * 0.08}px) scale(${1 - y * 0.00015})`;
 
-      panels.forEach(p => {
-        if (p.getBoundingClientRect().top < window.innerHeight - 100) {
-          p.style.opacity = 1;
-          p.style.transform = 'translateX(0)';
-        }
-      });
+      heroVisual.style.transform = `
+        translateY(${y * 0.08}px)
+        scale(${1 - y * 0.00015})
+      `;
 
-      timelineItems.forEach(item => {
-        if (item.getBoundingClientRect().top < window.innerHeight - 100) {
-          item.classList.add('visible');
-        }
-      });
-
-      if (title.getBoundingClientRect().top < window.innerHeight - 120) {
-        title.classList.add('visible');
-      }
+      const offset = Math.max(120 - y * 0.25, 0);
+      panelScience.style.transform = `translateX(${-offset}px)`;
+      panelIntersection.style.transform = `translateX(${offset}px)`;
     });
   </script>
+
 </body>
 </html>
