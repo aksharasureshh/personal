@@ -157,15 +157,17 @@
       background-repeat: no-repeat;
     }
 
-    /* BalloonsByAks cover image
-       Assumes bba.JPG is in the SAME folder as projects.html (recommended).
-       If you put it in /images/bba.JPG, change to: url("images/bba.JPG")
-    */
+    /* BalloonsByAks cover */
     .cover-bba {
       background-image: url("bba.JPG");
     }
 
-    /* Optional overlay for better contrast / polish */
+    /* Roche IEP Training cover */
+    .cover-roche {
+      background-image: url("roche.JPG");
+    }
+
+    /* Optional overlay for contrast / polish */
     .cover::before {
       content: "";
       position: absolute;
@@ -209,6 +211,17 @@
           <div class="image tilt"></div>
           <h2>AquaPure <span class="arrow">→</span></h2>
           <p>Environmental health · Microplastics · Group project</p>
+        </a>
+
+        <!-- NEW: Roche IEP Training (full-size on left) -->
+        <a
+          href="https://roche-iep-training-575209868482.us-west1.run.app/#/"
+          target="_blank"
+          class="project"
+        >
+          <div class="image tilt cover cover-roche"></div>
+          <h2>Oncology IEP Training <span class="arrow">→</span></h2>
+          <p>Health data strategy · Knowledge translation · Interactive microlearning</p>
         </a>
       </div>
 
