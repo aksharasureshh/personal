@@ -44,6 +44,7 @@
       pointer-events: none;
     }
 
+    /* NAV */
     nav {
       display: flex;
       justify-content: space-between;
@@ -87,6 +88,7 @@
       padding: 0 60px;
     }
 
+    /* HERO */
     .hero {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
@@ -95,18 +97,56 @@
       padding-top: 50px;
     }
 
+    .hero-copy {
+      position: relative;
+      padding: 10px 0;
+    }
+
+    /* soft shape behind hero text */
+    .hero-copy::before {
+      content: '';
+      position: absolute;
+      left: -44px;
+      top: -34px;
+      width: calc(100% + 88px);
+      height: 270px;
+      border-radius: 38px;
+      background:
+        radial-gradient(120% 120% at 15% 20%, rgba(223,230,225,0.95), rgba(223,230,225,0.55), rgba(223,230,225,0.0) 70%);
+      z-index: -1;
+      filter: blur(0px);
+      opacity: 0.95;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #777;
+      margin-bottom: 14px;
+    }
+
     .hero-title {
       font-size: 3rem;
       font-weight: 500;
       letter-spacing: -0.03em;
-      margin-bottom: 24px;
+      margin: 0 0 18px 0;
+      line-height: 1.08;
+    }
+
+    .title-highlight {
+      display: inline;
+      padding: 0 6px;
+      border-radius: 10px;
+      background: linear-gradient(transparent 62%, var(--accent) 62%);
     }
 
     .hero p {
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       max-width: 560px;
       line-height: 1.8;
       color: var(--text-muted);
+      margin: 0 0 14px 0;
     }
 
     .hero-visual {
@@ -128,91 +168,126 @@
       background: rgba(255,255,255,0.12);
     }
 
-    /* ===== STICKY PULL QUOTE (OPTION 7) ===== */
-    .pullquote-section {
-      margin-top: 60px;
+    /* ===== STICKY INSIGHT (REDESIGNED + PROPORTIONAL) ===== */
+    .insight-section {
+      margin-top: 40px;
     }
 
-    /* creates scroll room so sticky can "animate" while pinned */
-    .pullquote-stage {
+    /* provides scroll range for sticky reveal */
+    .insight-stage {
       position: relative;
       min-height: 520px;
     }
 
-    .pullquote-sticky {
+    .insight-sticky {
       position: sticky;
-      top: 110px; /* sits nicely under the sticky nav */
-      border-radius: 26px;
+      top: 110px; /* under sticky nav */
+      width: min(980px, 100%);
+      margin: 0 auto;
+      border-radius: 28px;
       border: 1px solid #e6e6e6;
       background: var(--panel-bg);
       backdrop-filter: blur(6px);
       box-shadow: 0 18px 40px rgba(0,0,0,0.06);
-      padding: 34px 38px;
+      padding: 26px 28px;
       overflow: hidden;
     }
 
-    .pullquote-kicker {
+    .insight-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .insight-kicker {
       font-size: 0.85rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #777;
-      margin-bottom: 18px;
+      white-space: nowrap;
     }
 
-    .pullquote-line {
-      font-size: 1.55rem;
-      line-height: 1.35;
-      letter-spacing: -0.02em;
-      margin: 0;
+    .insight-progress {
+      flex: 1;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.06);
+      overflow: hidden;
+      max-width: 360px;
+      margin-left: auto;
     }
 
-    .pullquote-line strong {
+    .insight-progress .bar {
+      display: block;
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: rgba(17,17,17,0.25);
+      transition: width 0.1s linear;
+    }
+
+    .insight-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .insight-pill {
+      background: #fff;
+      border: 1px solid #ececec;
+      border-radius: 18px;
+      padding: 18px 18px;
+      box-shadow: 0 16px 34px rgba(0,0,0,0.05);
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #333;
+      background: var(--accent);
+      padding: 8px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
       font-weight: 600;
     }
 
-    /* Two layers that crossfade */
-    .pq-front,
-    .pq-back {
+    .insight-pill p {
+      margin: 0;
+      font-size: 1.05rem; /* more proportional than before */
+      line-height: 1.55;
+      color: #222;
+      letter-spacing: -0.01em;
+    }
+
+    /* Reveal line (the “intersection” sentence) */
+    .insight-reveal {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      line-height: 1.75;
+      max-width: 880px;
+
+      opacity: 0;
+      transform: translateY(10px);
       transition: opacity 0.25s ease, transform 0.25s ease;
       will-change: opacity, transform;
     }
 
-    .pq-front {
+    .insight-stage.is-revealed .insight-reveal {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .pq-back {
-      opacity: 0;
-      transform: translateY(10px);
-      margin-top: 14px;
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      line-height: 1.7;
-      max-width: 760px;
-    }
-
-    /* When stage becomes "swapped" */
-    .pullquote-stage.is-swapped .pq-front {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-
-    .pullquote-stage.is-swapped .pq-back {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* little accent underline */
-    .accent-underline {
-      display: inline-block;
-      background: linear-gradient(transparent 70%, var(--accent) 70%);
-      padding: 0 2px;
-    }
-
-    /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce) {
-      .pq-front, .pq-back { transition: none; }
+      .insight-reveal { transition: none; }
+      .insight-progress .bar { transition: none; }
     }
 
     /* ===== TIMELINE ===== */
@@ -347,13 +422,26 @@
     /* MOBILE */
     @media (max-width: 900px) {
       section { padding: 0 30px; }
+
       .hero { grid-template-columns: 1fr; gap: 40px; }
       .hero-visual { height: 360px; }
 
-      .pullquote-stage { min-height: 460px; }
-      .pullquote-sticky { top: 96px; padding: 28px 26px; }
-      .pullquote-line { font-size: 1.35rem; }
-      .pq-back { font-size: 1rem; }
+      .hero-copy::before {
+        left: -26px;
+        width: calc(100% + 52px);
+        height: 240px;
+        top: -28px;
+        border-radius: 32px;
+      }
+
+      .hero-title { font-size: 2.45rem; }
+      .hero p { font-size: 1.02rem; }
+
+      .insight-stage { min-height: 560px; }
+      .insight-sticky { top: 96px; padding: 22px 20px; }
+      .insight-grid { grid-template-columns: 1fr; }
+      .insight-pill p { font-size: 1.02rem; }
+      .insight-progress { max-width: 220px; }
 
       .timeline-wrap { justify-content: stretch; }
       .timeline {
@@ -390,8 +478,9 @@
 </nav>
 
 <section class="hero">
-  <div>
-    <h1 class="hero-title">Hi, I’m Akshara.</h1>
+  <div class="hero-copy">
+    <div class="hero-eyebrow">Portfolio</div>
+    <h1 class="hero-title"><span class="title-highlight">Hi, I’m Akshara.</span></h1>
     <p>
       When things felt uncertain, <strong>learning</strong> was always something I could control.
       Asking questions, exploring ideas, and building understanding gave me direction.
@@ -406,21 +495,29 @@
   <div class="hero-visual"></div>
 </section>
 
-<!-- STICKY PULL QUOTE (Option 7) -->
-<section class="pullquote-section">
-  <div class="pullquote-stage" id="pullquote-stage">
-    <div class="pullquote-sticky">
-      <div class="pullquote-kicker">How I work</div>
+<!-- Sticky redesigned "How I work" (more proportional + cleaner) -->
+<section class="insight-section">
+  <div class="insight-stage" id="insight-stage">
+    <div class="insight-sticky">
+      <div class="insight-header">
+        <div class="insight-kicker">How I work</div>
+        <div class="insight-progress" aria-hidden="true">
+          <span class="bar" id="insight-bar"></span>
+        </div>
+      </div>
 
-      <!-- Line 1 (shows first) -->
-      <p class="pullquote-line pq-front">
-        <span class="accent-underline"><strong>Science</strong></span> taught me how to ask better questions,
-        while <span class="accent-underline"><strong>business</strong></span> taught me to think about impact,
-        not just outcomes.
-      </p>
+      <div class="insight-grid">
+        <div class="insight-pill">
+          <div class="tag">Science</div>
+          <p>Ask better questions.</p>
+        </div>
+        <div class="insight-pill">
+          <div class="tag">Business</div>
+          <p>Think about impact, not just outcomes.</p>
+        </div>
+      </div>
 
-      <!-- Line 2 (fades in later) -->
-      <div class="pq-back">
+      <div class="insight-reveal">
         I’m most drawn to work at the intersection of science and business, where analytical thinking and strategy
         come together to inform better decisions.
       </div>
@@ -519,15 +616,11 @@
 
 <script>
   const heroVisual = document.querySelector('.hero-visual');
-  const pullquoteStage = document.getElementById('pullquote-stage');
 
-  // Flip-tap support for timeline on mobile + keyboard accessibility
+  // Timeline tap-to-flip support on mobile + keyboard accessibility
   const timelineCards = document.querySelectorAll('.timeline-flip');
   timelineCards.forEach(card => {
-    card.addEventListener('click', () => {
-      card.classList.toggle('is-flipped');
-    });
-
+    card.addEventListener('click', () => card.classList.toggle('is-flipped'));
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -536,39 +629,47 @@
     });
   });
 
-  // Sticky pull quote swap:
-  // While the sticky card is pinned, we crossfade from line 1 to line 2.
-  function updatePullquoteSwap() {
-    if (!pullquoteStage) return;
+  // Sticky insight reveal + progress bar
+  const insightStage = document.getElementById('insight-stage');
+  const insightBar = document.getElementById('insight-bar');
 
-    const rect = pullquoteStage.getBoundingClientRect();
+  function updateInsight() {
+    if (!insightStage) return;
+
+    const rect = insightStage.getBoundingClientRect();
     const viewH = window.innerHeight;
 
-    // Progress from 0 → 1 while the stage scrolls through the viewport
-    const start = viewH * 0.15;
-    const end = viewH * 0.65;
+    // Define a "pinned range" and convert it to progress 0..1
+    // (tuned to feel natural with your layout)
+    const start = viewH * 0.70;  // when stage starts entering
+    const end   = viewH * 0.05;  // when stage is near top
 
-    // When rect.top goes from start to end, we "swap"
-    const t = (rect.top - start) / (end - start);
+    // rect.top decreases as we scroll down
+    const raw = (start - rect.top) / (start - end);
+    const progress = Math.max(0, Math.min(1, raw));
 
-    // Swap once the stage is sufficiently scrolled
-    const shouldSwap = t < 0.25;
-    pullquoteStage.classList.toggle('is-swapped', shouldSwap);
+    if (insightBar) insightBar.style.width = `${Math.round(progress * 100)}%`;
+
+    // Reveal the second sentence after ~55% progress
+    insightStage.classList.toggle('is-revealed', progress > 0.55);
   }
 
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
 
-    heroVisual.style.transform = `
-      translateY(${y * 0.08}px)
-      scale(${1 - y * 0.00015})
-    `;
+    // hero parallax
+    if (heroVisual) {
+      heroVisual.style.transform = `
+        translateY(${y * 0.08}px)
+        scale(${1 - y * 0.00015})
+      `;
+    }
 
-    updatePullquoteSwap();
+    updateInsight();
   }, { passive: true });
 
-  window.addEventListener('resize', updatePullquoteSwap);
-  updatePullquoteSwap();
+  window.addEventListener('resize', updateInsight);
+  updateInsight();
 </script>
 
 </body>
