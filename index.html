@@ -215,30 +215,96 @@
       background: var(--line);
     }
 
-    .card {
-      background: #fff;
-      padding: 20px 22px;
+    /* === FLIP CARD (TIMELINE) === */
+    .timeline-flip {
+      width: 220px;
+      height: 140px;
+      perspective: 1200px;
+    }
+
+    .timeline-flip-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(.4,.2,.2,1);
+    }
+
+    /* Hover flip on desktop */
+    .timeline-flip:hover .timeline-flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .timeline-flip-inner { transition: none; }
+      .timeline-flip:hover .timeline-flip-inner { transform: none; }
+    }
+
+    .timeline-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       border-radius: 18px;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+      background: #fff;
+      border: 1px solid #e6e6e6;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
       text-align: center;
-      max-width: 220px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.08);
     }
 
-    .card h4 {
+    .timeline-front {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .timeline-front h4 {
       margin: 0;
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 600;
+      letter-spacing: -0.01em;
     }
 
-    .card span {
-      font-size: 0.85rem;
+    .timeline-front span {
+      font-size: 0.9rem;
       color: var(--text-muted);
     }
 
-    .card p {
-      margin: 8px 0 0;
-      font-size: 0.85rem;
+    .timeline-back {
+      transform: rotateY(180deg);
       color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      padding: 20px 22px;
+    }
+
+    /* Slight hover polish */
+    .timeline-flip:hover .timeline-face {
+      border-color: #dcdcdc;
+    }
+
+    /* Mobile: make cards taller and allow tap-to-flip via class toggle */
+    @media (max-width: 900px) {
+      section { padding: 0 30px; }
+      .hero { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { height: 360px; }
+      .timeline { grid-template-columns: 1fr; gap: 26px; }
+      .timeline::before { display: none; }
+      .timeline-item.above, .timeline-item.below { margin: 0; }
+      .connector { display: none; }
+      .dot { display: none; }
+
+      .timeline-flip { width: 100%; max-width: 520px; height: 160px; }
+      .timeline-front h4 { font-size: 1.05rem; }
+      .timeline-front span { font-size: 0.95rem; }
+      .timeline-back { font-size: 0.95rem; }
+
+      /* Tap-to-flip support: toggle .is-flipped on click */
+      .timeline-flip.is-flipped .timeline-flip-inner { transform: rotateY(180deg); }
     }
 
     /* ===== CAROUSEL ===== */
@@ -369,16 +435,22 @@
   </div>
 </section>
 
-<!-- TIMELINE -->
+<!-- TIMELINE (FLIP CARDS) -->
 <section>
   <h2 class="timeline-title">Work Experience at a Glimpse</h2>
 
   <div class="timeline">
     <div class="timeline-item above">
-      <div class="card">
-        <h4>BalloonsByAks</h4>
-        <span>2022 – Present</span>
-        <p>Built and scaled a creative service business.</p>
+      <div class="timeline-flip" role="button" tabindex="0" aria-label="BalloonsByAks 2022 to Present">
+        <div class="timeline-flip-inner">
+          <div class="timeline-face timeline-front">
+            <h4>BalloonsByAks</h4>
+            <span>2022 – Present</span>
+          </div>
+          <div class="timeline-face timeline-back">
+            Built and scaled a creative service business.
+          </div>
+        </div>
       </div>
       <div class="connector"></div>
       <div class="dot"></div>
@@ -387,18 +459,30 @@
     <div class="timeline-item below">
       <div class="dot"></div>
       <div class="connector"></div>
-      <div class="card">
-        <h4>RE/MAX</h4>
-        <span>2022 – 2024</span>
-        <p>Supported administrative and digital operations.</p>
+      <div class="timeline-flip" role="button" tabindex="0" aria-label="RE/MAX 2022 to 2024">
+        <div class="timeline-flip-inner">
+          <div class="timeline-face timeline-front">
+            <h4>RE/MAX</h4>
+            <span>2022 – 2024</span>
+          </div>
+          <div class="timeline-face timeline-back">
+            Supported administrative and digital operations.
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="timeline-item above">
-      <div class="card">
-        <h4>House of Commons</h4>
-        <span>2023</span>
-        <p>Public-facing communications and research.</p>
+      <div class="timeline-flip" role="button" tabindex="0" aria-label="House of Commons 2023">
+        <div class="timeline-flip-inner">
+          <div class="timeline-face timeline-front">
+            <h4>House of Commons</h4>
+            <span>2023</span>
+          </div>
+          <div class="timeline-face timeline-back">
+            Public-facing communications and research.
+          </div>
+        </div>
       </div>
       <div class="connector"></div>
       <div class="dot"></div>
@@ -407,18 +491,30 @@
     <div class="timeline-item below">
       <div class="dot"></div>
       <div class="connector"></div>
-      <div class="card">
-        <h4>Emkiro Health Services</h4>
-        <span>2024</span>
-        <p>Patient care operations and systems.</p>
+      <div class="timeline-flip" role="button" tabindex="0" aria-label="Emkiro Health Services 2024">
+        <div class="timeline-flip-inner">
+          <div class="timeline-face timeline-front">
+            <h4>Emkiro Health Services</h4>
+            <span>2024</span>
+          </div>
+          <div class="timeline-face timeline-back">
+            Patient care operations and systems.
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="timeline-item above">
-      <div class="card">
-        <h4>Department of National Defences</h4>
-        <span>2024</span>
-        <p>Project managed initiatives.</p>
+      <div class="timeline-flip" role="button" tabindex="0" aria-label="Department of National Defence 2024">
+        <div class="timeline-flip-inner">
+          <div class="timeline-face timeline-front">
+            <h4>Department of National Defence</h4>
+            <span>2024</span>
+          </div>
+          <div class="timeline-face timeline-back">
+            Project managed initiatives.
+          </div>
+        </div>
       </div>
       <div class="connector"></div>
       <div class="dot"></div>
@@ -431,7 +527,7 @@
   <h2 class="carousel-title">How I Think</h2>
 
   <div class="carousel-container">
-    <button class="carousel-btn left">&#8592;</button>
+    <button class="carousel-btn left" aria-label="Previous">&#8592;</button>
 
     <div class="carousel">
       <div class="flip-card active">
@@ -456,7 +552,7 @@
       </div>
     </div>
 
-    <button class="carousel-btn right">&#8594;</button>
+    <button class="carousel-btn right" aria-label="Next">&#8594;</button>
   </div>
 </section>
 
@@ -490,6 +586,21 @@
     current = (current + 1) % cards.length;
     showCard(current);
   };
+
+  // Tap-to-flip support for timeline on mobile + keyboard accessibility
+  const timelineCards = document.querySelectorAll('.timeline-flip');
+  timelineCards.forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('is-flipped');
+    });
+
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('is-flipped');
+      }
+    });
+  });
 
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
