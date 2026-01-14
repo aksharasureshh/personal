@@ -133,6 +133,13 @@
     .project p {
       font-size: 0.95rem;
       color: var(--text-muted);
+      margin: 0;
+    }
+
+    .project .why {
+      margin-top: 10px;
+      max-width: 820px;
+      line-height: 1.65;
     }
 
     .arrow {
@@ -185,6 +192,7 @@
       section { padding: 0 30px; }
       h1 { font-size: 2.6rem; margin-bottom: 60px; }
       .grid { grid-template-columns: 1fr; }
+      .project .why { max-width: 100%; }
     }
   </style>
 </head>
@@ -214,8 +222,11 @@
           class="project"
         >
           <div class="image tilt cover cover-roche"></div>
-          <h2>Sample Roche IEP Onboarding Training<span class="arrow">→</span></h2>
+          <h2>Sample Roche IEP Onboarding Training <span class="arrow">→</span></h2>
           <p>Health data strategy · Knowledge translation · Interactive microlearning</p>
+          <p class="why">
+            A sample onboarding site with interactive IEP modules and simple analytics to support a more metrics-driven workflow.
+          </p>
         </a>
       </div>
 
@@ -229,6 +240,9 @@
           <div class="image tilt cover cover-bba"></div>
           <h2>BalloonsByAks <span class="arrow">→</span></h2>
           <p>Creative business · Branding · Web</p>
+          <p class="why">
+            Built to reduce client back-and-forth by streamlining mockups and quotes into one faster, clearer flow.
+          </p>
         </a>
       </div>
     </div>
