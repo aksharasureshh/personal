@@ -26,7 +26,6 @@
       overflow-x: hidden;
     }
 
-    /* ORIGINAL hero background wave */
     .wave {
       position: fixed;
       top: -20%;
@@ -103,23 +102,44 @@
       padding: 10px 0;
     }
 
-    /* OLD (preferred) hero background gradient + a touch more contrast */
+    /* Gradient shape behind hero text (restored + improved contrast) */
     .hero-copy::before {
       content: '';
       position: absolute;
-      left: -44px;
-      top: -34px;
-      width: calc(100% + 88px);
-      height: 270px;
-      border-radius: 38px;
+      left: -54px;
+      top: -46px;
+      width: calc(100% + 108px);
+      height: 295px;
+      border-radius: 46px;
       background: radial-gradient(
-        ellipse at center,
-        rgba(210,220,215,0.65),
-        rgba(210,220,215,0.42),
-        transparent 70%
+        ellipse at 18% 22%,
+        rgba(210,220,215,0.92),
+        rgba(210,220,215,0.55),
+        rgba(210,220,215,0.00) 72%
       );
       z-index: -1;
+      filter: blur(0px);
       opacity: 1;
+    }
+
+    /* soft second blob for depth */
+    .hero-copy::after {
+      content: '';
+      position: absolute;
+      right: -70px;
+      top: 120px;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(210,220,215,0.55),
+        rgba(210,220,215,0.00) 70%
+      );
+      z-index: -1;
+      filter: blur(6px);
+      opacity: 0.85;
+      pointer-events: none;
     }
 
     .hero-title {
@@ -362,11 +382,6 @@
       transform: rotateY(180deg);
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .timeline-flip-inner { transition: none; }
-      .timeline-flip:hover .timeline-flip-inner { transform: none; }
-    }
-
     .timeline-face {
       position: absolute;
       width: 100%;
@@ -420,9 +435,16 @@
       .hero-copy::before {
         left: -26px;
         width: calc(100% + 52px);
-        height: 240px;
+        height: 250px;
         top: -28px;
         border-radius: 32px;
+      }
+
+      .hero-copy::after {
+        right: -30px;
+        top: 150px;
+        width: 170px;
+        height: 170px;
       }
 
       .hero-title { font-size: 2.45rem; }
@@ -481,7 +503,6 @@
   <div class="hero-visual"></div>
 </section>
 
-<!-- Sticky "How I work" -->
 <section class="insight-section">
   <div class="insight-stage" id="insight-stage">
     <div class="insight-sticky">
@@ -511,7 +532,6 @@
   </div>
 </section>
 
-<!-- TIMELINE (sooner after How I Work) -->
 <section style="margin-top: 70px;">
   <h2 class="timeline-title">Work Experience at a Glimpse</h2>
 
