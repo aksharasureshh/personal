@@ -102,7 +102,7 @@
       padding: 10px 0;
     }
 
-    /* soft shape behind hero text */
+    /* stronger shape behind hero text (more contrast) */
     .hero-copy::before {
       content: '';
       position: absolute;
@@ -112,18 +112,12 @@
       height: 270px;
       border-radius: 38px;
       background:
-        radial-gradient(120% 120% at 15% 20%, rgba(223,230,225,0.95), rgba(223,230,225,0.55), rgba(223,230,225,0.0) 70%);
+        radial-gradient(120% 120% at 15% 20%,
+          rgba(199, 214, 205, 0.98),
+          rgba(199, 214, 205, 0.70),
+          rgba(199, 214, 205, 0.00) 72%);
       z-index: -1;
-      filter: blur(0px);
-      opacity: 0.95;
-    }
-
-    .hero-eyebrow {
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #777;
-      margin-bottom: 14px;
+      opacity: 1;
     }
 
     .hero-title {
@@ -168,15 +162,15 @@
       background: rgba(255,255,255,0.12);
     }
 
-    /* ===== STICKY INSIGHT (REDESIGNED + PROPORTIONAL) ===== */
+    /* ===== STICKY INSIGHT (REDESIGNED) ===== */
     .insight-section {
       margin-top: 40px;
     }
 
-    /* provides scroll range for sticky reveal */
+    /* reduce overall scroll space so timeline comes sooner */
     .insight-stage {
       position: relative;
-      min-height: 520px;
+      min-height: 400px;
     }
 
     .insight-sticky {
@@ -258,7 +252,7 @@
 
     .insight-pill p {
       margin: 0;
-      font-size: 1.05rem; /* more proportional than before */
+      font-size: 1.05rem;
       line-height: 1.55;
       color: #222;
       letter-spacing: -0.01em;
@@ -437,7 +431,7 @@
       .hero-title { font-size: 2.45rem; }
       .hero p { font-size: 1.02rem; }
 
-      .insight-stage { min-height: 560px; }
+      .insight-stage { min-height: 440px; }
       .insight-sticky { top: 96px; padding: 22px 20px; }
       .insight-grid { grid-template-columns: 1fr; }
       .insight-pill p { font-size: 1.02rem; }
@@ -479,7 +473,6 @@
 
 <section class="hero">
   <div class="hero-copy">
-    <div class="hero-eyebrow">Portfolio</div>
     <h1 class="hero-title"><span class="title-highlight">Hi, I’m Akshara.</span></h1>
     <p>
       When things felt uncertain, <strong>learning</strong> was always something I could control.
@@ -495,7 +488,7 @@
   <div class="hero-visual"></div>
 </section>
 
-<!-- Sticky redesigned "How I work" (more proportional + cleaner) -->
+<!-- Sticky redesigned "How I work" (keep original sentences) -->
 <section class="insight-section">
   <div class="insight-stage" id="insight-stage">
     <div class="insight-sticky">
@@ -509,11 +502,11 @@
       <div class="insight-grid">
         <div class="insight-pill">
           <div class="tag">Science</div>
-          <p>Ask better questions.</p>
+          <p>Science taught me how to ask better questions.</p>
         </div>
         <div class="insight-pill">
           <div class="tag">Business</div>
-          <p>Think about impact, not just outcomes.</p>
+          <p>Business taught me to think about impact, not just outcomes.</p>
         </div>
       </div>
 
@@ -526,7 +519,7 @@
 </section>
 
 <!-- TIMELINE (CENTERED + FLIP CARDS) -->
-<section>
+<section style="margin-top: 70px;">
   <h2 class="timeline-title">Work Experience at a Glimpse</h2>
 
   <div class="timeline-wrap">
@@ -639,18 +632,14 @@
     const rect = insightStage.getBoundingClientRect();
     const viewH = window.innerHeight;
 
-    // Define a "pinned range" and convert it to progress 0..1
-    // (tuned to feel natural with your layout)
-    const start = viewH * 0.70;  // when stage starts entering
-    const end   = viewH * 0.05;  // when stage is near top
+    const start = viewH * 0.70;
+    const end   = viewH * 0.10;
 
-    // rect.top decreases as we scroll down
     const raw = (start - rect.top) / (start - end);
     const progress = Math.max(0, Math.min(1, raw));
 
     if (insightBar) insightBar.style.width = `${Math.round(progress * 100)}%`;
 
-    // Reveal the second sentence after ~55% progress
     insightStage.classList.toggle('is-revealed', progress > 0.55);
   }
 
