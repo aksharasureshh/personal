@@ -128,39 +128,91 @@
       background: rgba(255,255,255,0.12);
     }
 
-    .panel-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      margin-top: 80px;
+    /* ===== STICKY PULL QUOTE (OPTION 7) ===== */
+    .pullquote-section {
+      margin-top: 60px;
+    }
+
+    /* creates scroll room so sticky can "animate" while pinned */
+    .pullquote-stage {
+      position: relative;
+      min-height: 520px;
+    }
+
+    .pullquote-sticky {
+      position: sticky;
+      top: 110px; /* sits nicely under the sticky nav */
+      border-radius: 26px;
+      border: 1px solid #e6e6e6;
+      background: var(--panel-bg);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.06);
+      padding: 34px 38px;
       overflow: hidden;
     }
 
-    .panel {
-      max-width: 620px;
-      padding: 36px 40px;
-      background: var(--panel-bg);
-      border-radius: 26px;
-      border: 1px solid #e6e6e6;
-      backdrop-filter: blur(6px);
-      transition: transform 0.2s ease-out;
+    .pullquote-kicker {
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #777;
+      margin-bottom: 18px;
     }
 
-    .panel.first {
-      align-self: flex-start;
-      transform: translateX(-120px);
-    }
-
-    .panel.second {
-      align-self: flex-end;
-      transform: translateX(120px);
-    }
-
-    .panel p {
+    .pullquote-line {
+      font-size: 1.55rem;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
       margin: 0;
-      font-size: 1.05rem;
-      line-height: 1.8;
+    }
+
+    .pullquote-line strong {
+      font-weight: 600;
+    }
+
+    /* Two layers that crossfade */
+    .pq-front,
+    .pq-back {
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      will-change: opacity, transform;
+    }
+
+    .pq-front {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .pq-back {
+      opacity: 0;
+      transform: translateY(10px);
+      margin-top: 14px;
       color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 760px;
+    }
+
+    /* When stage becomes "swapped" */
+    .pullquote-stage.is-swapped .pq-front {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    .pullquote-stage.is-swapped .pq-back {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* little accent underline */
+    .accent-underline {
+      display: inline-block;
+      background: linear-gradient(transparent 70%, var(--accent) 70%);
+      padding: 0 2px;
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .pq-front, .pq-back { transition: none; }
     }
 
     /* ===== TIMELINE ===== */
@@ -171,7 +223,6 @@
       margin-bottom: 80px;
     }
 
-    /* Center the whole timeline and constrain width so dots/cards align */
     .timeline-wrap {
       display: flex;
       justify-content: center;
@@ -299,6 +350,11 @@
       .hero { grid-template-columns: 1fr; gap: 40px; }
       .hero-visual { height: 360px; }
 
+      .pullquote-stage { min-height: 460px; }
+      .pullquote-sticky { top: 96px; padding: 28px 26px; }
+      .pullquote-line { font-size: 1.35rem; }
+      .pq-back { font-size: 1rem; }
+
       .timeline-wrap { justify-content: stretch; }
       .timeline {
         width: 100%;
@@ -314,7 +370,6 @@
       .timeline-front span { font-size: 0.95rem; }
       .timeline-back { font-size: 0.95rem; }
 
-      /* Tap-to-flip support: toggle .is-flipped on click */
       .timeline-flip.is-flipped .timeline-flip-inner { transform: rotateY(180deg); }
     }
   </style>
@@ -351,20 +406,24 @@
   <div class="hero-visual"></div>
 </section>
 
-<section>
-  <div class="panel-wrap">
-    <div class="panel first" id="panel-science">
-      <p>
-        <strong>Science</strong> taught me how to ask better questions, while
-        <strong>business</strong> taught me to think about impact, not just outcomes.
-      </p>
-    </div>
+<!-- STICKY PULL QUOTE (Option 7) -->
+<section class="pullquote-section">
+  <div class="pullquote-stage" id="pullquote-stage">
+    <div class="pullquote-sticky">
+      <div class="pullquote-kicker">How I work</div>
 
-    <div class="panel second" id="panel-intersection">
-      <p>
-        I’m most drawn to work at the intersection of science and business, where
-        analytical thinking and strategy come together to inform better decisions.
+      <!-- Line 1 (shows first) -->
+      <p class="pullquote-line pq-front">
+        <span class="accent-underline"><strong>Science</strong></span> taught me how to ask better questions,
+        while <span class="accent-underline"><strong>business</strong></span> taught me to think about impact,
+        not just outcomes.
       </p>
+
+      <!-- Line 2 (fades in later) -->
+      <div class="pq-back">
+        I’m most drawn to work at the intersection of science and business, where analytical thinking and strategy
+        come together to inform better decisions.
+      </div>
     </div>
   </div>
 </section>
@@ -460,10 +519,9 @@
 
 <script>
   const heroVisual = document.querySelector('.hero-visual');
-  const panelScience = document.getElementById('panel-science');
-  const panelIntersection = document.getElementById('panel-intersection');
+  const pullquoteStage = document.getElementById('pullquote-stage');
 
-  // Tap-to-flip support for timeline on mobile + keyboard accessibility
+  // Flip-tap support for timeline on mobile + keyboard accessibility
   const timelineCards = document.querySelectorAll('.timeline-flip');
   timelineCards.forEach(card => {
     card.addEventListener('click', () => {
@@ -478,6 +536,26 @@
     });
   });
 
+  // Sticky pull quote swap:
+  // While the sticky card is pinned, we crossfade from line 1 to line 2.
+  function updatePullquoteSwap() {
+    if (!pullquoteStage) return;
+
+    const rect = pullquoteStage.getBoundingClientRect();
+    const viewH = window.innerHeight;
+
+    // Progress from 0 → 1 while the stage scrolls through the viewport
+    const start = viewH * 0.15;
+    const end = viewH * 0.65;
+
+    // When rect.top goes from start to end, we "swap"
+    const t = (rect.top - start) / (end - start);
+
+    // Swap once the stage is sufficiently scrolled
+    const shouldSwap = t < 0.25;
+    pullquoteStage.classList.toggle('is-swapped', shouldSwap);
+  }
+
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
 
@@ -486,10 +564,11 @@
       scale(${1 - y * 0.00015})
     `;
 
-    const offset = Math.max(120 - y * 0.25, 0);
-    panelScience.style.transform = `translateX(${-offset}px)`;
-    panelIntersection.style.transform = `translateX(${offset}px)`;
-  });
+    updatePullquoteSwap();
+  }, { passive: true });
+
+  window.addEventListener('resize', updatePullquoteSwap);
+  updatePullquoteSwap();
 </script>
 
 </body>
