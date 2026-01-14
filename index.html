@@ -26,6 +26,7 @@
       overflow-x: hidden;
     }
 
+    /* ORIGINAL hero background wave */
     .wave {
       position: fixed;
       top: -20%;
@@ -102,7 +103,7 @@
       padding: 10px 0;
     }
 
-    /* stronger shape behind hero text (more contrast) */
+    /* OLD (preferred) hero background gradient + a touch more contrast */
     .hero-copy::before {
       content: '';
       position: absolute;
@@ -111,11 +112,12 @@
       width: calc(100% + 88px);
       height: 270px;
       border-radius: 38px;
-      background:
-        radial-gradient(120% 120% at 15% 20%,
-          rgba(199, 214, 205, 0.98),
-          rgba(199, 214, 205, 0.70),
-          rgba(199, 214, 205, 0.00) 72%);
+      background: radial-gradient(
+        ellipse at center,
+        rgba(210,220,215,0.65),
+        rgba(210,220,215,0.42),
+        transparent 70%
+      );
       z-index: -1;
       opacity: 1;
     }
@@ -167,15 +169,14 @@
       margin-top: 40px;
     }
 
-    /* reduce overall scroll space so timeline comes sooner */
     .insight-stage {
       position: relative;
-      min-height: 400px;
+      min-height: 400px; /* keeps timeline soon after */
     }
 
     .insight-sticky {
       position: sticky;
-      top: 110px; /* under sticky nav */
+      top: 110px;
       width: min(980px, 100%);
       margin: 0 auto;
       border-radius: 28px;
@@ -258,7 +259,6 @@
       letter-spacing: -0.01em;
     }
 
-    /* Reveal line (the “intersection” sentence) */
     .insight-reveal {
       margin-top: 18px;
       padding-top: 16px;
@@ -344,7 +344,6 @@
       background: var(--line);
     }
 
-    /* === FLIP CARD (TIMELINE) === */
     .timeline-flip {
       width: 220px;
       height: 140px;
@@ -409,9 +408,7 @@
       padding: 20px 22px;
     }
 
-    .timeline-flip:hover .timeline-face {
-      border-color: #dcdcdc;
-    }
+    .timeline-flip.is-flipped .timeline-flip-inner { transform: rotateY(180deg); }
 
     /* MOBILE */
     @media (max-width: 900px) {
@@ -448,11 +445,7 @@
       .connector, .dot { display: none; }
 
       .timeline-flip { width: 100%; max-width: 520px; height: 160px; }
-      .timeline-front h4 { font-size: 1.05rem; }
-      .timeline-front span { font-size: 0.95rem; }
       .timeline-back { font-size: 0.95rem; }
-
-      .timeline-flip.is-flipped .timeline-flip-inner { transform: rotateY(180deg); }
     }
   </style>
 </head>
@@ -488,7 +481,7 @@
   <div class="hero-visual"></div>
 </section>
 
-<!-- Sticky redesigned "How I work" (keep original sentences) -->
+<!-- Sticky "How I work" -->
 <section class="insight-section">
   <div class="insight-stage" id="insight-stage">
     <div class="insight-sticky">
@@ -518,7 +511,7 @@
   </div>
 </section>
 
-<!-- TIMELINE (CENTERED + FLIP CARDS) -->
+<!-- TIMELINE (sooner after How I Work) -->
 <section style="margin-top: 70px;">
   <h2 class="timeline-title">Work Experience at a Glimpse</h2>
 
@@ -646,7 +639,6 @@
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
 
-    // hero parallax
     if (heroVisual) {
       heroVisual.style.transform = `
         translateY(${y * 0.08}px)
