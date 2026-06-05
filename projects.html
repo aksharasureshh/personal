@@ -25,7 +25,6 @@
       overflow-x: hidden;
     }
 
-    /* NAV */
     nav {
       display: flex;
       justify-content: space-between;
@@ -60,7 +59,6 @@
 
     nav a:hover::after { width: 100%; }
 
-    /* PAGE */
     section {
       max-width: 1300px;
       margin: 120px auto;
@@ -74,20 +72,19 @@
       margin-bottom: 80px;
     }
 
-    /* GRID */
     .grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 60px;
+      display: flex;
+      justify-content: center;
     }
 
     .column {
+      width: 100%;
+      max-width: 900px;
       display: flex;
       flex-direction: column;
       gap: 90px;
     }
 
-    /* PROJECT CARD */
     .project {
       text-decoration: none;
       color: inherit;
@@ -95,7 +92,7 @@
     }
 
     .image {
-      height: 380px;
+      height: 500px;
       border-radius: 26px;
       background: linear-gradient(135deg, var(--accent), #ffffff);
       position: relative;
@@ -105,7 +102,6 @@
       will-change: transform;
     }
 
-    /* HOVER ZOOM MASK */
     .image::after {
       content: '';
       position: absolute;
@@ -152,29 +148,16 @@
       transform: translateX(6px);
     }
 
-    /* SMALL CARD */
-    .small .image {
-      height: 260px;
-    }
-
-    /* COVER IMAGE SUPPORT */
     .cover {
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
     }
 
-    /* BalloonsByAks cover */
     .cover-bba {
       background-image: url("bba.JPG");
     }
 
-    /* Roche IEP Training cover */
-    .cover-roche {
-      background-image: url("roche.JPG");
-    }
-
-    /* Optional overlay for contrast / polish */
     .cover::before {
       content: "";
       position: absolute;
@@ -187,12 +170,31 @@
       pointer-events: none;
     }
 
-    /* MOBILE */
     @media (max-width: 900px) {
-      section { padding: 0 30px; }
-      h1 { font-size: 2.6rem; margin-bottom: 60px; }
-      .grid { grid-template-columns: 1fr; }
-      .project .why { max-width: 100%; }
+      nav {
+        padding: 24px 30px;
+      }
+
+      nav a {
+        margin-left: 16px;
+      }
+
+      section {
+        padding: 0 30px;
+      }
+
+      h1 {
+        font-size: 2.6rem;
+        margin-bottom: 60px;
+      }
+
+      .image {
+        height: 360px;
+      }
+
+      .project .why {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -213,29 +215,11 @@
     <h1>What I'm Working On</h1>
 
     <div class="grid">
-      <!-- LEFT -->
-      <div class="column">
-        <!-- Roche moved up + renamed -->
-        <a
-          href="https://roche-iep-training-575209868482.us-west1.run.app/#/"
-          target="_blank"
-          class="project"
-        >
-          <div class="image tilt cover cover-roche"></div>
-          <h2>Sample Roche IEP Onboarding Training <span class="arrow">→</span></h2>
-          <p>Health data strategy · Knowledge translation · Interactive microlearning</p>
-          <p class="why">
-            A sample onboarding site with interactive IEP modules and simple analytics to support a more metrics-driven workflow.
-          </p>
-        </a>
-      </div>
-
-      <!-- RIGHT -->
       <div class="column">
         <a
           href="https://balloonsbyaks-575209868482.us-west1.run.app/"
           target="_blank"
-          class="project small"
+          class="project"
         >
           <div class="image tilt cover cover-bba"></div>
           <h2>BalloonsByAks <span class="arrow">→</span></h2>
@@ -248,7 +232,6 @@
     </div>
   </section>
 
-  <!-- CURSOR-REACTIVE TILT -->
   <script>
     document.querySelectorAll('.tilt').forEach(card => {
       card.addEventListener('mousemove', e => {
